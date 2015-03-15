@@ -8,6 +8,7 @@
 
 #import "BeaconClient.h"
 #import "AppDelegate.h"
+#define kIndetifier [[NSBundle mainBundle] bundleIdentifier]
 
 //#import "RootViewController.h"
 @interface BeaconClient() <CLLocationManagerDelegate>
