@@ -10,13 +10,18 @@
 
 @interface iBeacon : NSObject
 
+
 @property (strong, nonatomic) NSString *x;
 @property (strong, nonatomic) NSString *y;
-@property (strong, nonatomic) NSString *uuid;
+@property (strong, nonatomic) NSString *idStr;
 
 
+- (id)initWithLocation:(NSString*)x y:(NSString*)y idStr:(NSString*)str;
 -(void)setX:(NSString *)x;
 -(void)setY:(NSString *)y;
 
+-(NSString*)getX;
+-(NSString*)getY;
+-(NSString*)getIdStr;
 
 @end

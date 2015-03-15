@@ -99,4 +99,13 @@ static CGFloat const kPointDiameter = 7.0;
     }
 }
 
+- (void)DrawSelf:(float)x y:(float)y{
+    UIBezierPath *path = [[UIBezierPath alloc] init];
+    CGPoint selfPoint = CGPointMake(x, y);
+
+    [path appendPath:[UIBezierPath bezierPathWithArcCenter:selfPoint radius:kPointDiameter / 2.0 startAngle:0.0 endAngle:2 * M_PI clockwise:YES]];
+    
+    self.pointsShapeView.shapeLayer.path = path.CGPath;
+}
+
 @end

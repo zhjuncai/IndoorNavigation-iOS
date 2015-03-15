@@ -7,8 +7,8 @@
 //
 
 #import "ViewController.h"
-
-
+#define SCALE 1024/4.8
+#define NUMOFBEACONS 6
 
 @interface ViewController ()
 @property (nonatomic, readonly) PathBuilderView *pathBuilderView;
@@ -17,6 +17,8 @@
 
 @implementation ViewController
 static CFTimeInterval const kDuration = 2.0;
+static CFTimeInterval const kPointDiameter = 10;
+
 int pointsPosition[42][2] = {
     { 32, 32 }, { 128, 32 }, { 288, 32 }, { 384, 32 },{ 480, 32 }, { 640, 32 }, { 736, 32 },
     { 32, 224 }, { 128, 224 },{ 288, 224 }, { 384, 224 }, { 480, 224 }, { 640, 224 },{ 736, 224 },
@@ -51,28 +53,23 @@ int keyPointMap[40] = {
     37, 38, 40, 41
 };
 
+int iBeaconPositions[6][2] = {
+    {0, 0}, {0, 512}, {0, 1024}, {768, 0}, {768, 512}, {768, 1024}
+};
 
 - (void)viewDidLoad {
-//    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
-
-    iBeacon *test = [[iBeacon alloc] init];
-
-//    [test setX:@"222"];
-//    NSLog(@"%@", test.x);
-//    [self getData];
-    
+    NSArray *uuid = [[NSArray alloc] initWithObjects:@"first", @"sec", @"third", @"fourth", @"fifth", @"sixth", nil];
+    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
+    aIBeacons = [[NSMutableArray alloc] init];
+    for (int i = 0; i < NUMOFBEACONS; i ++) {
+        iBeacon *test = [[iBeacon alloc] initWithLocation:[NSString stringWithFormat:@"%d", iBeaconPositions[i][0]] y:[NSString stringWithFormat:@"%d", iBeaconPositions[i][1]] idStr:[uuid objectAtIndex:i]];
+        [aIBeacons addObject:test];
+    }
     
     [self viewPrepare];
-    
+    [self.pathBuilderView DrawSelf:47 y:47];
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-}
-
-
-
-- (PathBuilderView *)pathBuilderView
-{
-    return (PathBuilderView *)self.view;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -112,6 +109,11 @@ int keyPointMap[40] = {
     drawPathButton.frame = CGRectMake(300, 974, 168, 50);
     [self.view addSubview:drawPathButton];
     
+}
+
+- (PathBuilderView *)pathBuilderView
+{
+    return (PathBuilderView *)self.view;
 }
 
 - (CGRect)ConvertToFram:(int[4])array{
@@ -293,6 +295,49 @@ int keyPointMap[40] = {
 -(void)drawPosition{
     NSMutableDictionary* myBeacons = [[NSMutableDictionary alloc] init];
     myBeacons = [self.beaconClient getMybeaconsArray];
+    int distance[6];
+    NSMutableArray *tem = [[NSMutableArray alloc] init];
+    for(CLBeacon* beacon in myBeacons){
+        [tem addObject:beacon];
+    }
+    int num = [tem count]/3;
+    NSMutableArray* resultArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < num; i ++) {
+        float x0,y0,r0,x1,y1,r1,x,y,r;
+        CLBeacon* beacon0 = [tem objectAtIndex:3*i];
+        CLBeacon* beacon1 = [tem objectAtIndex:3*i + 1];
+        CLBeacon* beacon2 = [tem objectAtIndex:3*i + 2];
+        for(iBeacon *myBeacon in aIBeacons){
+            if ([[myBeacon getIdStr] isEqualToString:[NSString stringWithFormat:@"%i-%i",[beacon0.major intValue],[beacon0.minor intValue]]]) {
+                x0 = [[myBeacon getX] intValue];
+                y0 = [[myBeacon getY] intValue];
+                r0 = beacon0.accuracy * SCALE;
+            }else if([[myBeacon getIdStr] isEqualToString:[NSString stringWithFormat:@"%i-%i",[beacon1.major intValue],[beacon1.minor intValue]]]){
+                x1 = [[myBeacon getX] intValue];
+                y1 = [[myBeacon getY] intValue];
+                r1 = beacon1.accuracy * SCALE;
+            }else if ([[myBeacon getIdStr] isEqualToString:[NSString stringWithFormat:@"%i-%i",[beacon2.major intValue],[beacon2.minor intValue]]]){
+                x = [[myBeacon getX] intValue];
+                y = [[myBeacon getY] intValue];
+                r = beacon2.accuracy * SCALE;
+            }
+        }
+        [resultArray addObject:[self CalPosition:x0 y0:y0 r0:r0 x1:x1 y1:y1 r1:r1 x2:x y2:y r2:r]];
+    }
+    float resultX = 0;
+    float resultY = 0;
+
+    for (int i = 0; i < num; i ++) {
+        NSArray* tem = [resultArray objectAtIndex:i];
+        float temX = [[tem objectAtIndex:0] floatValue];
+        float temY = [[tem objectAtIndex:1] floatValue];
+        resultX += temX;
+        resultY += temY;
+    }
+    
+    resultX = resultX/num;
+    resultY = resultY/num;
+    [self.pathBuilderView DrawSelf:resultX y:resultY];
 }
 
 -(void) start:(id)sender{

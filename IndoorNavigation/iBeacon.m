@@ -11,16 +11,28 @@
 
 @implementation iBeacon
 
-- (id)initWithLocation:(NSString*)x y:(NSString*)y
+- (id)initWithLocation:(NSString*)x y:(NSString*)y idStr:(NSString*)str
 {
     self = [super init];
     
     if (self) {
         self.x = x;
         self.y = y;
+        self.idStr = str;
     }
     
     return self;
 }
 
+-(NSString*)getIdStr{
+    return self.idStr;
+}
+
+-(NSString*)getX{
+    return self.x;
+}
+
+-(NSString*)getY{
+    return self.y;
+}
 @end

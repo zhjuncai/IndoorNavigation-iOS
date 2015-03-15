@@ -17,6 +17,7 @@
 
 @interface ViewController : UIViewController{
     NSMutableArray *points;
+    NSMutableArray *aIBeacons;
 }
 
 @property (nonatomic, retain) BeaconClient *beaconClient;

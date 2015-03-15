@@ -17,5 +17,5 @@
 @property (nonatomic, strong, readonly) ShapeView *pointsShapeView;
 
 - (void)addPointsIn:(NSMutableArray*)thosePoints;
-
+- (void)DrawSelf:(float)x y:(float)y;
 @end
