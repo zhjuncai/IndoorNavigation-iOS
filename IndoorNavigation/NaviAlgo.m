@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 Chen. All rights reserved.
 //
 
-#import "NSObject+NaviAlgo.h"
+#import "NaviAlgo.h"
 
 
 

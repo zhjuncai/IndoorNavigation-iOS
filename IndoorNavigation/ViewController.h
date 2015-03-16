@@ -14,7 +14,7 @@
 #import "iBeacon.h"
 #import "PathBuilderView.h"
 #import "ShapeView.h"
-#import "NSObject+NaviAlgo.h"
+#import "NaviAlgo.h"
 
 
 @interface ViewController : UIViewController{
