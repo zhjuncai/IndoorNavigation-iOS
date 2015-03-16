@@ -12,12 +12,13 @@
 
 @implementation NaviAlgo
 
-
--(NSMutableArray *)getBestPathForGraph:(int [42][42])graph withDestinations:(NSMutableArray *)destinationArray{
+-(void) setGraph:(int [42][42])graph {
     
-    int MAX = 100000;
-    int spot[42][42];
-    int onePath[42];
+    MAX = 100000;
+    LEFT = 1;
+    RIGHT = -1;
+    UP = 2;
+    DOWN = -2;
     
     for(int i=0;i<42;i++){
         for (int j=0;j<42;j++){
@@ -63,6 +64,38 @@
     
     
     shortestLength = MAX;
+    
+}
+
+-(void) setPointMapping:(int [42][2])pointsPosition{
+    for(int i=0;i<42;i++) {
+        for (int j=0;j<2;j++){
+          myPointsPosition[i][j] = pointsPosition[i][j];
+        }
+    }
+}
+
+-(void) getPathForEachPoints:(int[42][42])spots from:(int)i to:(int)j path:(int[])aPath numOfPoints:(int[])point{
+    if(i==j){
+        return;
+    }
+    
+    if(spots[i][j]==-1){
+        
+        aPath[point[0]++] =j;
+    }
+    
+    else{
+        [self getPathForEachPoints:spots from:i to:spots[i][j] path:aPath numOfPoints:point];
+        [self getPathForEachPoints:spots from:spots[i][j] to:j path:aPath numOfPoints:point];
+    }
+    
+    
+}
+
+-(NSMutableArray *)getBestPathForDestinations:(NSMutableArray *)destinationArray{
+    
+    shortestLength = MAX;
     [self sortAlgoForDestinations:destinationArray toPath:[[NSMutableArray alloc] init] ];
     
     NSMutableArray* tempBestPath = [NSMutableArray arrayWithArray:bestPath];
@@ -83,26 +116,10 @@
             
         }
     }
-    return bestPath;
+    return [self formatPathToPosition:bestPath];
 }
 
--(void) getPathForEachPoints:(int[42][42])spots from:(int)i to:(int)j path:(int[])onePath numOfPoints:(int[])point{
-    if(i==j){
-        return;
-    }
-    
-    if(spots[i][j]==-1){
 
-        onePath[point[0]++] =j;
-    }
-    
-    else{
-        [self getPathForEachPoints:spots from:i to:spots[i][j] path:onePath numOfPoints:point];
-        [self getPathForEachPoints:spots from:spots[i][j] to:j path:onePath numOfPoints:point];
-    }
-        
-        
-}
 
 -(void) sortAlgoForDestinations:(NSMutableArray *)destinationArray toPath:(NSMutableArray *)path{
     if ([destinationArray count] == 0) {
@@ -133,6 +150,93 @@
         [newDestination removeObjectAtIndex:i];
         [self sortAlgoForDestinations:newDestination toPath:newPath];
     }
+}
+
+-(NSMutableArray* ) formatPathToPosition:(NSMutableArray* )path{
+    
+    NSMutableArray* tempBestPath = bestPath;
+    bestPath = nil;
+
+    
+    int direction = 0;
+    int newDirection = 0;
+    
+    
+    for(int i=0; i<[tempBestPath count];i++){
+        if(i==0){
+            
+        }
+        else if (i ==1){
+            direction = [self getDirectionForPointsFrom:myPointsPosition[i-1] to:myPointsPosition[i]];
+            CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[i-1][0],myPointsPosition[i-1][1]) ByDirection:direction];
+            [bestPath addObject:NSStringFromCGPoint(point)];
+        }
+        else if (i == [tempBestPath count] -1){
+            CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[i][0],myPointsPosition[i][1]) ByDirection:direction];
+            [bestPath addObject:NSStringFromCGPoint(point)];
+        }
+        else{
+            newDirection = [self getDirectionForPointsFrom:myPointsPosition[i-1] to:myPointsPosition[i]];
+            
+            if(newDirection==direction){
+                CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[i-1][0],myPointsPosition[i-1][1]) ByDirection:direction];
+                [bestPath addObject:NSStringFromCGPoint(point)];
+            }
+            else if(newDirection == -direction){
+                
+                CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[i-1][0],myPointsPosition[i-1][1]) ByDirection:direction];
+                [bestPath addObject:NSStringFromCGPoint(point)];
+                CGPoint newPoint = [self setPathForPonint:CGPointMake(myPointsPosition[i-1][0],myPointsPosition[i-1][1]) ByDirection:newDirection];
+                [bestPath addObject:NSStringFromCGPoint(newPoint)];
+                
+            }
+            else{
+                CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[i-1][0],myPointsPosition[i-1][1]) ByDirection:direction];
+                point = [self setPathForPonint:point ByDirection:newDirection];
+                [bestPath addObject:NSStringFromCGPoint(point)];
+            }
+            
+            direction = newDirection;
+        }
+    }
+    return bestPath;
+}
+
+-(int) getDirectionForPointsFrom:(int[2]) from to:(int[2]) to{
+
+    
+    int deltaX =to[0] - from[0];
+    int deltaY = to[1] - from[1];
+    
+    if(deltaX > 0)
+        return RIGHT;
+    else if(deltaX < 0)
+        return LEFT;
+    
+    if (deltaY > 0)
+        return DOWN;
+    else if(deltaY <0)
+        return UP;
+    
+    return 0;
+    
+}
+
+-(CGPoint) setPathForPonint:(CGPoint) point ByDirection:(int) direction{
+    
+    if (direction == LEFT){
+        return CGPointMake(point.x, point.y-16);
+    }else if(direction == RIGHT){
+        return CGPointMake(point.x, point.y+16);
+    }
+    else if(direction == UP){
+        return CGPointMake(point.x+16, point.y);
+    }
+    else if(direction == DOWN){
+        return CGPointMake(point.x-16, point.y);
+    }
+    
+    return CGPointMake(point.x, point.y);
 }
 
 -(int) getShortestLength{
