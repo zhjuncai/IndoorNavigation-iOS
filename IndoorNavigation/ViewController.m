@@ -124,12 +124,12 @@ int iBeaconPositions[6][2] = {
     
     
     //启动iBeacons，timer开始定时计算自身位置
-    [self startIbeacons];
-    NSTimer *calSelfPositionTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
-                                                                     target:self
-                                                                   selector:@selector(drawPosition)
-                                                                   userInfo:nil
-                                                                    repeats:YES];
+//    [self startIbeacons];
+//    NSTimer *calSelfPositionTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
+//                                                                     target:self
+//                                                                   selector:@selector(drawPosition)
+//                                                                   userInfo:nil
+//                                                                    repeats:YES];
     
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -231,7 +231,7 @@ int iBeaconPositions[6][2] = {
     for (int i = 0; i < [resultArray count]; i ++) {
         NSString *tem = [resultArray objectAtIndex:i];
         CGPoint temPoint = CGPointFromString(tem);
-        [resultArray addObject:[NSValue valueWithCGPoint:temPoint]];
+        [result addObject:[NSValue valueWithCGPoint:temPoint]];
     }
 //    for (int i = 0; i < [resultArray count]; i ++) {
 //        NSNumber *index = [resultArray objectAtIndex:i];
@@ -258,7 +258,7 @@ int iBeaconPositions[6][2] = {
         self.pathBuilderView.pathShapeView.shapeLayer.timeOffset = 2;
         NaviAlgo *calPath = [[NaviAlgo alloc] init];
         [calPath setGraph:distanceData];
-        [calPath setPointMapping:keyPointMap];
+        [calPath setPointMapping:pointsPosition];
         pathPoints = [calPath getBestPathForDestinations:choosedPoints];
         [self drawPath:pathPoints];
         drawOrClear = NO;

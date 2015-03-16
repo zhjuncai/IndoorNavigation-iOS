@@ -154,8 +154,9 @@
 
 -(NSMutableArray* ) formatPathToPosition:(NSMutableArray* )path{
     
-    NSMutableArray* tempBestPath = bestPath;
-    bestPath = nil;
+    NSMutableArray* tempBestPath = [NSMutableArray arrayWithArray:bestPath];
+    
+    [bestPath removeAllObjects];
 
     
     int direction = 0;
