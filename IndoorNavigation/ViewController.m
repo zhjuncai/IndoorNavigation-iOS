@@ -16,8 +16,8 @@
 
 
 @implementation ViewController
-static CFTimeInterval const kDuration = 2.0;
-static CFTimeInterval const kPointDiameter = 10;
+static CFTimeInterval const kDuration = 4.0;
+static CFTimeInterval const kPointDiameter = 10.0;
 
 int distanceData[42][42] = {
     // 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42
@@ -115,6 +115,9 @@ int iBeaconPositions[6][2] = {
     }
     
     drawOrClear = YES;
+    drawPointsNum = 0;
+    choosedPoints = [[NSMutableArray alloc] init];
+    pathPoints = [[NSMutableArray alloc] init];
     
     [self viewPrepare];
     [self.pathBuilderView DrawSelf:47 y:47];
@@ -132,7 +135,7 @@ int iBeaconPositions[6][2] = {
 - (void)viewPrepare{
     self.view = [[PathBuilderView alloc] init];
     self.view.backgroundColor = [UIColor whiteColor];
-    points = [[NSMutableArray alloc] init];
+    
     [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
     
     self.pathBuilderView.pathShapeView.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
@@ -229,26 +232,38 @@ int iBeaconPositions[6][2] = {
 - (IBAction)getKeyPointIndexByClick:(id)sender{
     storage *btn = sender;
     NSNumber *index = [NSNumber numberWithUnsignedInt:btn.tag];
-    if (![points containsObject:index]) {
-        [points addObject:index];
+    if (![choosedPoints containsObject:index]) {
+        [choosedPoints addObject:index];
     }
-    NSLog(@"ssss %d",[points count]);
 }
 
 - (void)beginCalcu{
     // TODO:
     if (drawOrClear == YES) {
+        self.pathBuilderView.pathShapeView.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
+        self.pathBuilderView.prospectivePathShapeView.shapeLayer.strokeColor = [UIColor grayColor].CGColor;
         NaviAlgo *calPath = [[NaviAlgo alloc] init];
-        points = [calPath getBestPathForGraph:distanceData withDestinations:points];
-        [self drawPath:points points:pointsPosition];
-        [points removeAllObjects];
+        pathPoints = [calPath getBestPathForGraph:distanceData withDestinations:choosedPoints];
+        [self drawPath:pathPoints points:pointsPosition];
+        drawPointsNum = [pathPoints count];
         drawOrClear = NO;
     }else{
         drawOrClear = YES;
+        ressTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
+                                                             target:self
+                                                           selector:@selector(ClearPath)
+                                                           userInfo:nil
+                                                            repeats:YES];
         
+//        [self.pathBuilderView Clear];
+//        self.pathBuilderView.pathShapeView.shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
+//        self.pathBuilderView.prospectivePathShapeView.shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
+//        [self drawPath:[self SwapAllElementInArray:pathPoints] points:pointsPosition];
+//        [[points objectsAtIndexes:[self IndexSetForArrayFrom:points index:drawPointsNum]] ];
     }
     
 }
+
 
 #pragma mark - Calculate self position
 
@@ -405,6 +420,48 @@ int iBeaconPositions[6][2] = {
         _beaconClient = [[BeaconClient alloc] init];
     }
     [_beaconClient openClient];
+}
+
+
+#pragma mark - Help method
+
+- (NSMutableIndexSet*)IndexSetForArrayFrom:(NSMutableArray*)array index:(int)index{
+    NSMutableIndexSet *resultSet = [[NSMutableIndexSet alloc] init];
+    for (int i = index; i < [array count]; i ++) {
+        NSUInteger tem = i;
+        [resultSet addIndex:tem];
+    }
+    return resultSet;
+}
+
+- (NSMutableIndexSet*)IndexSetForArrayTo:(NSMutableArray*)array index:(int)index{
+    NSMutableIndexSet *resultSet = [[NSMutableIndexSet alloc] init];
+    for (int i = 0; i < index; i ++) {
+        NSUInteger tem = i;
+        [resultSet addIndex:tem];
+    }
+    return resultSet;
+}
+
+- (NSMutableArray*)SwapAllElementInArray:(NSMutableArray*)source{
+    int len = [source count];
+    for(int i = 0; i < len / 2; i ++){
+        NSString *tem = [source objectAtIndex:i];
+        [source replaceObjectAtIndex:i withObject:[source objectAtIndex:len-1-i]];
+        [source replaceObjectAtIndex:len-1-i withObject:tem];
+    }
+    return source;
+}
+
+- (void)ClearPath{
+    if (self.pathBuilderView.pathShapeView.shapeLayer.timeOffset > 0) {
+        self.pathBuilderView.pathShapeView.shapeLayer.timeOffset -= 0.02;
+    }else{
+        [ressTimer invalidate];
+        [pathPoints removeAllObjects];
+        [self.pathBuilderView Clear];
+    }
+    
 }
 
 @end

@@ -18,9 +18,12 @@
 
 
 @interface ViewController : UIViewController{
-    NSMutableArray *points;
+    NSMutableArray *choosedPoints;
+    NSMutableArray *pathPoints;
     NSMutableArray *aIBeacons;
+    NSTimer *ressTimer;
     BOOL drawOrClear;
+    int drawPointsNum;
 }
 
 @property (nonatomic, retain) BeaconClient *beaconClient;

@@ -59,7 +59,8 @@ static CGFloat const kPointDiameter = 7.0;
 }
 
 - (void)addPointsIn:(NSMutableArray*)thosePoints{
-    self.points = thosePoints;
+    [self.points addObjectsFromArray:thosePoints];
+//    self.points = thosePoints;
     [self updatePaths];
     
 }
@@ -106,6 +107,12 @@ static CGFloat const kPointDiameter = 7.0;
     [path appendPath:[UIBezierPath bezierPathWithArcCenter:selfPoint radius:kPointDiameter / 2.0 startAngle:0.0 endAngle:2 * M_PI clockwise:YES]];
     
     self.pointsShapeView.shapeLayer.path = path.CGPath;
+}
+
+- (void)Clear{
+    self.prospectivePathShapeView.shapeLayer.path = nil;
+    self.pathShapeView.shapeLayer.path = nil;
+    [self.points removeAllObjects];
 }
 
 @end
