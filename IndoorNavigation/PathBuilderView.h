@@ -18,4 +18,5 @@
 
 - (void)addPointsIn:(NSMutableArray*)thosePoints;
 - (void)DrawSelf:(float)x y:(float)y;
+- (void)Clear;
 @end
