@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4BE01CC71AB67A5A0047530D /* NSObject+NaviAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE01CC61AB67A5A0047530D /* NSObject+NaviAlgo.m */; };
 		AAAF3DE71AB5B37100012A24 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DE61AB5B37100012A24 /* main.m */; };
 		AAAF3DEA1AB5B37100012A24 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DE91AB5B37100012A24 /* AppDelegate.m */; };
 		AAAF3DED1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DEB1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4BE01CC51AB67A5A0047530D /* NSObject+NaviAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+NaviAlgo.h"; sourceTree = "<group>"; };
+		4BE01CC61AB67A5A0047530D /* NSObject+NaviAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+NaviAlgo.m"; sourceTree = "<group>"; };
 		AAAF3DE11AB5B37100012A24 /* IndoorNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IndoorNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAAF3DE51AB5B37100012A24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAAF3DE61AB5B37100012A24 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -100,6 +103,8 @@
 		AAAF3DE31AB5B37100012A24 /* IndoorNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				4BE01CC51AB67A5A0047530D /* NSObject+NaviAlgo.h */,
+				4BE01CC61AB67A5A0047530D /* NSObject+NaviAlgo.m */,
 				AAAF3E0D1AB5B3CD00012A24 /* BeaconClient.h */,
 				AAAF3E0E1AB5B3CD00012A24 /* BeaconClient.m */,
 				AAAF3E0F1AB5B3CD00012A24 /* iBeacon.h */,
@@ -253,6 +258,7 @@
 			files = (
 				AAAF3E1B1AB5B3CD00012A24 /* PathBuilderView.m in Sources */,
 				AAAF3E1D1AB5B3CD00012A24 /* storage.m in Sources */,
+				4BE01CC71AB67A5A0047530D /* NSObject+NaviAlgo.m in Sources */,
 				AAAF3DED1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld in Sources */,
 				AAAF3E1C1AB5B3CD00012A24 /* ShapeView.m in Sources */,
 				AAAF3E181AB5B3CD00012A24 /* BeaconClient.m in Sources */,
@@ -456,6 +462,7 @@
 				AAAF3E091AB5B37100012A24 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AAAF3E0A1AB5B37100012A24 /* Build configuration list for PBXNativeTarget "IndoorNavigationTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +471,7 @@
 				AAAF3E0C1AB5B37100012A24 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

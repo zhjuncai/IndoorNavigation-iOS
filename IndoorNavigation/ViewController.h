@@ -14,10 +14,13 @@
 #import "iBeacon.h"
 #import "PathBuilderView.h"
 #import "ShapeView.h"
+#import "NSObject+NaviAlgo.h"
+
 
 @interface ViewController : UIViewController{
     NSMutableArray *points;
     NSMutableArray *aIBeacons;
+    BOOL drawOrClear;
 }
 
 @property (nonatomic, retain) BeaconClient *beaconClient;
