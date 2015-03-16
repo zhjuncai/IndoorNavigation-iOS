@@ -164,41 +164,47 @@
     
     
     for(int i=0; i<[tempBestPath count];i++){
-        if(i==0){
+
+        
+        if(i!=0){
+            int index = [[tempBestPath objectAtIndex:i] intValue];
+            int preIndex = [[tempBestPath objectAtIndex:i-1] intValue];
             
-        }
-        else if (i ==1){
-            direction = [self getDirectionForPointsFrom:myPointsPosition[i-1] to:myPointsPosition[i]];
-            CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[i-1][0],myPointsPosition[i-1][1]) ByDirection:direction];
-            [bestPath addObject:NSStringFromCGPoint(point)];
-        }
-        else if (i == [tempBestPath count] -1){
-            CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[i][0],myPointsPosition[i][1]) ByDirection:direction];
-            [bestPath addObject:NSStringFromCGPoint(point)];
-        }
-        else{
-            newDirection = [self getDirectionForPointsFrom:myPointsPosition[i-1] to:myPointsPosition[i]];
-            
-            if(newDirection==direction){
-                CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[i-1][0],myPointsPosition[i-1][1]) ByDirection:direction];
+            if (i ==1){
+                direction = [self getDirectionForPointsFrom:myPointsPosition[preIndex] to:myPointsPosition[index]];
+                CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[preIndex][0],myPointsPosition[preIndex][1]) ByDirection:direction];
                 [bestPath addObject:NSStringFromCGPoint(point)];
-            }
-            else if(newDirection == -direction){
-                
-                CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[i-1][0],myPointsPosition[i-1][1]) ByDirection:direction];
-                [bestPath addObject:NSStringFromCGPoint(point)];
-                CGPoint newPoint = [self setPathForPonint:CGPointMake(myPointsPosition[i-1][0],myPointsPosition[i-1][1]) ByDirection:newDirection];
-                [bestPath addObject:NSStringFromCGPoint(newPoint)];
-                
             }
             else{
-                CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[i-1][0],myPointsPosition[i-1][1]) ByDirection:direction];
-                point = [self setPathForPonint:point ByDirection:newDirection];
-                [bestPath addObject:NSStringFromCGPoint(point)];
+                newDirection = [self getDirectionForPointsFrom:myPointsPosition[preIndex] to:myPointsPosition[index]];
+                
+                if(newDirection==direction){
+                    CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[preIndex][0],myPointsPosition[preIndex][1]) ByDirection:direction];
+                    [bestPath addObject:NSStringFromCGPoint(point)];
+                }
+                else if(newDirection == -direction){
+                    
+                    CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[preIndex][0],myPointsPosition[preIndex][1]) ByDirection:direction];
+                    [bestPath addObject:NSStringFromCGPoint(point)];
+                    CGPoint newPoint = [self setPathForPonint:CGPointMake(myPointsPosition[preIndex][0],myPointsPosition[preIndex][1]) ByDirection:newDirection];
+                    [bestPath addObject:NSStringFromCGPoint(newPoint)];
+                    
+                }
+                else{
+                    CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[preIndex][0],myPointsPosition[preIndex][1]) ByDirection:direction];
+                    point = [self setPathForPonint:point ByDirection:newDirection];
+                    [bestPath addObject:NSStringFromCGPoint(point)];
+                }
+                
+                direction = newDirection;
+                
+                if (i == [tempBestPath count] -1){
+                    CGPoint point = [self setPathForPonint:CGPointMake(myPointsPosition[index][0],myPointsPosition[index][1]) ByDirection:direction];
+                    [bestPath addObject:NSStringFromCGPoint(point)];
+                }
             }
-            
-            direction = newDirection;
         }
+        
     }
     return bestPath;
 }

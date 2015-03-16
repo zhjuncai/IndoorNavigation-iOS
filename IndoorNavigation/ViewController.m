@@ -121,15 +121,15 @@ int iBeaconPositions[6][2] = {
     
     [self viewPrepare];
     
-    
+//    [self.pathBuilderView DrawSelf:50 y:50];
     
     //启动iBeacons，timer开始定时计算自身位置
-//    [self startIbeacons];
-//    NSTimer *calSelfPositionTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
-//                                                                     target:self
-//                                                                   selector:@selector(drawPosition)
-//                                                                   userInfo:nil
-//                                                                    repeats:YES];
+    [self startIbeacons];
+    NSTimer *calSelfPositionTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
+                                                                     target:self
+                                                                   selector:@selector(drawPosition)
+                                                                   userInfo:nil
+                                                                    repeats:YES];
     
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -422,7 +422,7 @@ int iBeaconPositions[6][2] = {
     
     resultX = resultX/num;
     resultY = resultY/num;
-    [self.pathBuilderView DrawSelf:resultX y:resultY];
+//    [self.pathBuilderView DrawSelf:resultX y:resultY];
 }
 
 -(void) startIbeacons{
