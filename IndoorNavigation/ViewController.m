@@ -107,7 +107,7 @@ int iBeaconPositions[6][2] = {
 
 - (void)viewDidLoad {
     NSArray *uuid = [[NSArray alloc] initWithObjects:@"first", @"sec", @"third", @"fourth", @"fifth", @"sixth", nil];
-    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
+//    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
     aIBeacons = [[NSMutableArray alloc] init];
     for (int i = 0; i < NUMOFBEACONS; i ++) {
         iBeacon *test = [[iBeacon alloc] initWithLocation:[NSString stringWithFormat:@"%d", iBeaconPositions[i][0]] y:[NSString stringWithFormat:@"%d", iBeaconPositions[i][1]] idStr:[uuid objectAtIndex:i]];
@@ -120,7 +120,17 @@ int iBeaconPositions[6][2] = {
     pathPoints = [[NSMutableArray alloc] init];
     
     [self viewPrepare];
-    [self.pathBuilderView DrawSelf:47 y:47];
+    
+    
+    
+    //启动iBeacons，timer开始定时计算自身位置
+    [self startIbeacons];
+    NSTimer *calSelfPositionTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
+                                                                     target:self
+                                                                   selector:@selector(drawPosition)
+                                                                   userInfo:nil
+                                                                    repeats:YES];
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -189,8 +199,8 @@ int iBeaconPositions[6][2] = {
 
 #pragma mark - drawPath method
 
-- (void)drawPath:(NSMutableArray*)resultArray points:(int[42][2])pointsArray{
-    [self addPointsToView:resultArray points:pointsArray];
+- (void)drawPath:(NSMutableArray*)resultArray{
+    [self addPointsToView:resultArray];
     CFTimeInterval timeOffset = self.pathBuilderView.pathShapeView.shapeLayer.timeOffset;
     [CATransaction setCompletionBlock:^{
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(strokeEnd))];
@@ -216,16 +226,21 @@ int iBeaconPositions[6][2] = {
     [self.pathBuilderView.pathShapeView.shapeLayer addAnimation:animation forKey:NSStringFromSelector(@selector(strokeEnd))];
 }
 
-- (void)addPointsToView:(NSMutableArray*)resultArray points:(int[42][2])pointsArray{
+- (void)addPointsToView:(NSMutableArray*)resultArray{
     NSMutableArray *result = [[NSMutableArray alloc] init];
     for (int i = 0; i < [resultArray count]; i ++) {
-        NSNumber *index = [resultArray objectAtIndex:i];
-        int tem = [index intValue];
-        CGFloat x = pointsArray[tem][0];
-        CGFloat y = pointsArray[tem][1];
-        CGPoint temPoint = CGPointMake(x, y);
-        [result addObject:[NSValue valueWithCGPoint:temPoint]];
+        NSString *tem = [resultArray objectAtIndex:i];
+        CGPoint temPoint = CGPointFromString(tem);
+        [resultArray addObject:[NSValue valueWithCGPoint:temPoint]];
     }
+//    for (int i = 0; i < [resultArray count]; i ++) {
+//        NSNumber *index = [resultArray objectAtIndex:i];
+//        int tem = [index intValue];
+//        CGFloat x = pointsArray[tem][0];
+//        CGFloat y = pointsArray[tem][1];
+//        CGPoint temPoint = CGPointMake(x, y);
+//        [result addObject:[NSValue valueWithCGPoint:temPoint]];
+//    }
     [self.pathBuilderView addPointsIn:result];
 }
 
@@ -240,26 +255,21 @@ int iBeaconPositions[6][2] = {
 - (void)beginCalcu{
     // TODO:
     if (drawOrClear == YES) {
-        self.pathBuilderView.pathShapeView.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
-        self.pathBuilderView.prospectivePathShapeView.shapeLayer.strokeColor = [UIColor grayColor].CGColor;
+        self.pathBuilderView.pathShapeView.shapeLayer.timeOffset = 2;
         NaviAlgo *calPath = [[NaviAlgo alloc] init];
-        pathPoints = [calPath getBestPathForGraph:distanceData withDestinations:choosedPoints];
-        [self drawPath:pathPoints points:pointsPosition];
-        drawPointsNum = [pathPoints count];
+        [calPath setGraph:distanceData];
+        [calPath setPointMapping:keyPointMap];
+        pathPoints = [calPath getBestPathForDestinations:choosedPoints];
+        [self drawPath:pathPoints];
         drawOrClear = NO;
     }else{
-        drawOrClear = YES;
+        
         ressTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
                                                              target:self
                                                            selector:@selector(ClearPath)
                                                            userInfo:nil
                                                             repeats:YES];
         
-//        [self.pathBuilderView Clear];
-//        self.pathBuilderView.pathShapeView.shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
-//        self.pathBuilderView.prospectivePathShapeView.shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
-//        [self drawPath:[self SwapAllElementInArray:pathPoints] points:pointsPosition];
-//        [[points objectsAtIndexes:[self IndexSetForArrayFrom:points index:drawPointsNum]] ];
     }
     
 }
@@ -415,7 +425,7 @@ int iBeaconPositions[6][2] = {
     [self.pathBuilderView DrawSelf:resultX y:resultY];
 }
 
--(void) start:(id)sender{
+-(void) startIbeacons{
     if (!_beaconClient) {
         _beaconClient = [[BeaconClient alloc] init];
     }
@@ -458,8 +468,11 @@ int iBeaconPositions[6][2] = {
         self.pathBuilderView.pathShapeView.shapeLayer.timeOffset -= 0.02;
     }else{
         [ressTimer invalidate];
-        [pathPoints removeAllObjects];
-        [self.pathBuilderView Clear];
+        ressTimer = nil;
+        drawOrClear = YES;
+//        [pathPoints removeAllObjects];
+//        [choosedPoints removeAllObjects];
+//        [self.pathBuilderView Clear];
     }
     
 }
