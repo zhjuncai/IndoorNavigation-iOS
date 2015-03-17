@@ -15,6 +15,7 @@
 @property (nonatomic, strong, readonly) ShapeView *pathShapeView;
 @property (nonatomic, strong, readonly) ShapeView *prospectivePathShapeView;
 @property (nonatomic, strong, readonly) ShapeView *pointsShapeView;
+@property (nonatomic , strong) CALayer *naviIcon;
 
 - (void)addPointsIn:(NSMutableArray*)thosePoints;
 - (void)DrawSelf:(float)x y:(float)y;

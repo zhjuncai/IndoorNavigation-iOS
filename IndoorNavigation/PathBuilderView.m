@@ -13,7 +13,7 @@
 static CGFloat const kDistanceThreshold = 10.0;
 static CGFloat const kPointDiameter = 7.0;
 
-@interface PathBuilderView () <CLLocationManagerDelegate>
+@interface PathBuilderView ()
 @property (nonatomic, strong) NSMutableArray *points;
 @property (nonatomic, strong) NSValue *prospectivePointValue;
 @property (nonatomic) NSUInteger indexOfSelectedPoint;
@@ -21,7 +21,7 @@ static CGFloat const kPointDiameter = 7.0;
 @property (nonatomic, strong) NSTimer *pressTimer;
 @property (nonatomic) BOOL ignoreTouchEvents;
 
-@property (nonatomic , strong) CALayer *naviIcon;
+
 
 @end
 
@@ -122,23 +122,6 @@ static CGFloat const kPointDiameter = 7.0;
     [self.points removeAllObjects];
 }
 
--(void) locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading{
-    
-    CGFloat headings = M_PI*newHeading.trueHeading/180.0f;
-    //CGFloat headings = newHeading.trueHeading;
-    CABasicAnimation* anim = [CABasicAnimation animationWithKeyPath:@"transform"];
-    
-    CATransform3D fromValue = self.naviIcon.transform;
-    anim.fromValue = [NSValue valueWithCATransform3D:fromValue];
-    
-    CATransform3D toValue = CATransform3DMakeRotation(headings, 0, 0, 1);
-    anim.toValue = [NSValue valueWithCATransform3D:toValue];
-    anim.duration = 0.2;
-    anim.removedOnCompletion = YES;
-    self.naviIcon.transform = toValue;
-    [self.naviIcon addAnimation:anim forKey:nil];
-    
 
-}
 
 @end

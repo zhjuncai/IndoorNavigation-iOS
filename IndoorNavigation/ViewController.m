@@ -10,7 +10,7 @@
 #define SCALE 1024/4.8
 #define NUMOFBEACONS 6
 
-@interface ViewController ()
+@interface ViewController ()  <CLLocationManagerDelegate>
 @property (nonatomic, readonly) PathBuilderView *pathBuilderView;
 @end
 
@@ -422,6 +422,25 @@ int iBeaconPositions[6][2] = {
     resultX = resultX/num;
     resultY = resultY/num;
 //    [self.pathBuilderView DrawSelf:resultX y:resultY];3
+}
+
+-(void) locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading{
+    
+    CGFloat headings = M_PI*newHeading.trueHeading/180.0f;
+    //CGFloat headings = newHeading.trueHeading;
+    CABasicAnimation* anim = [CABasicAnimation animationWithKeyPath:@"transform"];
+    
+    CATransform3D fromValue = self.pathBuilderView.naviIcon.transform;
+    anim.fromValue = [NSValue valueWithCATransform3D:fromValue];
+    
+    CATransform3D toValue = CATransform3DMakeRotation(headings, 0, 0, 1);
+    anim.toValue = [NSValue valueWithCATransform3D:toValue];
+    anim.duration = 0.2;
+    anim.removedOnCompletion = YES;
+    self.pathBuilderView.naviIcon.transform = toValue;
+    [self.pathBuilderView.naviIcon addAnimation:anim forKey:nil];
+    
+    
 }
 
 -(void) startIbeacons{
