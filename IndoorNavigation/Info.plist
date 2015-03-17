@@ -40,5 +40,11 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Location Service is required</string>
+    <key>NSLocationUsageDescription</key>
+    <string>Need enable location service to provide better service</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Need enable location service to provide better service</string>
 </dict>
 </plist>

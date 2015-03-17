@@ -69,25 +69,24 @@ int distanceData[42][42] = {
 
 int pointsPosition[42][2] = {
     { 32, 32 }, { 128, 32 }, { 288, 32 }, { 384, 32 },{ 480, 32 }, { 640, 32 }, { 736, 32 },
-    { 32, 224 }, { 128, 224 },{ 288, 224 }, { 384, 224 }, { 480, 224 }, { 640, 224 },{ 736, 224 },
-    { 32, 416 }, { 128, 416 }, { 288, 416 },{ 384, 416 }, { 480, 416 }, { 640, 416 }, { 736, 416 },
-    { 32, 608 }, { 128, 608 }, { 288, 608 }, { 384, 608 },{ 480, 608 }, { 640, 608 }, { 736, 608 },
-    { 32, 800 },{ 128, 800 }, { 288, 800 }, { 384, 800 }, { 480, 800 },{ 640, 800 }, { 736, 800 },
-    { 32, 992 }, { 128, 992 },{ 288, 992 }, { 384, 992 }, { 480, 992 }, { 640, 992 },{ 736, 992 }
+    { 32, 204 }, { 128, 204 },{ 288, 204 }, { 384, 204 }, { 480, 204 }, { 640, 204 },{ 736, 204 },
+    { 32, 376 }, { 128, 376 }, { 288, 376 },{ 384, 376 }, { 480, 376 }, { 640, 376 }, { 736, 376 },
+    { 32, 548 }, { 128, 548 }, { 288, 548 }, { 384, 548 },{ 480, 548 }, { 640, 548 }, { 736, 548 },
+    { 32, 720 },{ 128, 720 }, { 288, 720 }, { 384, 720 }, { 480, 720 },{ 640, 720 }, { 736, 720 },
+    { 32, 892 },{ 128, 892 },{ 288, 892 }, { 384, 892 }, { 480, 892 },{ 640, 892 },{ 736, 892 }
 };
 int storagePosition[40][4] ={
-    {64, 64, 144, 64}, {208, 64, 144, 64}, {416, 64, 144, 64}, {560, 64, 144, 64},
-    {64, 128, 144, 64}, {208, 128, 144, 64}, {416, 128, 144, 64}, {560, 128, 144, 64},
-    {64, 256, 144, 64}, {208, 256, 144, 64}, {416, 256, 144, 64}, {560, 256, 144, 64},
-    {64, 320, 144, 64}, {208, 320, 144, 64}, {416, 320, 144, 64}, {560, 320, 144, 64},
-    {64, 448, 144, 64}, {208, 448, 144, 64}, {416, 448, 144, 64}, {560, 448, 144, 64},
-    {64, 512, 144, 64}, {208, 512, 144, 64}, {416, 512, 144, 64}, {560, 512, 144, 64},
-    {64, 640, 144, 64}, {208, 640, 144, 64}, {416, 640, 144, 64}, {560, 640, 144, 64},
-    {64, 704, 144, 64}, {208, 704, 144, 64}, {416, 704, 144, 64}, {560, 704, 144, 64},
-    {64, 832, 144, 64}, {208, 832, 144, 64}, {416, 832, 144, 64}, {560, 832, 144, 64},
-    {64, 896, 144, 64}, {208, 896, 144, 64}, {416, 896, 144, 64}, {560, 896, 144, 64}
+    { 64, 64, 144, 54 }, { 208, 64, 144, 54 },{ 416, 64, 144, 54 }, { 560, 64, 144, 54 },
+    { 64, 118, 144, 54 },{ 208, 118, 144, 54 }, { 416, 118, 144, 54 },{ 560, 118, 144, 54 },
+    { 64, 236, 144, 54 }, { 208, 236, 144, 54 },{ 416, 236, 144, 54 }, { 560, 236, 144, 54 },
+    { 64, 290, 144, 54 },{ 208, 290, 144, 54 }, { 416, 290, 144, 54 },{ 560, 290, 144, 54 },
+    { 64, 408, 144, 54 }, { 208, 408, 144, 54 },{ 416, 408, 144, 54 }, { 560, 408, 144, 54 },
+    { 64, 462, 144, 54 },{ 208, 462, 144, 54 }, { 416, 462, 144, 54 },{ 560, 462, 144, 54 },
+    { 64, 580, 144, 54 }, { 208, 580, 144, 54 },{ 416, 580, 144, 54 }, { 560, 580, 144, 54 },
+    { 64, 634, 144, 54 },{ 208, 634, 144, 54 }, { 416, 634, 144, 54 },{ 560, 634, 144, 54 },
+    { 64, 752, 144, 54 }, { 208, 752, 144, 54 },{ 416, 752, 144, 54 }, { 560, 752, 144, 54 },
+    { 64, 806, 144, 54 },{ 208, 806, 144, 54 }, { 416, 806, 144, 54 }, { 560, 806, 144, 54 }
 };
-
 int keyPointMap[40] = {
     2, 3, 5, 6,
     9, 10, 12, 13,
@@ -143,7 +142,7 @@ int iBeaconPositions[6][2] = {
 #pragma mark - initView
 
 - (void)viewPrepare{
-    self.view = [[PathBuilderView alloc] init];
+    self.view = [[PathBuilderView alloc] initWithFrame:CGRectMake(0, 64, 768, 920)];
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
@@ -201,19 +200,19 @@ int iBeaconPositions[6][2] = {
 
 - (void)drawPath:(NSMutableArray*)resultArray{
     [self addPointsToView:resultArray];
-    CFTimeInterval timeOffset = self.pathBuilderView.pathShapeView.shapeLayer.timeOffset;
-    [CATransaction setCompletionBlock:^{
-        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(strokeEnd))];
-        animation.fromValue = @0.0;
-        animation.toValue = @1.0;
-        animation.removedOnCompletion = NO;
-        animation.duration = kDuration;
-        self.pathBuilderView.pathShapeView.shapeLayer.speed = 0;
-        self.pathBuilderView.pathShapeView.shapeLayer.timeOffset = 0;
-        [self.pathBuilderView.pathShapeView.shapeLayer addAnimation:animation forKey:NSStringFromSelector(@selector(strokeEnd))];
-        [CATransaction flush];
-        self.pathBuilderView.pathShapeView.shapeLayer.timeOffset = timeOffset;
-    }];
+//    CFTimeInterval timeOffset = self.pathBuilderView.pathShapeView.shapeLayer.timeOffset;
+//    [CATransaction setCompletionBlock:^{
+//        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(strokeEnd))];
+//        animation.fromValue = @0.0;
+//        animation.toValue = @1.0;
+//        animation.removedOnCompletion = NO;
+//        animation.duration = kDuration;
+//        self.pathBuilderView.pathShapeView.shapeLayer.speed = 0;
+//        self.pathBuilderView.pathShapeView.shapeLayer.timeOffset = 0;
+//        [self.pathBuilderView.pathShapeView.shapeLayer addAnimation:animation forKey:NSStringFromSelector(@selector(strokeEnd))];
+//        [CATransaction flush];
+//        self.pathBuilderView.pathShapeView.shapeLayer.timeOffset = timeOffset;
+//    }];
     
     self.pathBuilderView.pathShapeView.shapeLayer.timeOffset = 0.0;
     self.pathBuilderView.pathShapeView.shapeLayer.speed = 1.0;
@@ -263,7 +262,6 @@ int iBeaconPositions[6][2] = {
         [self drawPath:pathPoints];
         drawOrClear = NO;
     }else{
-        
         ressTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
                                                              target:self
                                                            selector:@selector(ClearPath)
@@ -422,7 +420,7 @@ int iBeaconPositions[6][2] = {
     
     resultX = resultX/num;
     resultY = resultY/num;
-//    [self.pathBuilderView DrawSelf:resultX y:resultY];
+//    [self.pathBuilderView DrawSelf:resultX y:resultY];3
 }
 
 -(void) startIbeacons{
@@ -470,9 +468,9 @@ int iBeaconPositions[6][2] = {
         [ressTimer invalidate];
         ressTimer = nil;
         drawOrClear = YES;
-//        [pathPoints removeAllObjects];
-//        [choosedPoints removeAllObjects];
-//        [self.pathBuilderView Clear];
+        [pathPoints removeAllObjects];
+        [choosedPoints removeAllObjects];
+        [self.pathBuilderView Clear];
     }
     
 }

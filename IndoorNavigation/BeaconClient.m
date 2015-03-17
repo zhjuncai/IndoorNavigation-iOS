@@ -25,15 +25,15 @@
 {
     if (self = [super init]) {
         _isInsideRegion = NO;
-        [_locationManager requestAlwaysAuthorization];
         _locationManager = [[CLLocationManager alloc] init];
+        [_locationManager requestAlwaysAuthorization];
         _locationManager.delegate = self;
 
         
         NSUUID *estimoteUUID = [[NSUUID alloc] initWithUUIDString:@"B7D1027D-6788-416E-994F-EA11075F1765"];
-        _region = [[CLBeaconRegion alloc] initWithProximityUUID:estimoteUUID identifier:kIndetifier];
+        self.bearegion = [[CLBeaconRegion alloc] initWithProximityUUID:estimoteUUID identifier:kIndetifier];
         // launch app when display is turned on and inside region
-        _region.notifyEntryStateOnDisplay = YES;
+        self.bearegion.notifyEntryStateOnDisplay = YES;
     }
     return self;
 }
@@ -45,9 +45,9 @@
     NSString *str;
     if ([CLLocationManager isMonitoringAvailableForClass:[CLBeaconRegion class]])
     {
-        [_locationManager startMonitoringForRegion:_region];
-        [_locationManager startRangingBeaconsInRegion:_region];
-        [_locationManager requestStateForRegion:_region];
+        [_locationManager startMonitoringForRegion:self.bearegion];
+        [_locationManager startRangingBeaconsInRegion:self.bearegion];
+        [_locationManager requestStateForRegion:self.bearegion];
         return YES;
     }else{
         [self showAlertView:nil message:@"This device does not support monitoring beacon regions"];

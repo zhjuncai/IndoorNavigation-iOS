@@ -24,5 +24,5 @@
 - (void)closeClient;
 @property (strong, readwrite) NSMutableDictionary *myBeacons;
 @property (strong, readwrite) NSMutableDictionary *itemdic;
-
+@property (strong, readwrite) CLBeaconRegion *bearegion;
 @end

@@ -30,37 +30,36 @@ static CGFloat const kPointDiameter = 7.0;
     if (self) {
         _points = [[NSMutableArray alloc] init];
         self.multipleTouchEnabled = NO;
-
+        
         _ignoreTouchEvents = NO;
         _indexOfSelectedPoint = NSNotFound;
-
+        
         _pathShapeView = [[ShapeView alloc] init];
         _pathShapeView.shapeLayer.fillColor = nil;
         _pathShapeView.backgroundColor = [UIColor clearColor];
         _pathShapeView.opaque = NO;
         _pathShapeView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_pathShapeView];
-
+        
         _prospectivePathShapeView = [[ShapeView alloc] init];
         _prospectivePathShapeView.shapeLayer.fillColor = nil;
         _prospectivePathShapeView.backgroundColor = [UIColor clearColor];
         _prospectivePathShapeView.opaque = NO;
         _prospectivePathShapeView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_prospectivePathShapeView];
-
+        
         _pointsShapeView = [[ShapeView alloc] init];
         _pointsShapeView.backgroundColor = [UIColor clearColor];
         _pointsShapeView.opaque = NO;
         _pointsShapeView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_pointsShapeView];
-
+        
     }
-    return self;
-}
+    return self;}
 
 - (void)addPointsIn:(NSMutableArray*)thosePoints{
-    [self.points addObjectsFromArray:thosePoints];
-//    self.points = thosePoints;
+//    [self.points addObjectsFromArray:thosePoints];
+    self.points = thosePoints;
     [self updatePaths];
     
 }
@@ -85,7 +84,7 @@ static CGFloat const kPointDiameter = 7.0;
         self.pathShapeView.shapeLayer.path = path.CGPath;
     }
     else {
-        self.pathShapeView.shapeLayer.path = nil;
+//        self.pathShapeView.shapeLayer.path = nil;
     }
 
     if ([self.points count] >= 1 && self.prospectivePointValue) {
@@ -96,7 +95,7 @@ static CGFloat const kPointDiameter = 7.0;
         self.prospectivePathShapeView.shapeLayer.path = path.CGPath;
     }
     else {
-        self.prospectivePathShapeView.shapeLayer.path = nil;
+//        self.prospectivePathShapeView.shapeLayer.path = nil;
     }
 }
 
