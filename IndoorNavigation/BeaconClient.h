@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-//#import "FreightOrder.h"
 
 @interface BeaconClient : NSObject
 <CLLocationManagerDelegate>

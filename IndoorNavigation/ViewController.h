@@ -21,6 +21,7 @@
     NSMutableArray *choosedPoints;
     NSMutableArray *pathPoints;
     NSMutableArray *aIBeacons;
+    NSMutableDictionary *iBeaconsFromDetectDic;
     NSTimer *ressTimer;
     BOOL drawOrClear;
 }

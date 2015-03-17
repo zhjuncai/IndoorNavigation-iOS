@@ -10,12 +10,7 @@
 #import "AppDelegate.h"
 #define kIndetifier [[NSBundle mainBundle] bundleIdentifier]
 
-//#import "RootViewController.h"
 @interface BeaconClient() <CLLocationManagerDelegate>
-//<NetworkRequestAPIDelegate>
-//
-//
-//@property(nonatomic,strong) NetworkRequestAPI * loginRequest;
 
 
 @end
@@ -75,19 +70,19 @@
     }
 }
 
--(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
-{
-    NSDictionary *ibeaconsDic=[[NSDictionary alloc] initWithObjectsAndKeys:beacons,@"iBeacons",nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"iBeaconsBack" object:Nil userInfo:ibeaconsDic];
-    
-
-    for (CLBeacon* beacon in beacons) {
-        NSString *str=[NSString stringWithFormat:@"%i-%i",[beacon.major intValue],[beacon.minor intValue]];
-        if([[self.itemdic valueForKey:str] isEqualToString:@"false"]){
-            [self.myBeacons setObject:beacon forKey:str];
-        }
-    }
-}
+//-(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
+//{
+//    NSDictionary *ibeaconsDic=[[NSDictionary alloc] initWithObjectsAndKeys:beacons,@"iBeacons",nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"iBeaconsBack" object:Nil userInfo:ibeaconsDic];
+//    
+//    NSLog(@"kliuy");
+//    for (CLBeacon* beacon in beacons) {
+//        NSString *str=[NSString stringWithFormat:@"%i-%i",[beacon.major intValue],[beacon.minor intValue]];
+//        if([[self.itemdic valueForKey:str] isEqualToString:@"false"]){
+//            [self.myBeacons setObject:beacon forKey:str];
+//        }
+//    }
+//}
 
 - (NSMutableDictionary*)getMybeaconsArray{
     return self.myBeacons;

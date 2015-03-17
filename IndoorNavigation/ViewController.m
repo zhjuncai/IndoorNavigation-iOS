@@ -7,8 +7,10 @@
 //
 
 #import "ViewController.h"
-#define SCALE 1024/4.8
-#define NUMOFBEACONS 6
+#define SCALE 1024/4.8    //定义实际距离与屏幕显示房间尺寸的比例尺
+#define NUM_OF_BEACONS 6  //定义beacon总数量
+#define MAX_DISTANCE 3  //定义可能的最大beacon距离 单位：米
+#define MIN_DISTANCE 1  //定义更新坐标的最小值，单位:屏幕像素
 
 @interface ViewController ()  <CLLocationManagerDelegate>
 @property (nonatomic, readonly) PathBuilderView *pathBuilderView;
@@ -111,7 +113,7 @@ int iBeaconPositions[6][2] = {
     NSArray *uuid = [[NSArray alloc] initWithObjects:@"first", @"sec", @"third", @"fourth", @"fifth", @"sixth", nil];
 //    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
     aIBeacons = [[NSMutableArray alloc] init];
-    for (int i = 0; i < NUMOFBEACONS; i ++) {
+    for (int i = 0; i < NUM_OF_BEACONS; i ++) {
         iBeacon *test = [[iBeacon alloc] initWithLocation:[NSString stringWithFormat:@"%d", iBeaconPositions[i][0]] y:[NSString stringWithFormat:@"%d", iBeaconPositions[i][1]] idStr:[uuid objectAtIndex:i]];
         [aIBeacons addObject:test];
     }
@@ -119,12 +121,13 @@ int iBeaconPositions[6][2] = {
     drawOrClear = YES;
     choosedPoints = [[NSMutableArray alloc] init];
     pathPoints = [[NSMutableArray alloc] init];
+    iBeaconsFromDetectDic = [[NSMutableDictionary alloc] init];
     
     [self viewPrepare];
     
 //    [self.pathBuilderView DrawSelf:50 y:50];
     
-    
+//    NSLog(@"kjahsdkja%d",[self CheckSelfPositionAfterCalculate:62 y:62]);
     
     
     //启动iBeacons，timer开始定时计算自身位置
@@ -201,6 +204,7 @@ int iBeaconPositions[6][2] = {
     return (PathBuilderView *)self.view;
 }
 
+//在屏幕上创建出表示货架的黑button
 - (void)CreateWarehouse:(int[40])keyPointMap storagePosition:(int[40][4])storagePosition{
     for (int i = 0; i < 40; i ++) {
         CGRect frame = [self ConvertToFram:storagePosition[i]];
@@ -216,6 +220,7 @@ int iBeaconPositions[6][2] = {
 
 #pragma mark - drawPath method
 
+//画路径，根据需求不同当需要路径小时，就等于是在prospectivePathShapeView上面画，如果是让路径出现就是在pathShapeView上画
 - (void)drawPath:(NSMutableArray*)resultArray{
     [self addPointsToView:resultArray];
     ShapeView *tem = nil;
@@ -235,6 +240,7 @@ int iBeaconPositions[6][2] = {
     [tem.shapeLayer addAnimation:animation forKey:NSStringFromSelector(@selector(strokeEnd))];
 }
 
+//把zion返回的计算结果添加到pathBuilderView的self.points里面
 - (void)addPointsToView:(NSMutableArray*)resultArray{
     NSMutableArray *result = [[NSMutableArray alloc] init];
     for (int i = 0; i < [resultArray count]; i ++) {
@@ -245,6 +251,7 @@ int iBeaconPositions[6][2] = {
     [self.pathBuilderView addPointsIn:result shapViewOrNot:drawOrClear];
 }
 
+//button点击事件，绑定在每一个货架的button上面
 - (IBAction)getKeyPointIndexByClick:(id)sender{
     storage *btn = sender;
     NSNumber *index = [NSNumber numberWithLong:btn.tag];
@@ -253,6 +260,7 @@ int iBeaconPositions[6][2] = {
     }
 }
 
+//button点击事件，就是点击”Draw Path“ button后触发的事件
 - (void)beginCalcuAndDraw{
     // TODO:
     if (drawOrClear == YES) {
@@ -272,6 +280,7 @@ int iBeaconPositions[6][2] = {
 
 #pragma mark - Calculate self position
 
+//根据传入的三组数据（每组包括beacon的xy以及距离信息）计算出一个当前位置
 - (NSArray *)CalPosition: (float)x0 y0:(float)y0 r0:(float)r0 x1:(float)x1 y1:(float)y1 r1:(float)r1 x2:(float)x y2:(float)y r2:(float)r{
     NSString *position1 = [self CalCircleIntersectposition:x0 y0:y0 r0:r0 x1:x1 y1:y1 r1:r1 x:x y:y r:r];
     NSString *position2 = [self CalCircleIntersectposition:x y0:y r0:r x1:x0 y1:y0 r1:r0 x:x1 y:y1 r:r1];
@@ -348,33 +357,34 @@ int iBeaconPositions[6][2] = {
 }
 
 
-- (NSMutableArray *)getData{
-    NSData *fileData = [[NSData alloc]init];
-    NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
-    if ([UD objectForKey:@"beacons"] == nil) {
-        NSString *path;
-        path = [[NSBundle mainBundle] pathForResource:@"location" ofType:@"json"];
-        fileData = [NSData dataWithContentsOfFile:path];
-        [UD setObject:fileData forKey:@"beacons"];
-        [UD synchronize];
-    }
-    else {
-        fileData = [UD objectForKey:@"beacons"];
-    }
-    
-    NSDictionary *myData = [NSJSONSerialization JSONObjectWithData:fileData options:NSJSONReadingMutableLeaves error:nil];
-    NSDictionary *data = [myData objectForKey:@"beacons"];
-    NSMutableArray *array = [[NSMutableArray alloc]initWithCapacity:0];
-    NSLog(@"内容为--》%@", data);
-
-    return array;
-}
+//- (NSMutableArray *)getData{
+//    NSData *fileData = [[NSData alloc]init];
+//    NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
+//    if ([UD objectForKey:@"beacons"] == nil) {
+//        NSString *path;
+//        path = [[NSBundle mainBundle] pathForResource:@"location" ofType:@"json"];
+//        fileData = [NSData dataWithContentsOfFile:path];
+//        [UD setObject:fileData forKey:@"beacons"];
+//        [UD synchronize];
+//    }
+//    else {
+//        fileData = [UD objectForKey:@"beacons"];
+//    }
+//    
+//    NSDictionary *myData = [NSJSONSerialization JSONObjectWithData:fileData options:NSJSONReadingMutableLeaves error:nil];
+//    NSDictionary *data = [myData objectForKey:@"beacons"];
+//    NSMutableArray *array = [[NSMutableArray alloc]initWithCapacity:0];
+//    NSLog(@"内容为--》%@", data);
+//
+//    return array;
+//}
 
 #pragma mark - draw self position
 
 -(void)drawPosition{
     NSMutableDictionary* myBeacons = [[NSMutableDictionary alloc] init];
-    myBeacons = [self.beaconClient getMybeaconsArray];
+//    myBeacons = [self.beaconClient getMybeaconsArray];
+    myBeacons = iBeaconsFromDetectDic;
     NSMutableArray *tem = [[NSMutableArray alloc] init];
     for(CLBeacon* beacon in myBeacons){
         [tem addObject:beacon];
@@ -416,7 +426,10 @@ int iBeaconPositions[6][2] = {
     
     resultX = resultX/num;
     resultY = resultY/num;
-//    [self.pathBuilderView DrawSelf:resultX y:resultY];
+    if([self CheckSelfPositionAfterCalculate:resultX y:resultY] == NO){
+        //如果计算出的点不跟货架重合，就画出来
+        [self.pathBuilderView DrawSelf:resultX y:resultY];
+    }
 }
 
 #pragma mark - iBeacon
@@ -426,6 +439,19 @@ int iBeaconPositions[6][2] = {
         _beaconClient = [[BeaconClient alloc] init];
     }
     [_beaconClient openClient];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
+{
+    NSDictionary *ibeaconsDic=[[NSDictionary alloc] initWithObjectsAndKeys:beacons,@"iBeacons",nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"iBeaconsBack" object:Nil userInfo:ibeaconsDic];
+    
+    for (CLBeacon* beacon in beacons) {
+        if ([self CheckBeaconsDataQualifyBeforeCalculate:beacons] == YES) {
+            //如果计算之前的检查没有问题，就开始计算
+            [self drawPosition];
+        }
+    }
 }
 
 #pragma mark - self location icon delegate
@@ -451,6 +477,7 @@ int iBeaconPositions[6][2] = {
 
 #pragma mark - Help method
 
+//把数组元素顺序全部颠倒
 - (NSMutableArray*)SwapAllElementInArray:(NSMutableArray*)source{
     int len = [source count];
     for(int i = 0; i < len / 2; i ++){
@@ -461,6 +488,7 @@ int iBeaconPositions[6][2] = {
     return source;
 }
 
+//清空路径数据
 - (void)ClearPath{
 
     drawOrClear = YES;
@@ -469,9 +497,66 @@ int iBeaconPositions[6][2] = {
     [self.pathBuilderView Clear];
 }
 
+
 - (CGRect)ConvertToFram:(int[4])array{
     CGRect frame = CGRectMake(array[0], array[1], array[2], array[3]);
     return frame;
 }
 
+
+//检查beacon的距离是不是已经超出 MAX_DISTANCE，移动距离是不是过小
+- (BOOL)CheckBeaconsDataQualifyBeforeCalculate:(NSArray *)beacons{
+    int wrongNum = 0;
+    
+    for (CLBeacon* beacon in beacons) {
+        NSString *str=[NSString stringWithFormat:@"%i-%i",[beacon.major intValue],[beacon.minor intValue]];
+        if (beacon.accuracy > MAX_DISTANCE) {
+            wrongNum ++;
+        }else{
+            for (CLBeacon* preBeacon in iBeaconsFromDetectDic){
+                if (beacon.major == preBeacon.minor && beacon.major == preBeacon.major) {
+                    if (fabs(preBeacon.accuracy - beacon.accuracy) * SCALE < MIN_DISTANCE) {
+                        wrongNum ++;
+                    }else{
+                        [iBeaconsFromDetectDic setObject:beacon forKey:str];
+                    }
+                }
+            }
+        }
+    }
+    
+    if (3 > NUM_OF_BEACONS - wrongNum) {
+        return NO;
+    }else{
+        return YES;
+    }
+}
+
+
+//判断一个点是不是在货架范围内，也就是走到货架内部了
+- (BOOL)CheckSelfPositionAfterCalculate:(float)x y:(float)y{
+    for (int i = 0; i < 42; i ++) {
+        if ([self JudgePointsInArea:storagePosition[i] point:CGPointMake(x, y)] == YES) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+
+- (BOOL)JudgePointsInArea:(int[])area point:(CGPoint)point{
+    CGMutablePathRef pathRef=CGPathCreateMutable();
+    CGPathMoveToPoint(pathRef, NULL, area[0], area[1]);
+    CGPathAddLineToPoint(pathRef, NULL, area[0], area[1] + area[3]);
+    CGPathAddLineToPoint(pathRef, NULL, area[0] + area[2], area[1] + area[3]);
+    CGPathAddLineToPoint(pathRef, NULL, area[0] + area[2], area[1]);
+    CGPathAddLineToPoint(pathRef, NULL, area[0], area[1]);
+    CGPathCloseSubpath(pathRef);
+    
+    if (CGPathContainsPoint(pathRef, NULL, point, NO)){
+        return YES;
+    }else{
+        return NO;
+    }
+}
 @end
