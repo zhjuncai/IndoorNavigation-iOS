@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4BE01CC71AB67A5A0047530D /* NaviAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE01CC61AB67A5A0047530D /* NaviAlgo.m */; };
+		74DA78861AB8114800CABC35 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74DA78851AB8114800CABC35 /* CoreLocation.framework */; };
+		74DA78881AB812A500CABC35 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 74DA78871AB812A500CABC35 /* location.png */; };
 		AAAF3DE71AB5B37100012A24 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DE61AB5B37100012A24 /* main.m */; };
 		AAAF3DEA1AB5B37100012A24 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DE91AB5B37100012A24 /* AppDelegate.m */; };
 		AAAF3DED1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DEB1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld */; };
@@ -37,6 +39,8 @@
 /* Begin PBXFileReference section */
 		4BE01CC51AB67A5A0047530D /* NaviAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaviAlgo.h; sourceTree = "<group>"; };
 		4BE01CC61AB67A5A0047530D /* NaviAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NaviAlgo.m; sourceTree = "<group>"; };
+		74DA78851AB8114800CABC35 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		74DA78871AB812A500CABC35 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
 		AAAF3DE11AB5B37100012A24 /* IndoorNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IndoorNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAAF3DE51AB5B37100012A24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAAF3DE61AB5B37100012A24 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -69,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74DA78861AB8114800CABC35 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +90,7 @@
 		AAAF3DD81AB5B37100012A24 = {
 			isa = PBXGroup;
 			children = (
+				74DA78851AB8114800CABC35 /* CoreLocation.framework */,
 				AAAF3DE31AB5B37100012A24 /* IndoorNavigation */,
 				AAAF3E001AB5B37100012A24 /* IndoorNavigationTests */,
 				AAAF3DE21AB5B37100012A24 /* Products */,
@@ -132,6 +138,7 @@
 		AAAF3DE41AB5B37100012A24 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				74DA78871AB812A500CABC35 /* location.png */,
 				AAAF3DE51AB5B37100012A24 /* Info.plist */,
 				AAAF3DE61AB5B37100012A24 /* main.m */,
 			);
@@ -238,6 +245,7 @@
 			files = (
 				AAAF3DF31AB5B37100012A24 /* Main.storyboard in Resources */,
 				AAAF3DF81AB5B37100012A24 /* LaunchScreen.xib in Resources */,
+				74DA78881AB812A500CABC35 /* location.png in Resources */,
 				AAAF3E1A1AB5B3CD00012A24 /* location.json in Resources */,
 				AAAF3DF51AB5B37100012A24 /* Images.xcassets in Resources */,
 			);
