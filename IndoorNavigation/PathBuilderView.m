@@ -57,10 +57,6 @@ static CGFloat const kPointDiameter = 7.0;
         _pointsShapeView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_pointsShapeView];
         
-        self.naviIcon = [[CALayer alloc] init];
-        self.naviIcon.frame = CGRectMake(384, 892,30,30);
-        self.naviIcon.contents = (id)[[UIImage imageNamed:@"location.png"] CGImage];
-        [self.layer addSublayer:self.naviIcon];
         
     }
     return self;}

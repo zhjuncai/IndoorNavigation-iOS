@@ -12,6 +12,9 @@
 
 @interface ViewController ()  <CLLocationManagerDelegate>
 @property (nonatomic, readonly) PathBuilderView *pathBuilderView;
+@property (nonatomic , strong) CLLocationManager *locationManager;
+@property (nonatomic , strong) NSOperationQueue *queue;
+@property (nonatomic , strong) CALayer *naviIcon;
 @end
 
 
@@ -130,6 +133,19 @@ int iBeaconPositions[6][2] = {
                                                                    selector:@selector(drawPosition)
                                                                    userInfo:nil
                                                                     repeats:YES];
+    
+    if ([CLLocationManager headingAvailable]) {
+        
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        [self.locationManager startUpdatingHeading];
+    }
+
+    
+    self.naviIcon = [[CALayer alloc] init];
+    self.naviIcon.frame = CGRectMake(369, 892,30,30);
+    self.naviIcon.contents = (id)[[UIImage imageNamed:@"location.png"] CGImage];
+    [self.view.layer addSublayer:self.naviIcon];
     
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -430,15 +446,15 @@ int iBeaconPositions[6][2] = {
     //CGFloat headings = newHeading.trueHeading;
     CABasicAnimation* anim = [CABasicAnimation animationWithKeyPath:@"transform"];
     
-    CATransform3D fromValue = self.pathBuilderView.naviIcon.transform;
+    CATransform3D fromValue = self.naviIcon.transform;
     anim.fromValue = [NSValue valueWithCATransform3D:fromValue];
     
     CATransform3D toValue = CATransform3DMakeRotation(headings, 0, 0, 1);
     anim.toValue = [NSValue valueWithCATransform3D:toValue];
     anim.duration = 0.2;
     anim.removedOnCompletion = YES;
-    self.pathBuilderView.naviIcon.transform = toValue;
-    [self.pathBuilderView.naviIcon addAnimation:anim forKey:nil];
+    self.naviIcon.transform = toValue;
+    [self.naviIcon addAnimation:anim forKey:nil];
     
     
 }
