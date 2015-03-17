@@ -279,11 +279,14 @@ int iBeaconPositions[6][2] = {
         [self drawPath:pathPoints];
         drawOrClear = NO;
     }else{
-        ressTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
-                                                             target:self
-                                                           selector:@selector(ClearPath)
-                                                           userInfo:nil
-                                                            repeats:YES];
+        self.pathBuilderView.prospectivePathShapeView.shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
+        [self.pathBuilderView Clear];
+        //drawOrClear = YES;
+//        ressTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
+//                                                             target:self
+//                                                           selector:@selector(ClearPath)
+//                                                           userInfo:nil
+//                                                            repeats:YES];
         
     }
     
