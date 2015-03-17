@@ -10,7 +10,6 @@
 #import "ShapeView.h"
 #import <CoreLocation/CoreLocation.h>
 
-static CGFloat const kDistanceThreshold = 10.0;
 static CGFloat const kPointDiameter = 7.0;
 
 @interface PathBuilderView ()
@@ -61,18 +60,14 @@ static CGFloat const kPointDiameter = 7.0;
     }
     return self;}
 
-- (void)addPointsIn:(NSMutableArray*)thosePoints{
-//    [self.points addObjectsFromArray:thosePoints];
+- (void)addPointsIn:(NSMutableArray*)thosePoints shapViewOrNot:(BOOL)shapViewOrNot{
     self.points = thosePoints;
-    [self updatePaths];
+    [self updatePathsByView:shapViewOrNot];
     
 }
 
-#pragma mark - Helper Methods
-
-- (void)updatePaths
+- (void)updatePathsByView:(BOOL)shapViewOrNot
 {
-
     if ([self.points count] >= 2) {
         UIBezierPath *path = [[UIBezierPath alloc] init];
         [self.points insertObject:[self.points firstObject] atIndex:0];
@@ -84,23 +79,16 @@ static CGFloat const kPointDiameter = 7.0;
                                     usingBlock:^(NSValue *pointValue, NSUInteger idx, BOOL *stop) {
                                         [path addLineToPoint:[pointValue CGPointValue]];
                                     }];
-
-        self.pathShapeView.shapeLayer.path = path.CGPath;
+        if (shapViewOrNot == YES) {
+            self.pathShapeView.shapeLayer.path = path.CGPath;
+        }else{
+            self.prospectivePathShapeView.shapeLayer.path = path.CGPath;
+        }
+        
     }
     else {
-//        self.pathShapeView.shapeLayer.path = nil;
+        self.pathShapeView.shapeLayer.path = nil;
     }
-
-//    if ([self.points count] >= 1 && self.prospectivePointValue) {
-//        UIBezierPath *path = [[UIBezierPath alloc] init];
-//        [path moveToPoint:[[self.points lastObject] CGPointValue]];
-//        [path addLineToPoint:[self.prospectivePointValue CGPointValue]];
-//
-//        self.prospectivePathShapeView.shapeLayer.path = path.CGPath;
-//    }
-//    else {
-//        self.prospectivePathShapeView.shapeLayer.path = nil;
-//    }
 }
 
 - (void)DrawSelf:(float)x y:(float)y{
@@ -113,32 +101,7 @@ static CGFloat const kPointDiameter = 7.0;
 }
 
 - (void)Clear{
-    self.prospectivePathShapeView.shapeLayer.path = nil;
-    
-    if ([self.points count] >= 2) {
-        UIBezierPath *path = [[UIBezierPath alloc] init];
-        [self.points insertObject:[self.points firstObject] atIndex:0];
-        [path moveToPoint:[[self.points firstObject] CGPointValue]];
-        
-        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, [self.points count] - 1)];
-        [self.points enumerateObjectsAtIndexes:indexSet
-                                       options:0
-                                    usingBlock:^(NSValue *pointValue, NSUInteger idx, BOOL *stop) {
-                                        [path addLineToPoint:[pointValue CGPointValue]];
-                                    }];
-        
-        self.prospectivePathShapeView.shapeLayer.timeOffset = 0.0;
-        self.prospectivePathShapeView.shapeLayer.speed = 1.0;
-        
-        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(strokeEnd))];
-        animation.fromValue = @0.0;
-        animation.toValue = @1.0;
-        animation.duration = 4.0;
-        
-        [self.prospectivePathShapeView.shapeLayer addAnimation:animation forKey:NSStringFromSelector(@selector(strokeEnd))];
-        
-        self.prospectivePathShapeView.shapeLayer.path = path.CGPath;
-    }
+    [self.points removeAllObjects];
 }
 
 

@@ -42,7 +42,6 @@
 {
     self.itemdic=[[NSMutableDictionary alloc] initWithObjectsAndKeys:@"beacon",@"beacon", nil];
     self.myBeacons = [[NSMutableDictionary alloc] init];
-    NSString *str;
     if ([CLLocationManager isMonitoringAvailableForClass:[CLBeaconRegion class]])
     {
         [_locationManager startMonitoringForRegion:self.bearegion];

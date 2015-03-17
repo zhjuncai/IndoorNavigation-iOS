@@ -23,7 +23,6 @@
     NSMutableArray *aIBeacons;
     NSTimer *ressTimer;
     BOOL drawOrClear;
-    int drawPointsNum;
 }
 
 @property (nonatomic, retain) BeaconClient *beaconClient;

@@ -16,7 +16,7 @@
 @property (nonatomic, strong, readonly) ShapeView *prospectivePathShapeView;
 @property (nonatomic, strong, readonly) ShapeView *pointsShapeView;
 
-- (void)addPointsIn:(NSMutableArray*)thosePoints;
+- (void)addPointsIn:(NSMutableArray*)thosePoints shapViewOrNot:(BOOL)shapViewOrNot;
 - (void)DrawSelf:(float)x y:(float)y;
 - (void)Clear;
 @end
