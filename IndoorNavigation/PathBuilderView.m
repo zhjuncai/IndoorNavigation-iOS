@@ -12,7 +12,7 @@
 
 static CGFloat const kPointDiameter = 7.0;
 
-@interface PathBuilderView ()
+@interface PathBuilderView ()  <CLLocationManagerDelegate>
 @property (nonatomic, strong) NSMutableArray *points;
 @property (nonatomic, strong) NSValue *prospectivePointValue;
 @property (nonatomic) NSUInteger indexOfSelectedPoint;
@@ -20,6 +20,8 @@ static CGFloat const kPointDiameter = 7.0;
 @property (nonatomic, strong) NSTimer *pressTimer;
 @property (nonatomic) BOOL ignoreTouchEvents;
 
+@property (nonatomic , strong) CALayer *naviIcon;
+@property (nonatomic , strong) CLLocationManager *locationManager;
 
 
 @end
@@ -56,9 +58,37 @@ static CGFloat const kPointDiameter = 7.0;
         _pointsShapeView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_pointsShapeView];
         
+        if ([CLLocationManager headingAvailable]) {
+            self.locationManager = [[CLLocationManager alloc] init];
+            self.locationManager.delegate = self;
+            [self.locationManager startUpdatingHeading];
+        }
+        self.naviIcon = [[CALayer alloc] init];
+        self.naviIcon.frame = CGRectMake(369, 880,30,30);
+        self.naviIcon.contents = (id)[[UIImage imageNamed:@"navigator"] CGImage];
+        [self.layer addSublayer:self.naviIcon];
         
     }
     return self;}
+
+-(void) locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading{
+    
+    CGFloat headings = M_PI*newHeading.trueHeading/180.0f;
+    //CGFloat headings = newHeading.trueHeading;
+    CABasicAnimation* anim = [CABasicAnimation animationWithKeyPath:@"transform"];
+    
+    CATransform3D fromValue = self.naviIcon.transform;
+    anim.fromValue = [NSValue valueWithCATransform3D:fromValue];
+    
+    CATransform3D toValue = CATransform3DMakeRotation(headings, 0, 0, 1);
+    anim.toValue = [NSValue valueWithCATransform3D:toValue];
+    anim.duration = 0.2;
+    anim.removedOnCompletion = YES;
+    self.naviIcon.transform = toValue;
+    [self.naviIcon addAnimation:anim forKey:nil];
+    
+    
+}
 
 - (void)addPointsIn:(NSMutableArray*)thosePoints shapViewOrNot:(BOOL)shapViewOrNot{
     self.points = thosePoints;

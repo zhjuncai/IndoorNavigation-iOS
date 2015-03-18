@@ -14,7 +14,6 @@
 <CLLocationManagerDelegate>
 {
     CLLocationManager * _locationManager;
-    CLBeaconRegion * _region;
     BOOL _isInsideRegion; // flag to prevent duplicate sending of notification
 }
 

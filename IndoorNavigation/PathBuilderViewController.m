@@ -12,11 +12,9 @@
 #define MAX_DISTANCE 3  //定义可能的最大beacon距离 单位：米
 #define MIN_DISTANCE 1  //定义更新坐标的最小值，单位:屏幕像素
 
-@interface PathBuilderViewController ()  <CLLocationManagerDelegate>
+@interface PathBuilderViewController ()
 @property (nonatomic, readonly) PathBuilderView *pathBuilderView;
-@property (nonatomic , strong) CLLocationManager *locationManager;
-@property (nonatomic , strong) NSOperationQueue *queue;
-@property (nonatomic , strong) CALayer *naviIcon;
+
 @end
 
 
@@ -145,19 +143,6 @@ int iBeaconPositions[6][2] = {
     
     
     
-    //箭头的manager
-    if ([CLLocationManager headingAvailable]) {
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        [self.locationManager startUpdatingHeading];
-    }
-    self.naviIcon = [[CALayer alloc] init];
-    self.naviIcon.frame = CGRectMake(369, 892,30,30);
-    self.naviIcon.contents = (id)[[UIImage imageNamed:@"navigator"] CGImage];
-    [self.view.layer addSublayer:self.naviIcon];
-    
-    
-    
     
    
     // Do any additional setup after loading the view, typically from a nib.
@@ -176,7 +161,7 @@ int iBeaconPositions[6][2] = {
     PathBuilderView * builderView = [[PathBuilderView alloc] initWithFrame:self.view.frame];
     [self.view insertSubview:builderView atIndex:0];
     
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
     
@@ -271,15 +256,31 @@ int iBeaconPositions[6][2] = {
 - (IBAction)drawNavigationPath: (UIBarButtonItem *) sender{
     // TODO:
     if (drawOrClear == YES) {
+        
         NaviAlgo *calPath = [[NaviAlgo alloc] init];
         [calPath setGraph:distanceData];
         [calPath setPointMapping:pointsPosition];
-        pathPoints = [calPath getBestPathForDestinations:choosedPoints];
-        [self drawPath:pathPoints];
-        drawOrClear = NO;
+        if([choosedPoints count]!=0){
+            self.pathBuilderView.pathShapeView.shapeLayer.path=nil;
+            self.pathBuilderView.prospectivePathShapeView.shapeLayer.path=nil;
+            pathPoints = [calPath getBestPathForDestinations:choosedPoints];
+            [self drawPath:pathPoints];
+            [sender setTitle:@"Stop!"];
+            drawOrClear = NO;
+        }
+        else{
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                                 message:@"Please choose some destinations"
+                                                                delegate:nil
+                                                       cancelButtonTitle:@"确定"
+                                                       otherButtonTitles:nil];
+            [alertView show];
+        }
+        
     }else{
         [self drawPath:[self SwapAllElementInArray:pathPoints]];
         [self ClearPath];
+        [sender setTitle:@"Navigate!"];
     }
     
 }
@@ -448,39 +449,20 @@ int iBeaconPositions[6][2] = {
     [_beaconClient openClient];
 }
 
--(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
-{
-    NSDictionary *ibeaconsDic=[[NSDictionary alloc] initWithObjectsAndKeys:beacons,@"iBeacons",nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"iBeaconsBack" object:Nil userInfo:ibeaconsDic];
-    
-    for (CLBeacon* beacon in beacons) {
-        if ([self CheckBeaconsDataQualifyBeforeCalculate:beacons] == YES) {
-            //如果计算之前的检查没有问题，就开始计算
-            [self drawPosition];
-        }
-    }
-}
+//-(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
+//{
+//    NSDictionary *ibeaconsDic=[[NSDictionary alloc] initWithObjectsAndKeys:beacons,@"iBeacons",nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"iBeaconsBack" object:Nil userInfo:ibeaconsDic];
+//    
+//    for (CLBeacon* beacon in beacons) {
+//        if ([self CheckBeaconsDataQualifyBeforeCalculate:beacons] == YES) {
+//            //如果计算之前的检查没有问题，就开始计算
+//            [self drawPosition];
+//        }
+//    }
+//}
 
-#pragma mark - self location icon delegate
 
--(void) locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading{
-    
-    CGFloat headings = M_PI*newHeading.trueHeading/180.0f;
-    //CGFloat headings = newHeading.trueHeading;
-    CABasicAnimation* anim = [CABasicAnimation animationWithKeyPath:@"transform"];
-    
-    CATransform3D fromValue = self.naviIcon.transform;
-    anim.fromValue = [NSValue valueWithCATransform3D:fromValue];
-    
-    CATransform3D toValue = CATransform3DMakeRotation(headings, 0, 0, 1);
-    anim.toValue = [NSValue valueWithCATransform3D:toValue];
-    anim.duration = 0.2;
-    anim.removedOnCompletion = YES;
-    self.naviIcon.transform = toValue;
-    [self.naviIcon addAnimation:anim forKey:nil];
-    
-    
-}
 
 #pragma mark - Help method
 
