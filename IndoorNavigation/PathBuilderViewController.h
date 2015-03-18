@@ -17,7 +17,7 @@
 #import "NaviAlgo.h"
 
 
-@interface ViewController : UIViewController{
+@interface PathBuilderViewController : UIViewController{
     NSMutableArray *choosedPoints;
     NSMutableArray *pathPoints;
     NSMutableArray *aIBeacons;

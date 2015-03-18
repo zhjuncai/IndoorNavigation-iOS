@@ -1,0 +1,107 @@
+ [
+  {
+  "freightOrderID": "6100013025",
+  "shipper": "Decathlon",
+  "consignee": "SAP Table Tennis Club",
+  "driver": "Mr. Ethan Zhang",
+  "pickupDatetime": "20141225130000",
+  "deliveryDatetime": "20141228130000",
+  "address":"DW_MADRID",
+  "deliveryAddress": "NO 1001, Chenhui Road, Pudong, Shanghai",
+  "items": [
+            {
+            "itemName": "Clothes",
+            "itemType": "Package",
+            "quantity": "20",
+            "unitOfMeasure": "PC",
+            "major": "1",
+            "minor": "1",
+            "selected": false
+            },
+            {
+            "itemName": "Table Tennis Balls",
+            "itemType": "Package",
+            "quantity": "200",
+            "unitOfMeasure": "PC",
+            "major": "1",
+            "minor": "2",
+            "selected": false
+            },
+            {
+            "itemName": "Cups",
+            "itemType": "Package",
+            "quantity": "30",
+            "unitOfMeasure": "PC",
+            "major": "2",
+            "minor": "1",
+            "selected": false
+            }
+            ]
+  },
+  {
+  "freightOrderID": "6100013026",
+  "shipper": "Decathlon",
+  "consignee": "SAP Table Tennis Club",
+  "driver": "Mr. Ethan Zzhang",
+  "pickupDatetime": "20141223120000",
+  "deliveryDatetime": "20141225120000",
+  "address":"DW_MILAN",
+  "deliveryAddress": "NO 1001, Chenhui Road, Pudong, Shanghai",
+  "items": [
+            {
+            "itemName": "Books",
+            "itemType": "Package",
+            "quantity": "40",
+            "unitOfMeasure": "Piece",
+            "major": "2",
+            "minor": "2",
+            "selected": false
+            },
+            {
+            "itemName": "Instruments",
+            "itemType": "Package",
+            "quantity": "10",
+            "unitOfMeasure": "Piece",
+            "major": "3",
+            "minor": "1",
+            "selected": false
+            },
+            {
+            "itemName": "Clothes",
+            "itemType": "Package",
+            "quantity": "20",
+            "unitOfMeasure": "Piece",
+            "major": "1",
+            "minor": "1",
+            "selected": false
+            },
+            {
+            "itemName": "Glasses",
+            "itemType": "Package",
+            "quantity": "20",
+            "unitOfMeasure": "L",
+            "major": "3",
+            "minor": "2",
+            "selected": false
+            },
+            {
+            "itemName": "Table Tennis Balls",
+            "itemType": "Package",
+            "quantity": "30",
+            "unitOfMeasure": "Piece",
+            "major": "1",
+            "minor": "2",
+            "selected": false
+            },
+            {
+            "itemName": "Cups",
+            "itemType": "Package",
+            "quantity": "50",
+            "unitOfMeasure": "Piece",
+            "major": "2",
+            "minor": "1",
+            "selected": false
+            }
+            ]
+  }
+  ]

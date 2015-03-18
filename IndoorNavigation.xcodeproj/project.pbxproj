@@ -8,13 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		4BE01CC71AB67A5A0047530D /* NaviAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE01CC61AB67A5A0047530D /* NaviAlgo.m */; };
+		740BF2191AB98CF70064E472 /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF2181AB98CF70064E472 /* PulsingHaloLayer.m */; };
+		740BF21B1AB98D0A0064E472 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 740BF21A1AB98D0A0064E472 /* beep.mp3 */; };
+		740BF21F1AB98D1C0064E472 /* CargoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF21D1AB98D1C0064E472 /* CargoTableViewCell.m */; };
+		740BF2221AB98D2B0064E472 /* FreightOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF2201AB98D2B0064E472 /* FreightOrder.m */; };
+		740BF2231AB98D2B0064E472 /* FreightOrders.json in Resources */ = {isa = PBXBuildFile; fileRef = 740BF2211AB98D2B0064E472 /* FreightOrders.json */; };
+		740BF2251AB98D810064E472 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 740BF2241AB98D810064E472 /* Main.storyboard */; };
+		740BF2281AB98EB10064E472 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF2271AB98EB10064E472 /* ScanViewController.m */; };
+		740BF22B1AB98EDF0064E472 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF22A1AB98EDF0064E472 /* TableViewController.m */; };
+		740BF22E1AB98F300064E472 /* FreightOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF22D1AB98F300064E472 /* FreightOrderDetailViewController.m */; };
+		740BF2341AB98FB10064E472 /* BFPaperCheckbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF2311AB98FB10064E472 /* BFPaperCheckbox.m */; };
+		740BF2351AB98FB10064E472 /* UIColor+BFPaperColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF2331AB98FB10064E472 /* UIColor+BFPaperColors.m */; };
+		740BF23B1AB98FB80064E472 /* AMWaveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF2381AB98FB80064E472 /* AMWaveTransition.m */; };
+		740BF23C1AB98FB80064E472 /* AMWaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF23A1AB98FB80064E472 /* AMWaveViewController.m */; };
 		74DA78861AB8114800CABC35 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74DA78851AB8114800CABC35 /* CoreLocation.framework */; };
-		74DA78881AB812A500CABC35 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 74DA78871AB812A500CABC35 /* location.png */; };
 		AAAF3DE71AB5B37100012A24 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DE61AB5B37100012A24 /* main.m */; };
 		AAAF3DEA1AB5B37100012A24 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DE91AB5B37100012A24 /* AppDelegate.m */; };
 		AAAF3DED1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DEB1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld */; };
-		AAAF3DF01AB5B37100012A24 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DEF1AB5B37100012A24 /* ViewController.m */; };
-		AAAF3DF31AB5B37100012A24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAAF3DF11AB5B37100012A24 /* Main.storyboard */; };
+		AAAF3DF01AB5B37100012A24 /* PathBuilderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DEF1AB5B37100012A24 /* PathBuilderViewController.m */; };
 		AAAF3DF51AB5B37100012A24 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAAF3DF41AB5B37100012A24 /* Images.xcassets */; };
 		AAAF3DF81AB5B37100012A24 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAAF3DF61AB5B37100012A24 /* LaunchScreen.xib */; };
 		AAAF3E041AB5B37100012A24 /* IndoorNavigationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3E031AB5B37100012A24 /* IndoorNavigationTests.m */; };
@@ -39,17 +50,38 @@
 /* Begin PBXFileReference section */
 		4BE01CC51AB67A5A0047530D /* NaviAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaviAlgo.h; sourceTree = "<group>"; };
 		4BE01CC61AB67A5A0047530D /* NaviAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NaviAlgo.m; sourceTree = "<group>"; };
+		740BF2171AB98CF70064E472 /* PulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulsingHaloLayer.h; sourceTree = "<group>"; };
+		740BF2181AB98CF70064E472 /* PulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulsingHaloLayer.m; sourceTree = "<group>"; };
+		740BF21A1AB98D0A0064E472 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
+		740BF21C1AB98D1C0064E472 /* CargoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CargoTableViewCell.h; sourceTree = "<group>"; };
+		740BF21D1AB98D1C0064E472 /* CargoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CargoTableViewCell.m; sourceTree = "<group>"; };
+		740BF21E1AB98D1C0064E472 /* FreightOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreightOrder.h; sourceTree = "<group>"; };
+		740BF2201AB98D2B0064E472 /* FreightOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreightOrder.m; sourceTree = "<group>"; };
+		740BF2211AB98D2B0064E472 /* FreightOrders.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FreightOrders.json; sourceTree = "<group>"; };
+		740BF2241AB98D810064E472 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		740BF2261AB98EB10064E472 /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
+		740BF2271AB98EB10064E472 /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
+		740BF2291AB98EDF0064E472 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		740BF22A1AB98EDF0064E472 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		740BF22C1AB98F300064E472 /* FreightOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreightOrderDetailViewController.h; sourceTree = "<group>"; };
+		740BF22D1AB98F300064E472 /* FreightOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreightOrderDetailViewController.m; sourceTree = "<group>"; };
+		740BF2301AB98FB10064E472 /* BFPaperCheckbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFPaperCheckbox.h; sourceTree = "<group>"; };
+		740BF2311AB98FB10064E472 /* BFPaperCheckbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFPaperCheckbox.m; sourceTree = "<group>"; };
+		740BF2321AB98FB10064E472 /* UIColor+BFPaperColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BFPaperColors.h"; sourceTree = "<group>"; };
+		740BF2331AB98FB10064E472 /* UIColor+BFPaperColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BFPaperColors.m"; sourceTree = "<group>"; };
+		740BF2371AB98FB80064E472 /* AMWaveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWaveTransition.h; sourceTree = "<group>"; };
+		740BF2381AB98FB80064E472 /* AMWaveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWaveTransition.m; sourceTree = "<group>"; };
+		740BF2391AB98FB80064E472 /* AMWaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWaveViewController.h; sourceTree = "<group>"; };
+		740BF23A1AB98FB80064E472 /* AMWaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWaveViewController.m; sourceTree = "<group>"; };
 		74DA78851AB8114800CABC35 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		74DA78871AB812A500CABC35 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
 		AAAF3DE11AB5B37100012A24 /* IndoorNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IndoorNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAAF3DE51AB5B37100012A24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAAF3DE61AB5B37100012A24 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AAAF3DE81AB5B37100012A24 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AAAF3DE91AB5B37100012A24 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		AAAF3DEC1AB5B37100012A24 /* IndoorNavigation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IndoorNavigation.xcdatamodel; sourceTree = "<group>"; };
-		AAAF3DEE1AB5B37100012A24 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		AAAF3DEF1AB5B37100012A24 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		AAAF3DF21AB5B37100012A24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AAAF3DEE1AB5B37100012A24 /* PathBuilderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PathBuilderViewController.h; sourceTree = "<group>"; };
+		AAAF3DEF1AB5B37100012A24 /* PathBuilderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PathBuilderViewController.m; sourceTree = "<group>"; };
 		AAAF3DF41AB5B37100012A24 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AAAF3DF71AB5B37100012A24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		AAAF3DFD1AB5B37100012A24 /* IndoorNavigationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndoorNavigationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +119,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		740BF2161AB98CF70064E472 /* PulsingHalo */ = {
+			isa = PBXGroup;
+			children = (
+				740BF2171AB98CF70064E472 /* PulsingHaloLayer.h */,
+				740BF2181AB98CF70064E472 /* PulsingHaloLayer.m */,
+			);
+			path = PulsingHalo;
+			sourceTree = "<group>";
+		};
+		740BF22F1AB98FB10064E472 /* Checkbox */ = {
+			isa = PBXGroup;
+			children = (
+				740BF2301AB98FB10064E472 /* BFPaperCheckbox.h */,
+				740BF2311AB98FB10064E472 /* BFPaperCheckbox.m */,
+				740BF2321AB98FB10064E472 /* UIColor+BFPaperColors.h */,
+				740BF2331AB98FB10064E472 /* UIColor+BFPaperColors.m */,
+			);
+			path = Checkbox;
+			sourceTree = "<group>";
+		};
+		740BF2361AB98FB80064E472 /* AMWaveTransition */ = {
+			isa = PBXGroup;
+			children = (
+				740BF2371AB98FB80064E472 /* AMWaveTransition.h */,
+				740BF2381AB98FB80064E472 /* AMWaveTransition.m */,
+				740BF2391AB98FB80064E472 /* AMWaveViewController.h */,
+				740BF23A1AB98FB80064E472 /* AMWaveViewController.m */,
+			);
+			path = AMWaveTransition;
+			sourceTree = "<group>";
+		};
 		AAAF3DD81AB5B37100012A24 = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +172,22 @@
 		AAAF3DE31AB5B37100012A24 /* IndoorNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				740BF2361AB98FB80064E472 /* AMWaveTransition */,
+				740BF22F1AB98FB10064E472 /* Checkbox */,
+				740BF22C1AB98F300064E472 /* FreightOrderDetailViewController.h */,
+				740BF22D1AB98F300064E472 /* FreightOrderDetailViewController.m */,
+				740BF2291AB98EDF0064E472 /* TableViewController.h */,
+				740BF22A1AB98EDF0064E472 /* TableViewController.m */,
+				740BF2261AB98EB10064E472 /* ScanViewController.h */,
+				740BF2271AB98EB10064E472 /* ScanViewController.m */,
+				740BF2241AB98D810064E472 /* Main.storyboard */,
+				740BF2201AB98D2B0064E472 /* FreightOrder.m */,
+				740BF2211AB98D2B0064E472 /* FreightOrders.json */,
+				740BF21C1AB98D1C0064E472 /* CargoTableViewCell.h */,
+				740BF21D1AB98D1C0064E472 /* CargoTableViewCell.m */,
+				740BF21E1AB98D1C0064E472 /* FreightOrder.h */,
+				740BF21A1AB98D0A0064E472 /* beep.mp3 */,
+				740BF2161AB98CF70064E472 /* PulsingHalo */,
 				4BE01CC51AB67A5A0047530D /* NaviAlgo.h */,
 				4BE01CC61AB67A5A0047530D /* NaviAlgo.m */,
 				AAAF3E0D1AB5B3CD00012A24 /* BeaconClient.h */,
@@ -124,9 +203,8 @@
 				AAAF3E171AB5B3CD00012A24 /* storage.m */,
 				AAAF3DE81AB5B37100012A24 /* AppDelegate.h */,
 				AAAF3DE91AB5B37100012A24 /* AppDelegate.m */,
-				AAAF3DEE1AB5B37100012A24 /* ViewController.h */,
-				AAAF3DEF1AB5B37100012A24 /* ViewController.m */,
-				AAAF3DF11AB5B37100012A24 /* Main.storyboard */,
+				AAAF3DEE1AB5B37100012A24 /* PathBuilderViewController.h */,
+				AAAF3DEF1AB5B37100012A24 /* PathBuilderViewController.m */,
 				AAAF3DF41AB5B37100012A24 /* Images.xcassets */,
 				AAAF3DF61AB5B37100012A24 /* LaunchScreen.xib */,
 				AAAF3DEB1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld */,
@@ -138,7 +216,6 @@
 		AAAF3DE41AB5B37100012A24 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				74DA78871AB812A500CABC35 /* location.png */,
 				AAAF3DE51AB5B37100012A24 /* Info.plist */,
 				AAAF3DE61AB5B37100012A24 /* main.m */,
 			);
@@ -211,10 +288,11 @@
 				TargetAttributes = {
 					AAAF3DE01AB5B37100012A24 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = C7B42N9WKH;
+						DevelopmentTeam = TCSMY4USJ7;
 					};
 					AAAF3DFC1AB5B37100012A24 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = TCSMY4USJ7;
 						TestTargetID = AAAF3DE01AB5B37100012A24;
 					};
 				};
@@ -243,9 +321,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAAF3DF31AB5B37100012A24 /* Main.storyboard in Resources */,
+				740BF2251AB98D810064E472 /* Main.storyboard in Resources */,
 				AAAF3DF81AB5B37100012A24 /* LaunchScreen.xib in Resources */,
-				74DA78881AB812A500CABC35 /* location.png in Resources */,
+				740BF2231AB98D2B0064E472 /* FreightOrders.json in Resources */,
+				740BF21B1AB98D0A0064E472 /* beep.mp3 in Resources */,
 				AAAF3E1A1AB5B3CD00012A24 /* location.json in Resources */,
 				AAAF3DF51AB5B37100012A24 /* Images.xcassets in Resources */,
 			);
@@ -269,11 +348,21 @@
 				AAAF3E1D1AB5B3CD00012A24 /* storage.m in Sources */,
 				4BE01CC71AB67A5A0047530D /* NaviAlgo.m in Sources */,
 				AAAF3DED1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld in Sources */,
+				740BF22E1AB98F300064E472 /* FreightOrderDetailViewController.m in Sources */,
 				AAAF3E1C1AB5B3CD00012A24 /* ShapeView.m in Sources */,
 				AAAF3E181AB5B3CD00012A24 /* BeaconClient.m in Sources */,
+				740BF23B1AB98FB80064E472 /* AMWaveTransition.m in Sources */,
+				740BF21F1AB98D1C0064E472 /* CargoTableViewCell.m in Sources */,
 				AAAF3DEA1AB5B37100012A24 /* AppDelegate.m in Sources */,
+				740BF2191AB98CF70064E472 /* PulsingHaloLayer.m in Sources */,
+				740BF2221AB98D2B0064E472 /* FreightOrder.m in Sources */,
 				AAAF3E191AB5B3CD00012A24 /* iBeacon.m in Sources */,
-				AAAF3DF01AB5B37100012A24 /* ViewController.m in Sources */,
+				740BF2351AB98FB10064E472 /* UIColor+BFPaperColors.m in Sources */,
+				740BF2281AB98EB10064E472 /* ScanViewController.m in Sources */,
+				740BF2341AB98FB10064E472 /* BFPaperCheckbox.m in Sources */,
+				AAAF3DF01AB5B37100012A24 /* PathBuilderViewController.m in Sources */,
+				740BF23C1AB98FB80064E472 /* AMWaveViewController.m in Sources */,
+				740BF22B1AB98EDF0064E472 /* TableViewController.m in Sources */,
 				AAAF3DE71AB5B37100012A24 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,14 +386,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		AAAF3DF11AB5B37100012A24 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AAAF3DF21AB5B37100012A24 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		AAAF3DF61AB5B37100012A24 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

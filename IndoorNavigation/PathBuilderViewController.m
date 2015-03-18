@@ -1,18 +1,18 @@
 //
-//  ViewController.m
+//  PathBuilderViewController.m
 //  CalPositionByDistance
 //
 //  Created by Lc on 15/3/2.
 //  Copyright (c) 2015年 Lc. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "PathBuilderViewController.h"
 #define SCALE 1024/4.8    //定义实际距离与屏幕显示房间尺寸的比例尺
 #define NUM_OF_BEACONS 6  //定义beacon总数量
 #define MAX_DISTANCE 3  //定义可能的最大beacon距离 单位：米
 #define MIN_DISTANCE 1  //定义更新坐标的最小值，单位:屏幕像素
 
-@interface ViewController ()  <CLLocationManagerDelegate>
+@interface PathBuilderViewController ()  <CLLocationManagerDelegate>
 @property (nonatomic, readonly) PathBuilderView *pathBuilderView;
 @property (nonatomic , strong) CLLocationManager *locationManager;
 @property (nonatomic , strong) NSOperationQueue *queue;
@@ -20,7 +20,7 @@
 @end
 
 
-@implementation ViewController
+@implementation PathBuilderViewController
 static CFTimeInterval const kDuration = 4.0;
 
 int distanceData[42][42] = {
@@ -110,6 +110,9 @@ int iBeaconPositions[6][2] = {
 };
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     NSArray *uuid = [[NSArray alloc] initWithObjects:@"first", @"sec", @"third", @"fourth", @"fifth", @"sixth", nil];
 //    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
     aIBeacons = [[NSMutableArray alloc] init];
@@ -150,13 +153,13 @@ int iBeaconPositions[6][2] = {
     }
     self.naviIcon = [[CALayer alloc] init];
     self.naviIcon.frame = CGRectMake(369, 892,30,30);
-    self.naviIcon.contents = (id)[[UIImage imageNamed:@"location.png"] CGImage];
+    self.naviIcon.contents = (id)[[UIImage imageNamed:@"navigator"] CGImage];
     [self.view.layer addSublayer:self.naviIcon];
     
     
     
     
-    [super viewDidLoad];
+   
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -168,8 +171,12 @@ int iBeaconPositions[6][2] = {
 #pragma mark - initView
 
 - (void)viewPrepare{
-    self.view = [[PathBuilderView alloc] initWithFrame:CGRectMake(0, 64, 768, 920)];
-    self.view.backgroundColor = [UIColor whiteColor];
+//    self.view = [[PathBuilderView alloc] initWithFrame:CGRectMake(0, 64, 768, 920)];
+    
+    PathBuilderView * builderView = [[PathBuilderView alloc] initWithFrame:self.view.frame];
+    [self.view insertSubview:builderView atIndex:0];
+    
+    self.view.backgroundColor = [UIColor lightGrayColor];
     
     [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
     
@@ -191,17 +198,17 @@ int iBeaconPositions[6][2] = {
     
     self.pathBuilderView.pathShapeView.shapeLayer.timeOffset = 2;
     
-    UIButton *drawPathButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [drawPathButton setTitle:NSLocalizedString(@"Draw Path", nil) forState:UIControlStateNormal];
-    [drawPathButton addTarget:self action:@selector(beginCalcuAndDraw) forControlEvents:UIControlEventTouchUpInside];
-    drawPathButton.frame = CGRectMake(300, 974, 168, 50);
-    [self.view addSubview:drawPathButton];
+//    UIButton *drawPathButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//    [drawPathButton setTitle:NSLocalizedString(@"Draw Path", nil) forState:UIControlStateNormal];
+//    [drawPathButton addTarget:self action:@selector(beginCalcuAndDraw) forControlEvents:UIControlEventTouchUpInside];
+//    drawPathButton.frame = CGRectMake(300, 974, 168, 50);
+//    [self.view addSubview:drawPathButton];
     
 }
 
 - (PathBuilderView *)pathBuilderView
 {
-    return (PathBuilderView *)self.view;
+    return (PathBuilderView *)self.view.subviews.firstObject;
 }
 
 //在屏幕上创建出表示货架的黑button
@@ -261,7 +268,7 @@ int iBeaconPositions[6][2] = {
 }
 
 //button点击事件，就是点击”Draw Path“ button后触发的事件
-- (void)beginCalcuAndDraw{
+- (IBAction)drawNavigationPath: (UIBarButtonItem *) sender{
     // TODO:
     if (drawOrClear == YES) {
         NaviAlgo *calPath = [[NaviAlgo alloc] init];
