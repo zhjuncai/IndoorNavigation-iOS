@@ -200,8 +200,8 @@ int iBeaconPositions[6][2] = {
         UILongPressGestureRecognizer *longPressGR =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                       action:@selector(handleLongPress:)];
-        longPressGR.allowableMovement=NO;
-        longPressGR.minimumPressDuration = 0.2;
+        //longPressGR.allowableMovement=NO;
+        longPressGR.minimumPressDuration = 0.8;
         [oStorage addGestureRecognizer:longPressGR];
 
         //响应的事件
@@ -210,15 +210,18 @@ int iBeaconPositions[6][2] = {
     }
 }
 
--(IBAction)handleLongPress:(id)sender{
+-(IBAction)handleLongPress:(UILongPressGestureRecognizer*)gestureRecognizer{
     
-    storage *button=sender;
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                         message:[NSString stringWithFormat:@"目的地点：%ld",(long)button.tag]
-                                                        delegate:nil
-                                               cancelButtonTitle:@"确定"
-                                               otherButtonTitles:nil];
-    [alertView show];
+    //storage *button=sender;
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan){
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                             message:@"test"
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"确定"
+                                                   otherButtonTitles:nil];
+        [alertView show];
+    }
+   
     
 }
 
