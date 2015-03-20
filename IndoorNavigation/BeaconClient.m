@@ -15,6 +15,9 @@
 
 
 @end
+int iBeaconPositionsinClient[6][2] = {
+    {0, 0}, {0, 512}, {0, 1024}, {768, 0}, {768, 512}, {768, 1024}
+};
 @implementation BeaconClient
 
 - (id)init
@@ -33,6 +36,15 @@
         self.bearegion = [[CLBeaconRegion alloc] initWithProximityUUID:estimoteUUID identifier:kIndetifier];
         // launch app when display is turned on and inside region
         self.bearegion.notifyEntryStateOnDisplay = YES;
+        
+        NSArray *uuid = [[NSArray alloc] initWithObjects:@"1-1", @"2-1", @"3-1", @"4-1", @"5-1", @"6-1", nil];
+        //    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
+        _aIBeacons = [[NSMutableArray alloc] init];
+        for (int i = 0; i < NUM_OF_BEACONS; i ++) {
+            iBeacon *test = [[iBeacon alloc] initWithLocation:[NSString stringWithFormat:@"%d", iBeaconPositionsinClient[i][0]] y:[NSString stringWithFormat:@"%d", iBeaconPositionsinClient[i][1]] idStr:[uuid objectAtIndex:i]];
+            [_aIBeacons addObject:test];
+        }
+
     }
     return self;
 }
@@ -264,6 +276,7 @@
     xFinal = xFinal / 2;
     yFinal = yFinal / 2;
     NSArray *result = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%f", xFinal], [NSString stringWithFormat:@"%f", yFinal], nil];
+    NSLog(@"hehehehe:%@", result);
     return result;
 }
 
@@ -289,10 +302,10 @@
         x3 = x4;
         y3 = y4;
     }
-    NSLog(@"x : %f, y : %f",x3, y3);
+//    NSLog(@"x : %f, y : %f",x3, y3);
     
     NSString *result = [NSString stringWithFormat:@"%f %f",x3, y3];
-    NSLog(@"hehehehe:%@", result);
+//    NSLog(@"hehehehe:%@", result);
     return result;
 }
 
@@ -331,22 +344,27 @@
     
     for (CLBeacon* beacon in beacons) {
         NSString *str=[NSString stringWithFormat:@"%i-%i",[beacon.major intValue],[beacon.minor intValue]];
-        if (beacon.accuracy > MAX_DISTANCE) {
+        if (beacon.accuracy > MAX_DISTANCE || beacon.accuracy < 0) {
             wrongNum ++;
         }else{
-            for (CLBeacon* preBeacon in self.myBeacons){
-                if (beacon.major == preBeacon.minor && beacon.major == preBeacon.major) {
-                    if (fabs(preBeacon.accuracy - beacon.accuracy) * SCALE < MIN_DISTANCE) {
-                        wrongNum ++;
-                    }else{
-                        [self.myBeacons setObject:beacon forKey:str];
+            if ([self.myBeacons count] < [beacons count]) {
+                [self.myBeacons setObject:beacon forKey:str];
+            }else{
+                for (CLBeacon* preBeacon in self.myBeacons){
+                    if (beacon.major == preBeacon.minor && beacon.major == preBeacon.major) {
+                        if (fabs(preBeacon.accuracy - beacon.accuracy) * SCALE < MIN_DISTANCE) {
+                            wrongNum ++;
+                        }else{
+                            [self.myBeacons setObject:beacon forKey:str];
+                        }
                     }
                 }
             }
+            
         }
     }
     
-    if (3 > NUM_OF_BEACONS - wrongNum) {
+    if (2 > NUM_OF_BEACONS - wrongNum) {
         return NO;
     }else{
         return YES;
@@ -357,52 +375,64 @@
 
 -(void)drawPosition{
     NSMutableArray *tem = [[NSMutableArray alloc] init];
-    for(CLBeacon* beacon in self.myBeacons){
-        [tem addObject:beacon];
-    }
-    int num = [tem count]/3;
-    NSMutableArray* resultArray = [[NSMutableArray alloc] init];
-    for (int i = 0; i < num; i ++) {
-        float x0 = 0.0,y0 = 0.0,r0 = 0.0,x1 = 0.0,y1 = 0.0,r1 = 0.0,x = 0.0,y = 0.0,r = 0.0;
-        CLBeacon* beacon0 = [tem objectAtIndex:3*i];
-        CLBeacon* beacon1 = [tem objectAtIndex:3*i + 1];
-        CLBeacon* beacon2 = [tem objectAtIndex:3*i + 2];
-        for(iBeacon *myBeacon in self.aIBeacons){
-            if ([[myBeacon getIdStr] isEqualToString:[NSString stringWithFormat:@"%i-%i",[beacon0.major intValue],[beacon0.minor intValue]]]) {
-                x0 = [[myBeacon getX] intValue];
-                y0 = [[myBeacon getY] intValue];
-                r0 = beacon0.accuracy * SCALE;
-            }else if([[myBeacon getIdStr] isEqualToString:[NSString stringWithFormat:@"%i-%i",[beacon1.major intValue],[beacon1.minor intValue]]]){
-                x1 = [[myBeacon getX] intValue];
-                y1 = [[myBeacon getY] intValue];
-                r1 = beacon1.accuracy * SCALE;
-            }else if ([[myBeacon getIdStr] isEqualToString:[NSString stringWithFormat:@"%i-%i",[beacon2.major intValue],[beacon2.minor intValue]]]){
-                x = [[myBeacon getX] intValue];
-                y = [[myBeacon getY] intValue];
-                r = beacon2.accuracy * SCALE;
+    tem = [self PickIBeacons];
+    if ([tem count] >= 3) {
+        int num = [tem count]/3;
+        
+        NSMutableArray* resultArray = [[NSMutableArray alloc] init];
+        for (int i = 0; i < num; i ++) {
+            float x0 = 0.0,y0 = 0.0,r0 = 0.0,x1 = 0.0,y1 = 0.0,r1 = 0.0,x = 0.0,y = 0.0,r = 0.0;
+            CLBeacon* beacon0 = [tem objectAtIndex:3*i];
+            CLBeacon* beacon1 = [tem objectAtIndex:3*i + 1];
+            CLBeacon* beacon2 = [tem objectAtIndex:3*i + 2];
+            for(iBeacon *myBeacon in self.aIBeacons){
+                if ([[myBeacon getIdStr] isEqualToString:[NSString stringWithFormat:@"%i-%i",[beacon0.major intValue],[beacon0.minor intValue]]]) {
+                    x0 = [[myBeacon getX] intValue];
+                    y0 = [[myBeacon getY] intValue];
+                    r0 = beacon0.accuracy * SCALE;
+                }else if([[myBeacon getIdStr] isEqualToString:[NSString stringWithFormat:@"%i-%i",[beacon1.major intValue],[beacon1.minor intValue]]]){
+                    x1 = [[myBeacon getX] intValue];
+                    y1 = [[myBeacon getY] intValue];
+                    r1 = beacon1.accuracy * SCALE;
+                }else if ([[myBeacon getIdStr] isEqualToString:[NSString stringWithFormat:@"%i-%i",[beacon2.major intValue],[beacon2.minor intValue]]]){
+                    x = [[myBeacon getX] intValue];
+                    y = [[myBeacon getY] intValue];
+                    r = beacon2.accuracy * SCALE;
+                }
             }
+            [resultArray addObject:[self CalPosition:x0 y0:y0 r0:r0 x1:x1 y1:y1 r1:r1 x2:x y2:y r2:r]];
         }
-        [resultArray addObject:[self CalPosition:x0 y0:y0 r0:r0 x1:x1 y1:y1 r1:r1 x2:x y2:y r2:r]];
-    }
-    float resultX = 0.0;
-    float resultY = 0.0;
-    
-    for (int i = 0; i < num; i ++) {
-        NSArray* tem = [resultArray objectAtIndex:i];
-        float temX = [[tem objectAtIndex:0] floatValue];
-        float temY = [[tem objectAtIndex:1] floatValue];
-        resultX += temX;
-        resultY += temY;
-    }
-    
-    resultX = resultX/num;
-    resultY = resultY/num;
-    float distanceFromPre = [self CalDistance:resultX y0:resultY x1:[[positionArray objectAtIndex:0] floatValue] y1:[[positionArray objectAtIndex:0] floatValue]];
-    
-    if (distanceFromPre < 40 && distanceFromPre > 3) {
-        positionArray = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%f",resultX], [NSString stringWithFormat:@"%f",resultY], nil];
+        float resultX = 0.0;
+        float resultY = 0.0;
+        
+        for (int i = 0; i < num; i ++) {
+            NSArray* tem = [resultArray objectAtIndex:i];
+            float temX = [[tem objectAtIndex:0] floatValue];
+            float temY = [[tem objectAtIndex:1] floatValue];
+            resultX += temX;
+            resultY += temY;
+        }
+        
+        resultX = resultX/num;
+        resultY = resultY/num;
+        float distanceFromPre = [self CalDistance:resultX y0:resultY x1:[[positionArray objectAtIndex:0] floatValue] y1:[[positionArray objectAtIndex:0] floatValue]];
+        
+        if (distanceFromPre < 40 && distanceFromPre > 3) {
+            positionArray = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%f",resultX], [NSString stringWithFormat:@"%f",resultY], nil];
+        }
+
     }
 }
 
+
+- (NSMutableArray*)PickIBeacons{
+    NSMutableArray* resultBeacons = [[NSMutableArray alloc] init];
+    for (iBeacon* tem in self.aIBeacons) {
+        if ([self.myBeacons objectForKey:[tem getIdStr]] != nil) {
+            [resultBeacons addObject:[self.myBeacons objectForKey:[tem getIdStr]]];
+        }
+    }
+    return resultBeacons;
+}
 
 @end
