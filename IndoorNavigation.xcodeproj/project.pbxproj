@@ -294,7 +294,7 @@
 					};
 					AAAF3DFC1AB5B37100012A24 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = TCSMY4USJ7;
+						DevelopmentTeam = C7B42N9WKH;
 						TestTargetID = AAAF3DE01AB5B37100012A24;
 					};
 				};
