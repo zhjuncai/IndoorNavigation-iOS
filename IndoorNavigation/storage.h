@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 
 @interface storage: UIButton
+@property  (nonatomic) BOOL isSelected;
 
 
 - (id)init:(CGRect)frame angle:(float)angle keyPoint:(int)index name:(NSString*)name;

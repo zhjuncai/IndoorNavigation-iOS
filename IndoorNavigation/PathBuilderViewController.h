@@ -24,6 +24,7 @@
     NSMutableArray *aIBeacons;
     NSTimer *ressTimer;
     BOOL drawOrClear;
+    NSMutableArray *storageArray;
 }
 
 @property (nonatomic, retain) BeaconClient *beaconClient;

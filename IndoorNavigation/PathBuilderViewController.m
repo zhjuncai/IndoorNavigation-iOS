@@ -11,6 +11,8 @@
 @interface PathBuilderViewController ()
 @property (nonatomic, readonly) PathBuilderView *pathBuilderView;
 
+
+
 @end
 
 int distanceData[42][42] = {
@@ -116,6 +118,7 @@ int iBeaconPositions[6][2] = {
     drawOrClear = YES;
     choosedPoints = [[NSMutableArray alloc] init];
     pathPoints = [[NSMutableArray alloc] init];
+    storageArray =[[NSMutableArray alloc] init];
     
     
     
@@ -137,7 +140,6 @@ int iBeaconPositions[6][2] = {
     
     
     
-    
    
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -153,6 +155,7 @@ int iBeaconPositions[6][2] = {
 //    self.view = [[PathBuilderView alloc] initWithFrame:CGRectMake(0, 64, 768, 920)];
     
     PathBuilderView * builderView = [[PathBuilderView alloc] initWithFrame:self.view.frame];
+    [builderView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]]];
     [self.view insertSubview:builderView atIndex:0];
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -189,13 +192,35 @@ int iBeaconPositions[6][2] = {
     for (int i = 0; i < 40; i ++) {
         CGRect frame = [self ConvertToFram:storagePosition[i]];
         storage *oStorage = [[storage alloc] init:frame angle:0 keyPoint:keyPointMap[i]-1 name:@""];
+        
 
         [self.view addSubview:oStorage];
         [oStorage addTarget:self action:@selector(getKeyPointIndexByClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UILongPressGestureRecognizer *longPressGR =
+        [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                      action:@selector(handleLongPress:)];
+        longPressGR.allowableMovement=NO;
+        longPressGR.minimumPressDuration = 0.2;
+        [oStorage addGestureRecognizer:longPressGR];
+
+        //响应的事件
+      
+
     }
 }
 
-
+-(IBAction)handleLongPress:(id)sender{
+    
+    storage *button=sender;
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                         message:[NSString stringWithFormat:@"目的地点：%ld",(long)button.tag]
+                                                        delegate:nil
+                                               cancelButtonTitle:@"确定"
+                                               otherButtonTitles:nil];
+    [alertView show];
+    
+}
 
 
 #pragma mark - drawPath method
@@ -235,9 +260,19 @@ int iBeaconPositions[6][2] = {
 - (IBAction)getKeyPointIndexByClick:(id)sender{
     storage *btn = sender;
     NSNumber *index = [NSNumber numberWithLong:btn.tag];
-    if (![choosedPoints containsObject:index]) {
+    if (!btn.isSelected) {
         [choosedPoints addObject:index];
+        [storageArray addObject:sender];
+        btn.isSelected = YES;
+        [btn setBackgroundImage:[UIImage imageNamed:@"selectedShelf"] forState:UIControlStateNormal];
     }
+    else{
+        [choosedPoints removeObject:index];
+        [storageArray removeObject:sender];
+        btn.isSelected = NO;
+        [btn setBackgroundImage:[UIImage imageNamed:@"shelf"] forState:UIControlStateNormal];
+    }
+        
 }
 
 //button点击事件，就是点击”Draw Path“ button后触发的事件
@@ -269,6 +304,7 @@ int iBeaconPositions[6][2] = {
         [self drawPath:[self SwapAllElementInArray:pathPoints]];
         [self ClearPath];
         [sender setTitle:@"Navigate!"];
+        
     }
     
 }
@@ -326,6 +362,17 @@ int iBeaconPositions[6][2] = {
 - (void)ClearPath{
 
     drawOrClear = YES;
+    for(int i=0;i<[storageArray count];i++){
+        storage* button = [storageArray objectAtIndex:i];
+        if(button.isSelected){
+            [button setBackgroundImage:[UIImage imageNamed:@"shelf"] forState:UIControlStateNormal];
+            button.isSelected = NO;
+        }
+        
+
+    }
+    
+    [storageArray removeAllObjects];
     [pathPoints removeAllObjects];
     [choosedPoints removeAllObjects];
     [self.pathBuilderView Clear];
