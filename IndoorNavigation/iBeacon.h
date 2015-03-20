@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface iBeacon : NSObject
+@interface iBeacon : NSObject{
+    int test;
+}
 
 
 @property (strong, nonatomic) NSString *x;

@@ -9,12 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "Header.h"
+#import "iBeacon.h"
 
 @interface BeaconClient : NSObject
 <CLLocationManagerDelegate>
 {
     CLLocationManager * _locationManager;
     BOOL _isInsideRegion; // flag to prevent duplicate sending of notification
+    NSMutableDictionary *observeBeacons;
+    NSArray *positionArray;
 }
 
 - (BOOL)openClient;
@@ -23,4 +27,5 @@
 @property (strong, readwrite) NSMutableDictionary *myBeacons;
 @property (strong, readwrite) NSMutableDictionary *itemdic;
 @property (strong, readwrite) CLBeaconRegion *bearegion;
+@property (strong, readwrite) NSMutableArray *aIBeacons;
 @end

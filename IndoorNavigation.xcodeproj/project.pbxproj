@@ -48,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B9CCC851ABBF6B500446483 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		4BE01CC51AB67A5A0047530D /* NaviAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaviAlgo.h; sourceTree = "<group>"; };
 		4BE01CC61AB67A5A0047530D /* NaviAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NaviAlgo.m; sourceTree = "<group>"; };
 		740BF2171AB98CF70064E472 /* PulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulsingHaloLayer.h; sourceTree = "<group>"; };
@@ -190,6 +191,7 @@
 				740BF2161AB98CF70064E472 /* PulsingHalo */,
 				4BE01CC51AB67A5A0047530D /* NaviAlgo.h */,
 				4BE01CC61AB67A5A0047530D /* NaviAlgo.m */,
+				4B9CCC851ABBF6B500446483 /* Header.h */,
 				AAAF3E0D1AB5B3CD00012A24 /* BeaconClient.h */,
 				AAAF3E0E1AB5B3CD00012A24 /* BeaconClient.m */,
 				AAAF3E0F1AB5B3CD00012A24 /* iBeacon.h */,
@@ -288,7 +290,7 @@
 				TargetAttributes = {
 					AAAF3DE01AB5B37100012A24 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = TCSMY4USJ7;
+						DevelopmentTeam = C7B42N9WKH;
 					};
 					AAAF3DFC1AB5B37100012A24 = {
 						CreatedOnToolsVersion = 6.2;

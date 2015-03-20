@@ -15,13 +15,13 @@
 #import "PathBuilderView.h"
 #import "ShapeView.h"
 #import "NaviAlgo.h"
+#import "Header.h"
 
 
 @interface PathBuilderViewController : UIViewController{
     NSMutableArray *choosedPoints;
     NSMutableArray *pathPoints;
     NSMutableArray *aIBeacons;
-    NSMutableDictionary *iBeaconsFromDetectDic;
     NSTimer *ressTimer;
     BOOL drawOrClear;
 }
