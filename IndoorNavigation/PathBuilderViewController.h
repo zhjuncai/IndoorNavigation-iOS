@@ -29,6 +29,7 @@
 }
 
 @property (nonatomic, retain) BeaconClient *beaconClient;
-- (void) drawFootprint:(CALayer *) footIcon;
+- (void) drawFootprint:(NSTimer *) myTimer;
+- (void) clearFootprint:(NSTimer *) myTimer;
 @end
 

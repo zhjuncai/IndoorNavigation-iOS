@@ -288,19 +288,19 @@ int iBeaconPositions[6][2] = {
                 if(isLeft){
                     
                     if(deltaX>0){
-                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num , oldPoint.y+ j*deltaY/num-4,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num-6 , oldPoint.y+ j*deltaY/num-4-6,20,20);
                         footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-right"] CGImage];
                     }
                     else if(deltaX<0){
-                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num , oldPoint.y+ j*deltaY/num+4,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num -6, oldPoint.y+ j*deltaY/num+4-6,20,20);
                         footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-left"] CGImage];
                     }
                     else if(deltaY >0){
-                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num , oldPoint.y+ j*deltaY/num,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num -6, oldPoint.y+ j*deltaY/num-6,20,20);
                         footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-down"] CGImage];
                     }
                     else if(deltaY){
-                        footIcon.frame = CGRectMake(oldPoint.x-4 + j*deltaX/num , oldPoint.y+ j*deltaY/num,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x-4 + j*deltaX/num -6, oldPoint.y+ j*deltaY/num-6,20,20);
                         footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-up"] CGImage];
                         
                     }
@@ -310,25 +310,27 @@ int iBeaconPositions[6][2] = {
                 else{
                     
                     if(deltaX>0){
-                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num , oldPoint.y+ j*deltaY/num+4,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num-6 , oldPoint.y+ j*deltaY/num+4-6,20,20);
                         footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-right"] CGImage];
                     }
                     else if(deltaX<0){
-                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num , oldPoint.y+ j*deltaY/num-4,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num -6, oldPoint.y+ j*deltaY/num-4-6,20,20);
                         footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-left"] CGImage];
                     }
                     else if(deltaY >0){
-                        footIcon.frame = CGRectMake(oldPoint.x-4+ j*deltaX/num , oldPoint.y+ j*deltaY/num,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x-4+ j*deltaX/num -6, oldPoint.y+ j*deltaY/num-6,20,20);
                         footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-down"] CGImage];
                     }
                     else if(deltaY){
-                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num , oldPoint.y+ j*deltaY/num,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num -6, oldPoint.y+ j*deltaY/num-5,20,20);
                         footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-up"] CGImage];
                     }
                     isLeft=!isLeft;
 
                 }
+                footIcon.hidden = YES;
                 [footprintArray addObject:footIcon];
+                [self.view.layer addSublayer:footIcon];
                 
             }
 
@@ -337,7 +339,7 @@ int iBeaconPositions[6][2] = {
     
 
     for(int k=0; k<[footprintArray count];k++){
-        NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:0.5*k target:self selector:@selector(drawFootprint:) userInfo:[footprintArray objectAtIndex:k] repeats:NO];
+        NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:0.3*k target:self selector:@selector(drawFootprint:) userInfo:[footprintArray objectAtIndex:k] repeats:NO];
     }
     
 }
@@ -345,7 +347,7 @@ int iBeaconPositions[6][2] = {
 
 - (void) drawFootprint:(NSTimer *) myTimer{
     CALayer *footIcon = [myTimer userInfo];
-    [self.view.layer addSublayer:footIcon];
+    footIcon.hidden = NO;
 }
 
 //把zion返回的计算结果添加到pathBuilderView的self.points里面
@@ -404,7 +406,7 @@ int iBeaconPositions[6][2] = {
         }
         
     }else{
-        [self drawPath:[self SwapAllElementInArray:pathPoints]];
+        //[self drawPath:[self SwapAllElementInArray:pathPoints]];
         [self ClearPath];
         [sender setTitle:@"Navigate!"];
         
@@ -462,25 +464,55 @@ int iBeaconPositions[6][2] = {
 }
 
 //清空路径数据
+//- (void)ClearPath{
+//
+//    drawOrClear = YES;
+//    for(int i=0;i<[storageArray count];i++){
+//        storage* button = [storageArray objectAtIndex:i];
+//        if(button.isSelected){
+//            [button setBackgroundImage:[UIImage imageNamed:@"shelf"] forState:UIControlStateNormal];
+//            button.isSelected = NO;
+//        }
+//        
+//
+//    }
+//    
+//    [storageArray removeAllObjects];
+//    [pathPoints removeAllObjects];
+//    [choosedPoints removeAllObjects];
+//    [self.pathBuilderView Clear];
+//}
 - (void)ClearPath{
-
     drawOrClear = YES;
-    for(int i=0;i<[storageArray count];i++){
-        storage* button = [storageArray objectAtIndex:i];
-        if(button.isSelected){
-            [button setBackgroundImage:[UIImage imageNamed:@"shelf"] forState:UIControlStateNormal];
-            button.isSelected = NO;
+    
+        for(int i=0;i<[storageArray count];i++){
+            storage* button = [storageArray objectAtIndex:i];
+            if(button.isSelected){
+                [button setBackgroundImage:[UIImage imageNamed:@"shelf"] forState:UIControlStateNormal];
+                button.isSelected = NO;
+            }
+    
+    
         }
-        
-
+    
+    
+    for(int k=0; k<[footprintArray count];k++){
+        NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:0.3*k target:self selector:@selector(clearFootprint:) userInfo:[footprintArray objectAtIndex:k] repeats:NO];
     }
     
+    //[footprintArray removeAllObjects];
     [storageArray removeAllObjects];
     [pathPoints removeAllObjects];
     [choosedPoints removeAllObjects];
     [self.pathBuilderView Clear];
 }
 
+- (void) clearFootprint:(NSTimer *) myTimer{
+    CALayer * footIcon = [myTimer userInfo];
+    footIcon.hidden =YES;
+    [footprintArray removeObject:footIcon];
+    
+}
 
 - (CGRect)ConvertToFram:(int[4])array{
     CGRect frame = CGRectMake(array[0], array[1], array[2], array[3]);
