@@ -24,13 +24,14 @@ int iBeaconPositionsinClient[6][2] = {
 {
     if (self = [super init]) {
         _isInsideRegion = NO;
+        testNum = 0;
         _locationManager = [[CLLocationManager alloc] init];
         [_locationManager requestAlwaysAuthorization];
         _locationManager.delegate = self;
         self.myBeacons = [[NSMutableDictionary alloc] init];
         observeBeacons = [[NSMutableDictionary alloc] init];
         self.aIBeacons = [[NSMutableArray alloc] init];
-        positionArray = [[NSArray alloc] initWithObjects:@"", @"", nil];
+        self.positionArray = [[NSArray alloc] initWithObjects:@"", @"", nil];
         
         NSUUID *estimoteUUID = [[NSUUID alloc] initWithUUIDString:@"B7D1027D-6788-416E-994F-EA11075F1765"];
         self.bearegion = [[CLBeaconRegion alloc] initWithProximityUUID:estimoteUUID identifier:kIndetifier];
@@ -276,13 +277,11 @@ int iBeaconPositionsinClient[6][2] = {
     xFinal = xFinal / 2;
     yFinal = yFinal / 2;
     NSArray *result = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%f", xFinal], [NSString stringWithFormat:@"%f", yFinal], nil];
-    NSLog(@"hehehehe:%@", result);
     return result;
 }
 
 - (NSString *)CalCircleIntersectposition: (float)x0 y0:(float)y0 r0:(float)r0 x1:(float)x1 y1:(float)y1 r1:(float)r1 x:(float)x y:(float)y r:(float)r{
     float D = [self CalDistance:x0 y0:y0 x1:x1 y1:y1];
-    NSLog(@"%f",D);
     float a = (r0 * r0 - r1 * r1 + D * D) / (2*D);
     float h = sqrt(r0 * r0 - a * a);
     
@@ -415,10 +414,11 @@ int iBeaconPositionsinClient[6][2] = {
         
         resultX = resultX/num;
         resultY = resultY/num;
-        float distanceFromPre = [self CalDistance:resultX y0:resultY x1:[[positionArray objectAtIndex:0] floatValue] y1:[[positionArray objectAtIndex:0] floatValue]];
-        
-        if (distanceFromPre < 40 && distanceFromPre > 3) {
-            positionArray = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%f",resultX], [NSString stringWithFormat:@"%f",resultY], nil];
+        float distanceFromPre = [self CalDistance:resultX y0:resultY x1:[[self.positionArray objectAtIndex:0] floatValue] y1:[[self.positionArray objectAtIndex:0] floatValue]];
+        NSLog(@"X: %f, Y: %f", resultX, resultY);
+        if (distanceFromPre < 500 && distanceFromPre > 3) {
+            self.positionArray = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%f",resultX], [NSString stringWithFormat:@"%f",resultY], nil];
+            testNum ++;
         }
 
     }
@@ -431,6 +431,14 @@ int iBeaconPositionsinClient[6][2] = {
         if ([self.myBeacons objectForKey:[tem getIdStr]] != nil) {
             [resultBeacons addObject:[self.myBeacons objectForKey:[tem getIdStr]]];
         }
+    }
+    NSArray *sortedArray = [resultBeacons sortedArrayUsingComparator:^NSComparisonResult(CLBeacon *p1, CLBeacon *p2){
+        return [[NSNumber numberWithDouble: p1.accuracy] compare:[NSNumber numberWithDouble: p2.accuracy]] == NSOrderedDescending;
+    }];
+    [resultBeacons removeAllObjects];
+    if ([sortedArray count] >= 3) {
+        NSIndexSet *indexs = [[NSMutableIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, 3)];
+        [resultBeacons addObjectsFromArray:[sortedArray objectsAtIndexes:indexs]];
     }
     return resultBeacons;
 }

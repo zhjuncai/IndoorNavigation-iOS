@@ -18,12 +18,13 @@
     CLLocationManager * _locationManager;
     BOOL _isInsideRegion; // flag to prevent duplicate sending of notification
     NSMutableDictionary *observeBeacons;
-    NSArray *positionArray;
+    int testNum;
 }
 
 - (BOOL)openClient;
 - (NSMutableDictionary*)getMybeaconsArray;
 - (void)closeClient;
+@property (strong, readwrite) NSArray *positionArray;
 @property (strong, readwrite) NSMutableDictionary *myBeacons;
 @property (strong, readwrite) NSMutableDictionary *itemdic;
 @property (strong, readwrite) CLBeaconRegion *bearegion;

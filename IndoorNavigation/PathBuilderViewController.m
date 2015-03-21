@@ -12,8 +12,6 @@
 @property (nonatomic, readonly) PathBuilderView *pathBuilderView;
 
 
-
-
 @end
 
 int distanceData[42][42] = {
@@ -120,7 +118,7 @@ int iBeaconPositions[6][2] = {
     storageArray =[[NSMutableArray alloc] init];
     footprintArray = [[NSMutableArray alloc] init];
     
-    
+    kDuration = 4.0;
     
     
     [self viewPrepare];
@@ -164,7 +162,7 @@ int iBeaconPositions[6][2] = {
     [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
     
     self.pathBuilderView.pathShapeView.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
-    self.pathBuilderView.prospectivePathShapeView.shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
+    self.pathBuilderView.prospectivePathShapeView.shapeLayer.strokeColor = [UIColor colorWithRed:239 green:240 blue:242 alpha:1].CGColor;
     self.pathBuilderView.pointsShapeView.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(strokeEnd))];
@@ -390,6 +388,7 @@ int iBeaconPositions[6][2] = {
             self.pathBuilderView.pathShapeView.shapeLayer.path=nil;
             self.pathBuilderView.prospectivePathShapeView.shapeLayer.path=nil;
             pathPoints = [calPath getBestPathForDestinations:choosedPoints];
+            kDuration = [calPath getShortestLength] * TIME_LENGTH;
             [self drawPath:pathPoints];
             [sender setTitle:@"Stop!"];
             drawOrClear = NO;
@@ -417,19 +416,20 @@ int iBeaconPositions[6][2] = {
 -(void) startIbeacons{
     if (!_beaconClient) {
         _beaconClient = [[BeaconClient alloc] init];
-        [_beaconClient addObserver:self forKeyPath:@"positionArray" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+        [_beaconClient addObserver:self forKeyPath:@"positionArray" options:NSKeyValueObservingOptionNew context:NULL];
     }
     [_beaconClient openClient];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    float resultX = [[[self.beaconClient valueForKey:@"observeBeacons"] objectAtIndex:0] floatValue];
-    float resultY = [[[self.beaconClient valueForKey:@"observeBeacons"] objectAtIndex:1] floatValue];
+    float resultX = [[[self.beaconClient valueForKey:@"positionArray"] objectAtIndex:0] floatValue];
+    float resultY = [[[self.beaconClient valueForKey:@"positionArray"] objectAtIndex:1] floatValue];
     if([self CheckSelfPositionAfterCalculate:resultX y:resultY] == NO){
         //如果计算出的点不跟货架重合，就画出来
         [self.pathBuilderView DrawSelf:resultX y:resultY];
     }
+    NSLog(@"sadasdasdasdasdasd");
 
 }
 
