@@ -12,7 +12,7 @@
 #define NUM_OF_BEACONS 6  //定义beacon总数量
 #define MAX_DISTANCE 5  //定义可能的最大beacon距离 单位：米
 #define MIN_DISTANCE 1  //定义更新坐标的最小值，单位:屏幕像素
-static CFTimeInterval const kDuration = 4.0;
+#define TIME_LENGTH 0.1 
 
 
 

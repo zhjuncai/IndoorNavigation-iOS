@@ -26,6 +26,7 @@
     BOOL drawOrClear;
     NSMutableArray *storageArray;
     NSMutableArray *footprintArray;
+    CFTimeInterval kDuration;
 }
 
 @property (nonatomic, retain) BeaconClient *beaconClient;

@@ -47,7 +47,7 @@ static CGFloat const kPointDiameter = 7.0;
         
         _prospectivePathShapeView = [[ShapeView alloc] init];
         _prospectivePathShapeView.shapeLayer.fillColor = nil;
-        _prospectivePathShapeView.backgroundColor = [UIColor clearColor];
+        _prospectivePathShapeView.backgroundColor = [UIColor colorWithRed:239 green:240 blue:242 alpha:1];
         _prospectivePathShapeView.opaque = NO;
         _prospectivePathShapeView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_prospectivePathShapeView];
