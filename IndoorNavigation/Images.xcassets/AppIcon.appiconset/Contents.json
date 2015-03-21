@@ -51,14 +51,14 @@
       "scale" : "2x"
     },
     {
-      "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "icon2_76_76.png",
+      "size" : "76x76",
       "scale" : "1x"
     },
     {
-      "idiom" : "ipad",
       "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "indoor-navi.png",
       "scale" : "2x"
     }
   ],

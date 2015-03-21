@@ -25,8 +25,10 @@
     NSTimer *ressTimer;
     BOOL drawOrClear;
     NSMutableArray *storageArray;
+    NSMutableArray *footprintArray;
 }
 
 @property (nonatomic, retain) BeaconClient *beaconClient;
+- (void) drawFootprint:(CALayer *) footIcon;
 @end
 

@@ -13,6 +13,7 @@
 
 
 
+
 @end
 
 int distanceData[42][42] = {
@@ -119,6 +120,8 @@ int iBeaconPositions[6][2] = {
     choosedPoints = [[NSMutableArray alloc] init];
     pathPoints = [[NSMutableArray alloc] init];
     storageArray =[[NSMutableArray alloc] init];
+    footprintArray = [[NSMutableArray alloc] init];
+    
     
     
     
@@ -229,23 +232,120 @@ int iBeaconPositions[6][2] = {
 #pragma mark - drawPath method
 
 //画路径，根据需求不同当需要路径小时，就等于是在prospectivePathShapeView上面画，如果是让路径出现就是在pathShapeView上画
+//- (void)drawPath:(NSMutableArray*)resultArray{
+//    [self addPointsToView:resultArray];
+//    ShapeView *tem = nil;
+//    if (drawOrClear == YES) {
+//        tem = self.pathBuilderView.pathShapeView;
+//    }else{
+//        tem = self.pathBuilderView.prospectivePathShapeView;
+//    }
+//    tem.shapeLayer.timeOffset = 0.0;
+//    tem.shapeLayer.speed = 1.0;
+//    
+//    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(strokeEnd))];
+//    animation.fromValue = @0.0;
+//    animation.toValue = @1.0;
+//    animation.duration = kDuration;
+//    
+//    [tem.shapeLayer addAnimation:animation forKey:NSStringFromSelector(@selector(strokeEnd))];
+//}
+
 - (void)drawPath:(NSMutableArray*)resultArray{
-    [self addPointsToView:resultArray];
-    ShapeView *tem = nil;
-    if (drawOrClear == YES) {
-        tem = self.pathBuilderView.pathShapeView;
-    }else{
-        tem = self.pathBuilderView.prospectivePathShapeView;
+    BOOL isLeft = YES;
+    
+    for(int i=0;i<[resultArray count];i++){
+        if(i==0){
+            
+        }
+        else{
+            CGPoint oldPoint = CGPointFromString([resultArray objectAtIndex:i-1]);
+            CGPoint newPoint = CGPointFromString([resultArray objectAtIndex:i]);
+            int length = (newPoint.x - oldPoint.x) + (newPoint.y - oldPoint.y);
+            int deltaX = newPoint.x - oldPoint.x;
+            int deltaY = newPoint.y - oldPoint.y;
+            int num = abs(length/30);
+            NSString *direction;
+            
+            if(deltaX>0){
+                direction = @"right";
+            }
+            else if(deltaX<0){
+                direction =@"left";
+            }
+            else if(deltaY >0){
+                direction = @"down";
+            }
+            else if(deltaY){
+                direction = @"up";
+            }
+            
+            
+            
+            for( int j = 0;j<num;j++){
+                CALayer *footIcon = [[CALayer alloc] init];
+                
+                if(isLeft){
+                    
+                    if(deltaX>0){
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num , oldPoint.y+ j*deltaY/num-4,20,20);
+                        footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-right"] CGImage];
+                    }
+                    else if(deltaX<0){
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num , oldPoint.y+ j*deltaY/num+4,20,20);
+                        footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-left"] CGImage];
+                    }
+                    else if(deltaY >0){
+                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num , oldPoint.y+ j*deltaY/num,20,20);
+                        footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-down"] CGImage];
+                    }
+                    else if(deltaY){
+                        footIcon.frame = CGRectMake(oldPoint.x-4 + j*deltaX/num , oldPoint.y+ j*deltaY/num,20,20);
+                        footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-up"] CGImage];
+                        
+                    }
+                    
+                    isLeft=!isLeft;
+                }
+                else{
+                    
+                    if(deltaX>0){
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num , oldPoint.y+ j*deltaY/num+4,20,20);
+                        footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-right"] CGImage];
+                    }
+                    else if(deltaX<0){
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num , oldPoint.y+ j*deltaY/num-4,20,20);
+                        footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-left"] CGImage];
+                    }
+                    else if(deltaY >0){
+                        footIcon.frame = CGRectMake(oldPoint.x-4+ j*deltaX/num , oldPoint.y+ j*deltaY/num,20,20);
+                        footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-down"] CGImage];
+                    }
+                    else if(deltaY){
+                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num , oldPoint.y+ j*deltaY/num,20,20);
+                        footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-up"] CGImage];
+                    }
+                    isLeft=!isLeft;
+
+                }
+                [footprintArray addObject:footIcon];
+                
+            }
+
+        }
     }
-    tem.shapeLayer.timeOffset = 0.0;
-    tem.shapeLayer.speed = 1.0;
     
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(strokeEnd))];
-    animation.fromValue = @0.0;
-    animation.toValue = @1.0;
-    animation.duration = kDuration;
+
+    for(int k=0; k<[footprintArray count];k++){
+        NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:0.5*k target:self selector:@selector(drawFootprint:) userInfo:[footprintArray objectAtIndex:k] repeats:NO];
+    }
     
-    [tem.shapeLayer addAnimation:animation forKey:NSStringFromSelector(@selector(strokeEnd))];
+}
+
+
+- (void) drawFootprint:(NSTimer *) myTimer{
+    CALayer *footIcon = [myTimer userInfo];
+    [self.view.layer addSublayer:footIcon];
 }
 
 //把zion返回的计算结果添加到pathBuilderView的self.points里面
