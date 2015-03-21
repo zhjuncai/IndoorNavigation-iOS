@@ -97,7 +97,7 @@ int keyPointMap[40] = {
 };
 
 int iBeaconPositions[6][2] = {
-    {0, 0}, {0, 512}, {0, 1024}, {768, 0}, {768, 512}, {768, 1024}
+    {0, 0}, {768, 0}, {768, 916}, {0, 916}, {384, 204}, {384, 720}
 };
 @implementation PathBuilderViewController
 
@@ -159,7 +159,7 @@ int iBeaconPositions[6][2] = {
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
+//    [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
     
     self.pathBuilderView.pathShapeView.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
     self.pathBuilderView.prospectivePathShapeView.shapeLayer.strokeColor = [UIColor colorWithRed:239 green:240 blue:242 alpha:1].CGColor;
@@ -429,22 +429,12 @@ int iBeaconPositions[6][2] = {
         //如果计算出的点不跟货架重合，就画出来
         [self.pathBuilderView DrawSelf:resultX y:resultY];
     }
+//    else{
+//        [self.pathBuilderView DrawSelf:resultX-10 y:resultY-10];
+//    }
     NSLog(@"sadasdasdasdasdasd");
 
 }
-
-//-(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
-//{
-//    NSDictionary *ibeaconsDic=[[NSDictionary alloc] initWithObjectsAndKeys:beacons,@"iBeacons",nil];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"iBeaconsBack" object:Nil userInfo:ibeaconsDic];
-//    
-//    for (CLBeacon* beacon in beacons) {
-//        if ([self CheckBeaconsDataQualifyBeforeCalculate:beacons] == YES) {
-//            //如果计算之前的检查没有问题，就开始计算
-//            [self drawPosition];
-//        }
-//    }
-//}
 
 
 
