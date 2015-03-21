@@ -107,15 +107,13 @@ int iBeaconPositions[6][2] = {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    NSArray *uuid = [[NSArray alloc] initWithObjects:@"first", @"sec", @"third", @"fourth", @"fifth", @"sixth", nil];
+    NSArray *uuid = [[NSArray alloc] initWithObjects:@"1-1", @"2-1", @"3-1", @"4-1", @"5-1", @"6-1", nil];
 //    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
     aIBeacons = [[NSMutableArray alloc] init];
     for (int i = 0; i < NUM_OF_BEACONS; i ++) {
         iBeacon *test = [[iBeacon alloc] initWithLocation:[NSString stringWithFormat:@"%d", iBeaconPositions[i][0]] y:[NSString stringWithFormat:@"%d", iBeaconPositions[i][1]] idStr:[uuid objectAtIndex:i]];
         [aIBeacons addObject:test];
     }
-    self.beaconClient.aIBeacons = aIBeacons;
-    
     drawOrClear = YES;
     choosedPoints = [[NSMutableArray alloc] init];
     pathPoints = [[NSMutableArray alloc] init];
