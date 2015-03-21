@@ -286,19 +286,19 @@ int iBeaconPositions[6][2] = {
                 if(isLeft){
                     
                     if(deltaX>0){
-                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num-6 , oldPoint.y+ j*deltaY/num-4-6,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num-8 , oldPoint.y+ j*deltaY/num-4-8,18,18);
                         footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-right"] CGImage];
                     }
                     else if(deltaX<0){
-                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num -6, oldPoint.y+ j*deltaY/num+4-6,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num -8, oldPoint.y+ j*deltaY/num+4-8,18,18);
                         footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-left"] CGImage];
                     }
                     else if(deltaY >0){
-                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num -6, oldPoint.y+ j*deltaY/num-6,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num -8, oldPoint.y+ j*deltaY/num-8,18,18);
                         footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-down"] CGImage];
                     }
                     else if(deltaY){
-                        footIcon.frame = CGRectMake(oldPoint.x-4 + j*deltaX/num -6, oldPoint.y+ j*deltaY/num-6,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x-4 + j*deltaX/num -8, oldPoint.y+ j*deltaY/num-8,18,18);
                         footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-up"] CGImage];
                         
                     }
@@ -308,19 +308,19 @@ int iBeaconPositions[6][2] = {
                 else{
                     
                     if(deltaX>0){
-                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num-6 , oldPoint.y+ j*deltaY/num+4-6,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num-8 , oldPoint.y+ j*deltaY/num+4-8,18,18);
                         footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-right"] CGImage];
                     }
                     else if(deltaX<0){
-                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num -6, oldPoint.y+ j*deltaY/num-4-6,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num -8, oldPoint.y+ j*deltaY/num-4-8,18,18);
                         footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-left"] CGImage];
                     }
                     else if(deltaY >0){
-                        footIcon.frame = CGRectMake(oldPoint.x-4+ j*deltaX/num -6, oldPoint.y+ j*deltaY/num-6,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x-4+ j*deltaX/num -8, oldPoint.y+ j*deltaY/num-8,18,18);
                         footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-down"] CGImage];
                     }
                     else if(deltaY){
-                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num -6, oldPoint.y+ j*deltaY/num-5,20,20);
+                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num -8, oldPoint.y+ j*deltaY/num-8,18,18);
                         footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-up"] CGImage];
                     }
                     isLeft=!isLeft;
