@@ -22,6 +22,7 @@
 		740BF23B1AB98FB80064E472 /* AMWaveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF2381AB98FB80064E472 /* AMWaveTransition.m */; };
 		740BF23C1AB98FB80064E472 /* AMWaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF23A1AB98FB80064E472 /* AMWaveViewController.m */; };
 		74DA78861AB8114800CABC35 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74DA78851AB8114800CABC35 /* CoreLocation.framework */; };
+		AA66CDE41ABEB1EF00BA9D7B /* ShelfCargoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA66CDE31ABEB1EF00BA9D7B /* ShelfCargoViewController.m */; };
 		AAAF3DE71AB5B37100012A24 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DE61AB5B37100012A24 /* main.m */; };
 		AAAF3DEA1AB5B37100012A24 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DE91AB5B37100012A24 /* AppDelegate.m */; };
 		AAAF3DED1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DEB1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld */; };
@@ -75,6 +76,8 @@
 		740BF2391AB98FB80064E472 /* AMWaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWaveViewController.h; sourceTree = "<group>"; };
 		740BF23A1AB98FB80064E472 /* AMWaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWaveViewController.m; sourceTree = "<group>"; };
 		74DA78851AB8114800CABC35 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		AA66CDE21ABEB1EF00BA9D7B /* ShelfCargoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfCargoViewController.h; sourceTree = "<group>"; };
+		AA66CDE31ABEB1EF00BA9D7B /* ShelfCargoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfCargoViewController.m; sourceTree = "<group>"; };
 		AAAF3DE11AB5B37100012A24 /* IndoorNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IndoorNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAAF3DE51AB5B37100012A24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAAF3DE61AB5B37100012A24 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -151,6 +154,15 @@
 			path = AMWaveTransition;
 			sourceTree = "<group>";
 		};
+		AA66CDE51ABEB1FC00BA9D7B /* Contollers */ = {
+			isa = PBXGroup;
+			children = (
+				AA66CDE21ABEB1EF00BA9D7B /* ShelfCargoViewController.h */,
+				AA66CDE31ABEB1EF00BA9D7B /* ShelfCargoViewController.m */,
+			);
+			name = Contollers;
+			sourceTree = "<group>";
+		};
 		AAAF3DD81AB5B37100012A24 = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +223,7 @@
 				AAAF3DF61AB5B37100012A24 /* LaunchScreen.xib */,
 				AAAF3DEB1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld */,
 				AAAF3DE41AB5B37100012A24 /* Supporting Files */,
+				AA66CDE51ABEB1FC00BA9D7B /* Contollers */,
 			);
 			path = IndoorNavigation;
 			sourceTree = "<group>";
@@ -290,11 +303,10 @@
 				TargetAttributes = {
 					AAAF3DE01AB5B37100012A24 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = C7B42N9WKH;
 					};
 					AAAF3DFC1AB5B37100012A24 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = C7B42N9WKH;
+						DevelopmentTeam = D6Q686RD93;
 						TestTargetID = AAAF3DE01AB5B37100012A24;
 					};
 				};
@@ -363,6 +375,7 @@
 				740BF2281AB98EB10064E472 /* ScanViewController.m in Sources */,
 				740BF2341AB98FB10064E472 /* BFPaperCheckbox.m in Sources */,
 				AAAF3DF01AB5B37100012A24 /* PathBuilderViewController.m in Sources */,
+				AA66CDE41ABEB1EF00BA9D7B /* ShelfCargoViewController.m in Sources */,
 				740BF23C1AB98FB80064E472 /* AMWaveViewController.m in Sources */,
 				740BF22B1AB98EDF0064E472 /* TableViewController.m in Sources */,
 				AAAF3DE71AB5B37100012A24 /* main.m in Sources */,

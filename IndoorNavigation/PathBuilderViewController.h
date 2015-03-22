@@ -16,10 +16,11 @@
 #import "ShapeView.h"
 #import "NaviAlgo.h"
 #import "Header.h"
+#import "ShelfCargoViewController.h"
 
 
 @interface PathBuilderViewController : UIViewController{
-    NSMutableArray *choosedPoints;
+//    NSMutableArray *choosedPoints;
     NSMutableArray *pathPoints;
     NSMutableArray *aIBeacons;
     NSTimer *ressTimer;
@@ -28,6 +29,8 @@
     NSMutableArray *footprintArray;
     CFTimeInterval kDuration;
 }
+
+@property (nonatomic, retain) NSMutableArray *choosedPoints;
 
 @property (nonatomic, retain) BeaconClient *beaconClient;
 - (void) drawFootprint:(NSTimer *) myTimer;

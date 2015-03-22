@@ -14,6 +14,8 @@
 
 @end
 
+//NSMutableArray *choosedPoints;
+
 int distanceData[42][42] = {
     // 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42
     { 0, 3, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },//1
@@ -101,6 +103,15 @@ int iBeaconPositions[6][2] = {
 };
 @implementation PathBuilderViewController
 
+- (void)viewDidAppear:(BOOL)animated{
+    
+    for (NSNumber *position in _choosedPoints){
+        storage * button = (storage *)[self.view viewWithTag:position.integerValue];
+        button.isSelected = YES;
+        [button setBackgroundImage:[UIImage imageNamed:@"selectedShelf"] forState:UIControlStateNormal];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -113,7 +124,7 @@ int iBeaconPositions[6][2] = {
         [aIBeacons addObject:test];
     }
     drawOrClear = YES;
-    choosedPoints = [[NSMutableArray alloc] init];
+//    choosedPoints = [[NSMutableArray alloc] init];
     pathPoints = [[NSMutableArray alloc] init];
     storageArray =[[NSMutableArray alloc] init];
     footprintArray = [[NSMutableArray alloc] init];
@@ -361,14 +372,32 @@ int iBeaconPositions[6][2] = {
 - (IBAction)getKeyPointIndexByClick:(id)sender{
     storage *btn = sender;
     NSNumber *index = [NSNumber numberWithLong:btn.tag];
+    
+    ShelfCargoViewController *shelfCargoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ShelfCargoViewController"];
+    
+    
     if (!btn.isSelected) {
-        [choosedPoints addObject:index];
+        [_choosedPoints addObject:index];
         [storageArray addObject:sender];
         btn.isSelected = YES;
         [btn setBackgroundImage:[UIImage imageNamed:@"selectedShelf"] forState:UIControlStateNormal];
+        
+        
+        shelfCargoVC.modalPresentationStyle = UIModalPresentationPopover;
+        shelfCargoVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        
+        UIPopoverPresentationController *presentVC = shelfCargoVC.popoverPresentationController;
+        presentVC.sourceView = btn;
+        
+        presentVC.sourceRect = CGRectMake(CGRectGetMinX(btn.bounds), btn.bounds.origin.y, CGRectGetWidth(btn.bounds), CGRectGetHeight(btn.bounds));
+        
+        presentVC.permittedArrowDirections = UIPopoverArrowDirectionDown;
+        
+        [self presentViewController: shelfCargoVC animated:true completion:nil];
+        
     }
     else{
-        [choosedPoints removeObject:index];
+        [_choosedPoints removeObject:index];
         [storageArray removeObject:sender];
         btn.isSelected = NO;
         [btn setBackgroundImage:[UIImage imageNamed:@"shelf"] forState:UIControlStateNormal];
@@ -384,10 +413,10 @@ int iBeaconPositions[6][2] = {
         NaviAlgo *calPath = [[NaviAlgo alloc] init];
         [calPath setGraph:distanceData];
         [calPath setPointMapping:pointsPosition];
-        if([choosedPoints count]!=0){
+        if([_choosedPoints count]!=0){
             self.pathBuilderView.pathShapeView.shapeLayer.path=nil;
             self.pathBuilderView.prospectivePathShapeView.shapeLayer.path=nil;
-            pathPoints = [calPath getBestPathForDestinations:choosedPoints];
+            pathPoints = [calPath getBestPathForDestinations:_choosedPoints];
             kDuration = [calPath getShortestLength] * TIME_LENGTH;
             [self drawPath:pathPoints];
             [sender setTitle:@"Stop!"];
@@ -491,7 +520,7 @@ int iBeaconPositions[6][2] = {
     //[footprintArray removeAllObjects];
     [storageArray removeAllObjects];
     [pathPoints removeAllObjects];
-    [choosedPoints removeAllObjects];
+    [_choosedPoints removeAllObjects];
     [self.pathBuilderView Clear];
 }
 
@@ -507,6 +536,10 @@ int iBeaconPositions[6][2] = {
     return frame;
 }
 
+- (IBAction)dismissNavigationVC:(UIBarButtonItem *)sender {
+    
+    [self dismissViewControllerAnimated:true completion:nil];
+}
 
 //判断一个点是不是在货架范围内，也就是走到货架内部了
 - (BOOL)CheckSelfPositionAfterCalculate:(float)x y:(float)y{
@@ -533,5 +566,11 @@ int iBeaconPositions[6][2] = {
     }else{
         return NO;
     }
+}
+
+- (void)dealloc
+{
+    [_beaconClient closeClient];
+    [_beaconClient removeObserver:self forKeyPath:@"positionArray"];
 }
 @end

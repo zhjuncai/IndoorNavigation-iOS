@@ -197,7 +197,12 @@ NSArray *itemValues;
     }else{
         OrderItem *orderItem = self.freightOrder.foItems[indexPath.row];
         cell.textLabel.text = orderItem.itemName;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", orderItem.quantity, orderItem.unitOfMeasure];
+        
+        int shelfPosition = (arc4random() % 40) + 1;
+        
+        cell.tag = shelfPosition;
+        
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ at Shelf %d", orderItem.quantity, orderItem.unitOfMeasure, shelfPosition];
     }
     
     return cell;
@@ -206,11 +211,28 @@ NSArray *itemValues;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if([segue.identifier isEqualToString:@"segueDetectDistance"]){
-//        UINavigationController *beaconNavController = segue.destinationViewController;
-//        PathBuilderViewController *pathBuilderVC = [beaconNavController.viewControllers firstObject];
+        UINavigationController *beaconNavController = segue.destinationViewController;
+        PathBuilderViewController *pathBuilderVC = [beaconNavController.viewControllers firstObject];
 //        beaconVC.freightOrder=self.freightOrder;
 //        beaconVC.beaconClient=_beaconClient;
+        
+        // here determine number of cargo item position
+        
+        
+        
+        NSInteger itemSection = 1;
+        NSInteger numberOfItems = [self.tableView numberOfRowsInSection:itemSection];
+        NSMutableArray * chosenShelfPosition = [[NSMutableArray alloc] initWithCapacity:numberOfItems];
+        for (int row = 0; row < numberOfItems; row++) {
+            UITableViewCell *foCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:itemSection]];
+            NSInteger shelfPosition = foCell.tag;
+            [chosenShelfPosition addObject:[NSNumber numberWithInteger:shelfPosition]];
+        }
+        
+        pathBuilderVC.choosedPoints = chosenShelfPosition;
+        
     }
+             
 }
 
 
