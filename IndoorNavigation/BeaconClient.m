@@ -246,33 +246,56 @@ int iBeaconPositionsinClient[6][2] = {
     [iBeaconPoints addObject:array2];
     [iBeaconPoints addObject:array3];
     
-    
-    float distance1 = [self CalDistance:[array1[0] floatValue] y0:[array1[1] floatValue] x1:[array2[0] floatValue] y1:[array2[1] floatValue]];
-    float distance2 = [self CalDistance:[array3[0] floatValue] y0:[array3[1] floatValue] x1:[array2[0] floatValue] y1:[array2[1] floatValue]];
-    float distance3 = [self CalDistance:[array1[0] floatValue] y0:[array1[1] floatValue] x1:[array3[0] floatValue] y1:[array3[1] floatValue]];
-    
-    float disoffirst = distance1 + distance3;
-    float disofsec = distance1 + distance2;
-    float disofthird = distance2 + distance3;
-    
-    float maxDis = MAX(MAX(disoffirst, disofsec), disofthird);
-    int index = 2;
-    if (maxDis == disoffirst) {
-        index = 0;
-    }else if(maxDis == disofsec){
-        index = 1;
-    }
-    [iBeaconPoints removeObjectAtIndex:index];
     float xFinal = 0;
     float yFinal = 0;
-    for (int i = 0; i < 2; i ++) {
-        xFinal = xFinal + [iBeaconPoints[i][0] floatValue];
-        yFinal = yFinal + [iBeaconPoints[i][1] floatValue];
+    if ([position1 isEqualToString:@"nan nan"] || [position2 isEqualToString:@"nan nan"] || [position3 isEqualToString:@"nan nan"]) {
+        if ([position1 isEqualToString:@"nan nan"]) {
+            [iBeaconPoints removeObject:array1];
+        }
+        if ([position2 isEqualToString:@"nan nan"]) {
+            [iBeaconPoints removeObject:array2];
+        }
+        if ([position3 isEqualToString:@"nan nan"]) {
+            [iBeaconPoints removeObject:array3];
+        }
+        if ([iBeaconPoints count] >= 1) {
+            for (int i = 0; i < [iBeaconPoints count]; i ++) {
+                xFinal = xFinal + [iBeaconPoints[i][0] floatValue];
+                yFinal = yFinal + [iBeaconPoints[i][1] floatValue];
+            }
+            xFinal = xFinal / [iBeaconPoints count];
+            yFinal = yFinal / [iBeaconPoints count];
+            NSArray *result = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%f", xFinal], [NSString stringWithFormat:@"%f", yFinal], nil];
+            return result;
+        }else{
+            return nil;
+        }
+    }else{
+        float distance1 = [self CalDistance:[array1[0] floatValue] y0:[array1[1] floatValue] x1:[array2[0] floatValue] y1:[array2[1] floatValue]];
+        float distance2 = [self CalDistance:[array3[0] floatValue] y0:[array3[1] floatValue] x1:[array2[0] floatValue] y1:[array2[1] floatValue]];
+        float distance3 = [self CalDistance:[array1[0] floatValue] y0:[array1[1] floatValue] x1:[array3[0] floatValue] y1:[array3[1] floatValue]];
+        float disoffirst = distance1 + distance3;
+        float disofsec = distance1 + distance2;
+        float disofthird = distance2 + distance3;
+        
+        float maxDis = MAX(MAX(disoffirst, disofsec), disofthird);
+        int index = 2;
+        if (maxDis == disoffirst) {
+            index = 0;
+        }else if(maxDis == disofsec){
+            index = 1;
+        }
+        [iBeaconPoints removeObjectAtIndex:index];
+        
+        for (int i = 0; i < 2; i ++) {
+            xFinal = xFinal + [iBeaconPoints[i][0] floatValue];
+            yFinal = yFinal + [iBeaconPoints[i][1] floatValue];
+        }
+        xFinal = xFinal / 2;
+        yFinal = yFinal / 2;
+        NSArray *result = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%f", xFinal], [NSString stringWithFormat:@"%f", yFinal], nil];
+        return result;
     }
-    xFinal = xFinal / 2;
-    yFinal = yFinal / 2;
-    NSArray *result = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%f", xFinal], [NSString stringWithFormat:@"%f", yFinal], nil];
-    return result;
 }
 
 - (NSString *)CalCircleIntersectposition: (float)x0 y0:(float)y0 r0:(float)r0 x1:(float)x1 y1:(float)y1 r1:(float)r1 x:(float)x y:(float)y r:(float)r{
@@ -301,7 +324,9 @@ int iBeaconPositionsinClient[6][2] = {
         y3 = y4;
     }
 //    NSLog(@"x : %f, y : %f",x3, y3);
-    
+    if (x3 < 0 || y3 < 0) {
+        return @"nan nan";
+    }
     NSString *result = [NSString stringWithFormat:@"%f %f",x3, y3];
 //    NSLog(@"hehehehe:%@", result);
     return result;
@@ -432,12 +457,14 @@ int iBeaconPositionsinClient[6][2] = {
             float temResult = [self CalDistance:temX y0:temY x1:averageX y1:averageY];
             [temDisArray addObject:[NSNumber numberWithFloat:temResult]];
         }
-        for (int i = 0; i < PASS_NUMBER; i ++) {
-            for (int j = 0; j < [resultArray count]; j ++) {
-                NSNumber* tem = [temDisArray objectAtIndex:i];
-                if ([self JudgeBigest:temDisArray value:tem] == YES) {
-                    [resultArray removeObjectAtIndex:j];
-                    break;
+        if ([resultArray count] > 2) {
+            for (int i = 0; i < PASS_NUMBER; i ++) {
+                for (int j = 0; j < [resultArray count]; j ++) {
+                    NSNumber* tem = [temDisArray objectAtIndex:i];
+                    if ([self JudgeBigest:temDisArray value:tem] == YES) {
+                        [resultArray removeObjectAtIndex:j];
+                        break;
+                    }
                 }
             }
         }
@@ -455,10 +482,10 @@ int iBeaconPositionsinClient[6][2] = {
         
         float distanceFromPre = [self CalDistance:resultX y0:resultY x1:[[self.positionArray objectAtIndex:0] floatValue] y1:[[self.positionArray objectAtIndex:0] floatValue]];
         
-        if (distanceFromPre < 2*SCALE && distanceFromPre > 0.3*SCALE) {
+//        if (distanceFromPre < 2*SCALE && distanceFromPre > 0.3*SCALE) {
             self.positionArray = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%f",resultX], [NSString stringWithFormat:@"%f",resultY], nil];
             NSLog(@"X: %f, Y: %f", resultX, resultY);
-        }
+//        }
 
     }
 }
