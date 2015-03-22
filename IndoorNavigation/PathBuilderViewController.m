@@ -116,7 +116,7 @@ int iBeaconPositions[6][2] = {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    NSArray *uuid = [[NSArray alloc] initWithObjects:@"1-1", @"2-1", @"3-1", @"4-1", @"5-1", @"6-1", nil];
+    NSArray *uuid = [[NSArray alloc] initWithObjects:@"0-1", @"0-2", @"0-3", @"0-4", @"0-5", @"0-6", nil];
 //    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
     aIBeacons = [[NSMutableArray alloc] init];
     for (int i = 0; i < NUM_OF_BEACONS; i ++) {
@@ -170,7 +170,7 @@ int iBeaconPositions[6][2] = {
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
+//    [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
     
     self.pathBuilderView.pathShapeView.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
     self.pathBuilderView.prospectivePathShapeView.shapeLayer.strokeColor = [UIColor colorWithRed:239 green:240 blue:242 alpha:1].CGColor;

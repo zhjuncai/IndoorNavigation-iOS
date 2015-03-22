@@ -32,12 +32,12 @@ int iBeaconPositionsinClient[6][2] = {
         self.aIBeacons = [[NSMutableArray alloc] init];
         self.positionArray = [[NSArray alloc] initWithObjects:@"", @"", nil];
         
-        NSUUID *estimoteUUID = [[NSUUID alloc] initWithUUIDString:@"B7D1027D-6788-416E-994F-EA11075F1765"];
+        NSUUID *estimoteUUID = [[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"];
         self.bearegion = [[CLBeaconRegion alloc] initWithProximityUUID:estimoteUUID identifier:kIndetifier];
         // launch app when display is turned on and inside region
         self.bearegion.notifyEntryStateOnDisplay = YES;
         
-        NSArray *uuid = [[NSArray alloc] initWithObjects:@"1-1", @"2-1", @"3-1", @"4-1", @"5-1", @"6-1", nil];
+        NSArray *uuid = [[NSArray alloc] initWithObjects:@"0-1", @"0-2", @"0-3", @"0-4", @"0-5", @"0-6", nil];
         //    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
         _aIBeacons = [[NSMutableArray alloc] init];
         for (int i = 0; i < NUM_OF_BEACONS; i ++) {
@@ -347,24 +347,24 @@ int iBeaconPositionsinClient[6][2] = {
         if (beacon.accuracy > MAX_DISTANCE || beacon.accuracy < 0) {
             wrongNum ++;
         }else{
-            if ([self.myBeacons count] < [beacons count]) {
+            if ([self.myBeacons count] < NUM_OF_BEACONS) {
                 [self.myBeacons setObject:beacon forKey:str];
-            }else{
-                for (CLBeacon* preBeacon in self.myBeacons){
-                    if (beacon.minor == preBeacon.minor && beacon.major == preBeacon.major) {
-                        if (fabs(preBeacon.accuracy - beacon.accuracy) * SCALE < MIN_DISTANCE) {
-                            wrongNum ++;
-                        }else{
-                            [self.myBeacons setObject:beacon forKey:str];
-                        }
-                    }
-                }
+//            }else{
+//                for (CLBeacon* preBeacon in self.myBeacons){
+//                    if ([beacon.minor isEqualToNumber:preBeacon.minor] && [beacon.major isEqualToNumber:preBeacon.major]) {
+//                        if (fabs(preBeacon.accuracy - beacon.accuracy) * SCALE < MIN_DISTANCE) {
+//                            wrongNum ++;
+//                        }else{
+//                            [self.myBeacons setObject:beacon forKey:str];
+//                        }
+//                    }
+//                }
             }
-            
+//
         }
     }
     
-    if (2 > NUM_OF_BEACONS - wrongNum) {
+    if (3 > NUM_OF_BEACONS - wrongNum) {
         return NO;
     }else{
         return YES;
@@ -398,16 +398,18 @@ int iBeaconPositionsinClient[6][2] = {
                     y1 = [[myBeacon getY] intValue];
                     double tem = fabs(beacon1.accuracy);
                     tem = [[NSString stringWithFormat:@"%.2f",tem] doubleValue];
-                    r0 = fabs(tem * SCALE);
+                    r1 = fabs(tem * SCALE);
                 }else if ([[myBeacon getIdStr] isEqualToString:[NSString stringWithFormat:@"%i-%i",[beacon2.major intValue],[beacon2.minor intValue]]]){
                     x = [[myBeacon getX] intValue];
                     y = [[myBeacon getY] intValue];
                     double tem = fabs(beacon2.accuracy);
                     tem = [[NSString stringWithFormat:@"%.2f",tem] doubleValue];
-                    r0 = fabs(tem * SCALE);
+                    r = fabs(tem * SCALE);
                 }
             }
-            [resultArray addObject:[self CalPosition:x0 y0:y0 r0:r0 x1:x1 y1:y1 r1:r1 x2:x y2:y r2:r]];
+            if ([self CalPosition:x0 y0:y0 r0:r0 x1:x1 y1:y1 r1:r1 x2:x y2:y r2:r] != nil) {
+                [resultArray addObject:[self CalPosition:x0 y0:y0 r0:r0 x1:x1 y1:y1 r1:r1 x2:x y2:y r2:r]];
+            }
         }
         float resultX = 0.0;
         float resultY = 0.0;
