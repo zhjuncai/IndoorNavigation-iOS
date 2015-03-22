@@ -159,7 +159,7 @@ int iBeaconPositions[6][2] = {
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-//    [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
+    [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
     
     self.pathBuilderView.pathShapeView.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
     self.pathBuilderView.prospectivePathShapeView.shapeLayer.strokeColor = [UIColor colorWithRed:239 green:240 blue:242 alpha:1].CGColor;

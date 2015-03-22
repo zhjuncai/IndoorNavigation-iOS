@@ -24,7 +24,6 @@ int iBeaconPositionsinClient[6][2] = {
 {
     if (self = [super init]) {
         _isInsideRegion = NO;
-        testNum = 0;
         _locationManager = [[CLLocationManager alloc] init];
         [_locationManager requestAlwaysAuthorization];
         _locationManager.delegate = self;
@@ -280,11 +279,11 @@ int iBeaconPositionsinClient[6][2] = {
     float D = [self CalDistance:x0 y0:y0 x1:x1 y1:y1];
     float a = (r0 * r0 - r1 * r1 + D * D) / (2*D);
     float tem = (r0 * r0 - a * a);
+    NSLog(@"看看正负：%f", tem);
+    float h = sqrt(tem);
     if (tem < 0) {
         tem = 0 - tem;
     }
-    float h = sqrt(tem);
-    
     float x2 = x0 + a * (x1 - x0) / D;
     float y2 = y0 + a * (y1 - y0) / D;
     
@@ -309,7 +308,9 @@ int iBeaconPositionsinClient[6][2] = {
 }
 
 - (float)CalDistance: (float)x0 y0:(float)y0 x1:(float)x1 y1:(float)y1{
-    return sqrt((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1));
+    float xDis = fabsf(x0 - x1);
+    float yDis = fabsf(y0 - y1);
+    return sqrt(xDis * xDis + yDis * yDis);
 }
 
 
@@ -350,7 +351,7 @@ int iBeaconPositionsinClient[6][2] = {
                 [self.myBeacons setObject:beacon forKey:str];
             }else{
                 for (CLBeacon* preBeacon in self.myBeacons){
-                    if (beacon.major == preBeacon.minor && beacon.major == preBeacon.major) {
+                    if (beacon.minor == preBeacon.minor && beacon.major == preBeacon.major) {
                         if (fabs(preBeacon.accuracy - beacon.accuracy) * SCALE < MIN_DISTANCE) {
                             wrongNum ++;
                         }else{
@@ -377,14 +378,14 @@ int iBeaconPositionsinClient[6][2] = {
     tem = [self PickIBeacons];
     NSLog(@"%@",tem);
     if ([tem count] >= 3) {
-        int num = [tem count]/3;
+        int num = [tem count];
         
         NSMutableArray* resultArray = [[NSMutableArray alloc] init];
-        for (int i = 0; i < num; i ++) {
+        for (int i = 0; i < num-2; i ++) {
             float x0 = 0.0,y0 = 0.0,r0 = 0.0,x1 = 0.0,y1 = 0.0,r1 = 0.0,x = 0.0,y = 0.0,r = 0.0;
-            CLBeacon* beacon0 = [tem objectAtIndex:3*i];
-            CLBeacon* beacon1 = [tem objectAtIndex:3*i + 1];
-            CLBeacon* beacon2 = [tem objectAtIndex:3*i + 2];
+            CLBeacon* beacon0 = [tem objectAtIndex:i];
+            CLBeacon* beacon1 = [tem objectAtIndex:i + 1];
+            CLBeacon* beacon2 = [tem objectAtIndex:i + 2];
             for(iBeacon *myBeacon in self.aIBeacons){
                 if ([[myBeacon getIdStr] isEqualToString:[NSString stringWithFormat:@"%i-%i",[beacon0.major intValue],[beacon0.minor intValue]]]) {
                     x0 = [[myBeacon getX] intValue];
@@ -410,24 +411,52 @@ int iBeaconPositionsinClient[6][2] = {
         }
         float resultX = 0.0;
         float resultY = 0.0;
+        float averageX = 0.0;
+        float averageY = 0.0;
+        for (int i = 0; i < [resultArray count]; i ++) {
+            NSArray* tem = [resultArray objectAtIndex:i];
+            float temX = [[tem objectAtIndex:0] floatValue];
+            float temY = [[tem objectAtIndex:1] floatValue];
+            averageX += temX;
+            averageY += temY;
+        }
+        averageX = averageX/[resultArray count];
+        averageY = averageY/[resultArray count];
+        NSMutableArray *temDisArray = [[NSMutableArray alloc] init];
+        for (int i = 0; i < [resultArray count]; i ++) {
+            NSArray* tem = [resultArray objectAtIndex:i];
+            float temX = [[tem objectAtIndex:0] floatValue];
+            float temY = [[tem objectAtIndex:1] floatValue];
+            float temResult = [self CalDistance:temX y0:temY x1:averageX y1:averageY];
+            [temDisArray addObject:[NSNumber numberWithFloat:temResult]];
+        }
+        for (int i = 0; i < PASS_NUMBER; i ++) {
+            for (int j = 0; j < [resultArray count]; j ++) {
+                NSNumber* tem = [temDisArray objectAtIndex:i];
+                if ([self JudgeBigest:temDisArray value:tem] == YES) {
+                    [resultArray removeObjectAtIndex:j];
+                    break;
+                }
+            }
+        }
         
-        for (int i = 0; i < num; i ++) {
+        for (int i = 0; i < [resultArray count]; i ++) {
             NSArray* tem = [resultArray objectAtIndex:i];
             float temX = [[tem objectAtIndex:0] floatValue];
             float temY = [[tem objectAtIndex:1] floatValue];
             resultX += temX;
             resultY += temY;
         }
+        resultY = resultY/[resultArray count];
+        resultX = resultX/[resultArray count];
         
-        resultX = resultX/num;
-        resultY = resultY/num;
+        
         float distanceFromPre = [self CalDistance:resultX y0:resultY x1:[[self.positionArray objectAtIndex:0] floatValue] y1:[[self.positionArray objectAtIndex:0] floatValue]];
         
-//        if (distanceFromPre < 500 && distanceFromPre > 3) {
+        if (distanceFromPre < 2*SCALE && distanceFromPre > 0.3*SCALE) {
             self.positionArray = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%f",resultX], [NSString stringWithFormat:@"%f",resultY], nil];
             NSLog(@"X: %f, Y: %f", resultX, resultY);
-            testNum ++;
-//        }
+        }
 
     }
 }
@@ -449,6 +478,15 @@ int iBeaconPositionsinClient[6][2] = {
 //        [resultBeacons addObjectsFromArray:[sortedArray objectsAtIndexes:indexs]];
 //    }
     return resultBeacons;
+}
+
+- (BOOL)JudgeBigest:(NSMutableArray*)array value:(NSNumber*)value{
+    for (int i = 0; i < [array count]; i ++) {
+        if (value < [array objectAtIndex:i]) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 @end

@@ -18,7 +18,6 @@
     CLLocationManager * _locationManager;
     BOOL _isInsideRegion; // flag to prevent duplicate sending of notification
     NSMutableDictionary *observeBeacons;
-    int testNum;
 }
 
 - (BOOL)openClient;
