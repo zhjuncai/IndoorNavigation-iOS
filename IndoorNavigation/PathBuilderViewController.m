@@ -106,8 +106,19 @@ int iBeaconPositions[6][2] = {
 
 - (void)viewDidAppear:(BOOL)animated{
     
-    for (NSNumber *position in _choosedPoints){
-        storage * button = (storage *)[self.view viewWithTag:position.integerValue];
+    storageArray =[[NSMutableArray alloc] init];
+    choosedPoints = [[NSMutableArray alloc] init];
+    for (NSNumber *storageIndex in _choosedStorages){
+        storage * button = (storage *)[self.view viewWithTag:storageIndex.integerValue];
+    
+        [storageArray addObject:button];
+        
+        if(![choosedPoints containsObject:[NSNumber numberWithInteger:button.position]]){
+            [choosedPoints addObject:[NSNumber numberWithInteger:button.position]];
+        }
+        
+        
+        
         button.isSelected = YES;
         [button setBackgroundImage:[UIImage imageNamed:@"selectedShelf"] forState:UIControlStateNormal];
     }
@@ -127,7 +138,7 @@ int iBeaconPositions[6][2] = {
     drawOrClear = YES;
 //    choosedPoints = [[NSMutableArray alloc] init];
     pathPoints = [[NSMutableArray alloc] init];
-    storageArray =[[NSMutableArray alloc] init];
+    
     footprintArray = [[NSMutableArray alloc] init];
     arrayForPointsAverage = [[NSMutableArray alloc] init];
     
@@ -172,7 +183,7 @@ int iBeaconPositions[6][2] = {
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-//    [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
+    [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
     
     self.pathBuilderView.pathShapeView.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
     self.pathBuilderView.prospectivePathShapeView.shapeLayer.strokeColor = [UIColor colorWithRed:239 green:240 blue:242 alpha:1].CGColor;
@@ -204,7 +215,7 @@ int iBeaconPositions[6][2] = {
     for (int i = 0; i < 40; i ++) {
         CGRect frame = [self ConvertToFram:storagePosition[i]];
         storage *oStorage = [[storage alloc] init:frame angle:0 keyPoint:keyPointMap[i]-1 name:@""];
-        
+        oStorage.tag =i;
 
         [self.view addSubview:oStorage];
         [oStorage addTarget:self action:@selector(getKeyPointIndexByClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -373,13 +384,13 @@ int iBeaconPositions[6][2] = {
 //button点击事件，绑定在每一个货架的button上面
 - (IBAction)getKeyPointIndexByClick:(id)sender{
     storage *btn = sender;
-    NSNumber *index = [NSNumber numberWithLong:btn.tag];
+    NSNumber *index = [NSNumber numberWithLong:btn.position];
     
     ShelfCargoViewController *shelfCargoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ShelfCargoViewController"];
     
     
     if (!btn.isSelected) {
-        [_choosedPoints addObject:index];
+        //[choosedPoints addObject:index];
         [storageArray addObject:sender];
         btn.isSelected = YES;
         [btn setBackgroundImage:[UIImage imageNamed:@"selectedShelf"] forState:UIControlStateNormal];
@@ -399,7 +410,7 @@ int iBeaconPositions[6][2] = {
         
     }
     else{
-        [_choosedPoints removeObject:index];
+        //[choosedPoints removeObject:index];
         [storageArray removeObject:sender];
         btn.isSelected = NO;
         [btn setBackgroundImage:[UIImage imageNamed:@"shelf"] forState:UIControlStateNormal];
@@ -412,26 +423,43 @@ int iBeaconPositions[6][2] = {
     // TODO:
     if (drawOrClear == YES) {
         
-        NaviAlgo *calPath = [[NaviAlgo alloc] init];
-        [calPath setGraph:distanceData];
-        [calPath setPointMapping:pointsPosition];
-        if([_choosedPoints count]!=0){
-            self.pathBuilderView.pathShapeView.shapeLayer.path=nil;
-            self.pathBuilderView.prospectivePathShapeView.shapeLayer.path=nil;
-            pathPoints = [calPath getBestPathForDestinations:_choosedPoints];
-            kDuration = [calPath getShortestLength] * TIME_LENGTH;
-            [self drawPath:pathPoints];
-            [sender setTitle:@"Stop!"];
-            drawOrClear = NO;
-        }
-        else{
+        if([storageArray count]>8){
             UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                                 message:@"Please choose some destinations"
+                                                                 message:@"Can't handle too many destinations"
                                                                 delegate:nil
                                                        cancelButtonTitle:@"确定"
                                                        otherButtonTitles:nil];
             [alertView show];
         }
+        else{
+            NaviAlgo *calPath = [[NaviAlgo alloc] init];
+            [calPath setGraph:distanceData];
+            [calPath setPointMapping:pointsPosition];
+            if([storageArray count]!=0){
+                for(storage* oStorage in storageArray){
+                    if(![choosedPoints containsObject:[NSNumber numberWithInteger:oStorage.position]]){
+                        [choosedPoints addObject:[NSNumber numberWithInteger:oStorage.position]];
+                    }
+                }
+                self.pathBuilderView.pathShapeView.shapeLayer.path=nil;
+                self.pathBuilderView.prospectivePathShapeView.shapeLayer.path=nil;
+                pathPoints = [calPath getBestPathForDestinations:choosedPoints];
+                kDuration = [calPath getShortestLength] * TIME_LENGTH;
+                [self drawPath:pathPoints];
+                [sender setTitle:@"Stop!"];
+                drawOrClear = NO;
+            }
+            else{
+                UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                                     message:@"Please choose some destinations"
+                                                                    delegate:nil
+                                                           cancelButtonTitle:@"确定"
+                                                           otherButtonTitles:nil];
+                [alertView show];
+            }
+        }
+        
+        
         
     }else{
         //[self drawPath:[self SwapAllElementInArray:pathPoints]];
@@ -532,7 +560,7 @@ int iBeaconPositions[6][2] = {
     //[footprintArray removeAllObjects];
     [storageArray removeAllObjects];
     [pathPoints removeAllObjects];
-    [_choosedPoints removeAllObjects];
+    [choosedPoints removeAllObjects];
     [self.pathBuilderView Clear];
 }
 

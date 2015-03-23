@@ -11,6 +11,7 @@
 
 @interface storage: UIButton
 @property  (nonatomic) BOOL isSelected;
+@property (nonatomic) NSInteger position;
 
 
 - (id)init:(CGRect)frame angle:(float)angle keyPoint:(int)index name:(NSString*)name;

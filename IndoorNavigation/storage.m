@@ -17,7 +17,7 @@
     self.isSelected = NO;
     self.backgroundColor = [UIColor blackColor];
     self.transform = CGAffineTransformMakeRotation(angle);
-    self.tag = index;
+    self.position =index;
     [self setTitle:name forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self setBackgroundImage:[UIImage imageNamed:@"shelf"] forState:UIControlStateNormal];

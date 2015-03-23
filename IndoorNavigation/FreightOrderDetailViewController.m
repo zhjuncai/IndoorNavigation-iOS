@@ -29,6 +29,10 @@
 @property (nonatomic, weak) UISlider *gSlider;
 @property (nonatomic, weak) UISlider *bSlider;
 
+@property (nonatomic,strong) NSMutableArray *storageIndexArray;
+
+
+
 
 //tableview
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -89,6 +93,8 @@ NSArray *itemValues;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.dataSource=self;
     self.tableView.delegate=self;
+    
+    self.storageIndexArray = [[NSMutableArray alloc] init];
     
 }
 
@@ -197,12 +203,17 @@ NSArray *itemValues;
     }else{
         OrderItem *orderItem = self.freightOrder.foItems[indexPath.row];
         cell.textLabel.text = orderItem.itemName;
+        int shelfPosition = (arc4random() % 40);
         
-        int shelfPosition = (arc4random() % 40) + 1;
+        while([self.storageIndexArray containsObject:[NSNumber numberWithInteger:shelfPosition]]){
+            shelfPosition = (arc4random() % 40);
+        }
+        
+        [self.storageIndexArray addObject:[NSNumber numberWithInteger:shelfPosition]];
         
         cell.tag = shelfPosition;
         
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ at Shelf %d", orderItem.quantity, orderItem.unitOfMeasure, shelfPosition];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ at Shelf %d", orderItem.quantity, orderItem.unitOfMeasure, shelfPosition+1];
     }
     
     return cell;
@@ -229,7 +240,7 @@ NSArray *itemValues;
             [chosenShelfPosition addObject:[NSNumber numberWithInteger:shelfPosition]];
         }
         
-        pathBuilderVC.choosedPoints = chosenShelfPosition;
+        pathBuilderVC.choosedStorages = chosenShelfPosition;
         
     }
              
