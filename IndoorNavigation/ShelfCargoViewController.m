@@ -23,4 +23,9 @@
 - (void)configCargoName:(NSString *)cargoName {
     self.cargoNameLabel.text = cargoName;
 }
+
+- (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController{
+    return YES;
+}
+
 @end

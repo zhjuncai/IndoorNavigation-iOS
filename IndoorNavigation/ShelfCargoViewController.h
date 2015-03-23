@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShelfCargoViewController : UIViewController
+@interface ShelfCargoViewController : UIViewController <UIPopoverPresentationControllerDelegate>
 - (void)configCargoName:(NSString *)cargoName;
 @end
