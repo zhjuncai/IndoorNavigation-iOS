@@ -463,15 +463,17 @@ int iBeaconPositions[6][2] = {
     if ([arrayForPointsAverage count] > AVERAGE_NUM) {
         [arrayForPointsAverage removeObjectAtIndex:0];
     }
-    for (int i = 0; i < AVERAGE_NUM; i ++) {
-        resultX += [[[arrayForPointsAverage objectAtIndex:i] objectAtIndex:0] floatValue] / AVERAGE_NUM;
-        resultY += [[[arrayForPointsAverage objectAtIndex:i] objectAtIndex:1] floatValue] / AVERAGE_NUM;
+    if ([arrayForPointsAverage count] == AVERAGE_NUM) {
+        for (int i = 0; i < AVERAGE_NUM; i ++) {
+            resultX += [[[arrayForPointsAverage objectAtIndex:i] objectAtIndex:0] floatValue] / AVERAGE_NUM;
+            resultY += [[[arrayForPointsAverage objectAtIndex:i] objectAtIndex:1] floatValue] / AVERAGE_NUM;
+        }
+        if([self CheckSelfPositionAfterCalculate:resultX y:resultY] == NO){
+            //如果计算出的点不跟货架重合，就画出来
+            [self.pathBuilderView DrawSelf:resultX y:resultY];
+        }
+        NSLog(@"sadasdasdasdasdasd");
     }
-    if([self CheckSelfPositionAfterCalculate:resultX y:resultY] == NO){
-        //如果计算出的点不跟货架重合，就画出来
-        [self.pathBuilderView DrawSelf:resultX y:resultY];
-    }
-    NSLog(@"sadasdasdasdasdasd");
 
 }
 

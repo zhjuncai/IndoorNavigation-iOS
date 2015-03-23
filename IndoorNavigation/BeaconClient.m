@@ -435,58 +435,61 @@ int iBeaconPositionsinClient[6][2] = {
                 [resultArray addObject:[self CalPosition:x0 y0:y0 r0:r0 x1:x1 y1:y1 r1:r1 x2:x y2:y r2:r]];
             }
         }
-        float resultX = 0.0;
-        float resultY = 0.0;
-        float averageX = 0.0;
-        float averageY = 0.0;
-        for (int i = 0; i < [resultArray count]; i ++) {
-            NSArray* tem = [resultArray objectAtIndex:i];
-            float temX = [[tem objectAtIndex:0] floatValue];
-            float temY = [[tem objectAtIndex:1] floatValue];
-            averageX += temX;
-            averageY += temY;
-        }
-        averageX = averageX/[resultArray count];
-        averageY = averageY/[resultArray count];
-        NSMutableArray *temDisArray = [[NSMutableArray alloc] init];
-        for (int i = 0; i < [resultArray count]; i ++) {
-            NSArray* tem = [resultArray objectAtIndex:i];
-            float temX = [[tem objectAtIndex:0] floatValue];
-            float temY = [[tem objectAtIndex:1] floatValue];
-            float temResult = [self CalDistance:temX y0:temY x1:averageX y1:averageY];
-            [temDisArray addObject:[NSNumber numberWithFloat:temResult*temResult]];
-        }
-        if ([resultArray count] > 2) {
-            NSMutableArray *removeArray = [[NSMutableArray alloc] init];
-            for (int i = 0; i < PASS_NUMBER; i ++) {
-                for (int j = 0; j < [resultArray count]; j ++) {
-                    NSNumber* tem = [temDisArray objectAtIndex:i];
-                    if ([self JudgeBigest:temDisArray value:tem] == YES) {
-                        [removeArray addObject:[resultArray objectAtIndex:j]];
-                        break;
-                    }
-                }
-                [resultArray removeObject:[removeArray lastObject]];
+        if ([resultArray count] > 0) {
+            float resultX = 0.0;
+            float resultY = 0.0;
+            float averageX = 0.0;
+            float averageY = 0.0;
+            for (int i = 0; i < [resultArray count]; i ++) {
+                NSArray* temArray = [resultArray objectAtIndex:i];
+                float temX = [[temArray objectAtIndex:0] floatValue];
+                float temY = [[temArray objectAtIndex:1] floatValue];
+                averageX += temX;
+                averageY += temY;
             }
-        }
-        
-        for (int i = 0; i < [resultArray count]; i ++) {
-            NSArray* tem = [resultArray objectAtIndex:i];
-            float temX = [[tem objectAtIndex:0] floatValue];
-            float temY = [[tem objectAtIndex:1] floatValue];
-            resultX += temX;
-            resultY += temY;
-        }
-        resultY = resultY/[resultArray count];
-        resultX = resultX/[resultArray count];
-        
-        
-        float distanceFromPre = [self CalDistance:resultX y0:resultY x1:[[self.positionArray objectAtIndex:0] floatValue] y1:[[self.positionArray objectAtIndex:0] floatValue]];
-        
-//        if (distanceFromPre < 2*SCALE && distanceFromPre > 0.3*SCALE) {
+            averageX = averageX/[resultArray count];
+            averageY = averageY/[resultArray count];
+            NSMutableArray *temDisArray = [[NSMutableArray alloc] init];
+            for (int i = 0; i < [resultArray count]; i ++) {
+                NSArray* temArray = [resultArray objectAtIndex:i];
+                float temX = [[temArray objectAtIndex:0] floatValue];
+                float temY = [[temArray objectAtIndex:1] floatValue];
+                float temResult = [self CalDistance:temX y0:temY x1:averageX y1:averageY];
+                [temDisArray addObject:[NSNumber numberWithFloat:temResult*temResult]];
+            }
+            if ([resultArray count] > 2) {
+                NSMutableArray *removeArray = [[NSMutableArray alloc] init];
+                for (int i = 0; i < PASS_NUMBER; i ++) {
+                    for (int j = 0; j < [resultArray count]; j ++) {
+                        NSNumber* temNumber = [temDisArray objectAtIndex:i];
+                        if ([self JudgeBigest:temDisArray value:temNumber] == YES) {
+                            [removeArray addObject:[resultArray objectAtIndex:j]];
+                            break;
+                        }
+                    }
+                    [resultArray removeObject:[removeArray lastObject]];
+                }
+            }
+            
+            for (int i = 0; i < [resultArray count]; i ++) {
+                NSArray* tem = [resultArray objectAtIndex:i];
+                float temX = [[tem objectAtIndex:0] floatValue];
+                float temY = [[tem objectAtIndex:1] floatValue];
+                resultX += temX;
+                resultY += temY;
+            }
+            resultY = resultY/[resultArray count];
+            resultX = resultX/[resultArray count];
+            
+            
+            float distanceFromPre = [self CalDistance:resultX y0:resultY x1:[[self.positionArray objectAtIndex:0] floatValue] y1:[[self.positionArray objectAtIndex:0] floatValue]];
+            
+            //        if (distanceFromPre < 2*SCALE && distanceFromPre > 0.3*SCALE) {
             self.positionArray = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%f",resultX], [NSString stringWithFormat:@"%f",resultY], nil];
             NSLog(@"X: %f, Y: %f", resultX, resultY);
-//        }
+            //        }
+        }
+
 
     }
 }
