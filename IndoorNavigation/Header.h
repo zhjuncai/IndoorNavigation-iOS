@@ -14,6 +14,6 @@
 #define MIN_DISTANCE 1  //定义更新坐标的最小值，单位:屏幕像素
 #define TIME_LENGTH 0.1 
 #define PASS_NUMBER 2
-
+#define AVERAGE_NUM 3  //几次求平均来画位置
 
 #endif

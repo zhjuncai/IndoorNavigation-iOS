@@ -16,7 +16,7 @@
 
 @end
 int iBeaconPositionsinClient[6][2] = {
-    {0, 0}, {768, 0}, {768, 916}, {0, 916}, {384, 204}, {384, 720}
+    {0, 0}, {768, 0}, {768, 916}, {0, 916}, {384, 0}, {768, 458}
 };
 @implementation BeaconClient
 
@@ -304,9 +304,6 @@ int iBeaconPositionsinClient[6][2] = {
     float tem = (r0 * r0 - a * a);
     NSLog(@"看看正负：%f", tem);
     float h = sqrt(tem);
-    if (tem < 0) {
-        tem = 0 - tem;
-    }
     float x2 = x0 + a * (x1 - x0) / D;
     float y2 = y0 + a * (y1 - y0) / D;
     
@@ -372,9 +369,11 @@ int iBeaconPositionsinClient[6][2] = {
         if (beacon.accuracy > MAX_DISTANCE || beacon.accuracy < 0) {
             wrongNum ++;
         }else{
-            if ([self.myBeacons count] < NUM_OF_BEACONS) {
-                [self.myBeacons setObject:beacon forKey:str];
+            [self.myBeacons setObject:beacon forKey:str];
+//            if ([self.myBeacons count] < NUM_OF_BEACONS) {
+//                [self.myBeacons setObject:beacon forKey:str];
 //            }else{
+//                [self.myBeacons setObject:beacon forKey:str];
 //                for (CLBeacon* preBeacon in self.myBeacons){
 //                    if ([beacon.minor isEqualToNumber:preBeacon.minor] && [beacon.major isEqualToNumber:preBeacon.major]) {
 //                        if (fabs(preBeacon.accuracy - beacon.accuracy) * SCALE < MIN_DISTANCE) {
@@ -384,7 +383,7 @@ int iBeaconPositionsinClient[6][2] = {
 //                        }
 //                    }
 //                }
-            }
+//            }
 //
         }
     }
@@ -455,17 +454,19 @@ int iBeaconPositionsinClient[6][2] = {
             float temX = [[tem objectAtIndex:0] floatValue];
             float temY = [[tem objectAtIndex:1] floatValue];
             float temResult = [self CalDistance:temX y0:temY x1:averageX y1:averageY];
-            [temDisArray addObject:[NSNumber numberWithFloat:temResult]];
+            [temDisArray addObject:[NSNumber numberWithFloat:temResult*temResult]];
         }
         if ([resultArray count] > 2) {
+            NSMutableArray *removeArray = [[NSMutableArray alloc] init];
             for (int i = 0; i < PASS_NUMBER; i ++) {
                 for (int j = 0; j < [resultArray count]; j ++) {
                     NSNumber* tem = [temDisArray objectAtIndex:i];
                     if ([self JudgeBigest:temDisArray value:tem] == YES) {
-                        [resultArray removeObjectAtIndex:j];
+                        [removeArray addObject:[resultArray objectAtIndex:j]];
                         break;
                     }
                 }
+                [resultArray removeObject:[removeArray lastObject]];
             }
         }
         

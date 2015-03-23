@@ -99,7 +99,8 @@ int keyPointMap[40] = {
 };
 
 int iBeaconPositions[6][2] = {
-    {0, 0}, {768, 0}, {768, 916}, {0, 916}, {384, 204}, {384, 720}
+//    {0, 0}, {768, 0}, {768, 916}, {0, 916}, {384, 204}, {384, 720}
+    {0, 0}, {768, 0}, {768, 916}, {0, 916}, {384, 0}, {768, 458}
 };
 @implementation PathBuilderViewController
 
@@ -128,6 +129,7 @@ int iBeaconPositions[6][2] = {
     pathPoints = [[NSMutableArray alloc] init];
     storageArray =[[NSMutableArray alloc] init];
     footprintArray = [[NSMutableArray alloc] init];
+    arrayForPointsAverage = [[NSMutableArray alloc] init];
     
     kDuration = 4.0;
     
@@ -454,13 +456,21 @@ int iBeaconPositions[6][2] = {
 {
     float resultX = [[[self.beaconClient valueForKey:@"positionArray"] objectAtIndex:0] floatValue];
     float resultY = [[[self.beaconClient valueForKey:@"positionArray"] objectAtIndex:1] floatValue];
+    if (resultX > 0 && resultY > 0) {
+        NSArray *tPositionArray = [self.beaconClient valueForKey:@"positionArray"];
+        [arrayForPointsAverage addObject:tPositionArray];
+    }
+    if ([arrayForPointsAverage count] > AVERAGE_NUM) {
+        [arrayForPointsAverage removeObjectAtIndex:0];
+    }
+    for (int i = 0; i < AVERAGE_NUM; i ++) {
+        resultX += [[[arrayForPointsAverage objectAtIndex:i] objectAtIndex:0] floatValue] / AVERAGE_NUM;
+        resultY += [[[arrayForPointsAverage objectAtIndex:i] objectAtIndex:1] floatValue] / AVERAGE_NUM;
+    }
     if([self CheckSelfPositionAfterCalculate:resultX y:resultY] == NO){
         //如果计算出的点不跟货架重合，就画出来
         [self.pathBuilderView DrawSelf:resultX y:resultY];
     }
-//    else{
-//        [self.pathBuilderView DrawSelf:resultX-10 y:resultY-10];
-//    }
     NSLog(@"sadasdasdasdasdasd");
 
 }

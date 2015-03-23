@@ -28,6 +28,8 @@
     NSMutableArray *storageArray;
     NSMutableArray *footprintArray;
     CFTimeInterval kDuration;
+    
+    NSMutableArray *arrayForPointsAverage;
 }
 
 @property (nonatomic, retain) NSMutableArray *choosedPoints;
