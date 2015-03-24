@@ -43,14 +43,14 @@ static CGFloat const kPointDiameter = 7.0;
         _pathShapeView.backgroundColor = [UIColor clearColor];
         _pathShapeView.opaque = NO;
         _pathShapeView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addSubview:_pathShapeView];
+        //[self addSubview:_pathShapeView];
         
         _prospectivePathShapeView = [[ShapeView alloc] init];
         _prospectivePathShapeView.shapeLayer.fillColor = nil;
         _prospectivePathShapeView.backgroundColor = [UIColor colorWithRed:239 green:240 blue:242 alpha:1];
         _prospectivePathShapeView.opaque = NO;
         _prospectivePathShapeView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addSubview:_prospectivePathShapeView];
+        //[self addSubview:_prospectivePathShapeView];
         
         _pointsShapeView = [[ShapeView alloc] init];
         _pointsShapeView.backgroundColor = [UIColor clearColor];
@@ -63,17 +63,30 @@ static CGFloat const kPointDiameter = 7.0;
             self.locationManager.delegate = self;
             [self.locationManager startUpdatingHeading];
         }
+        
+        gradientLayer = [CAGradientLayer layer];
+        gradientLayer.frame = self.frame;
+        gradientLayer.colors = @[(__bridge id)[UIColor redColor].CGColor,(__bridge id)[UIColor blueColor].CGColor,(__bridge id)[UIColor greenColor].CGColor ];
+        gradientLayer.startPoint = CGPointMake(0,0);
+        gradientLayer.endPoint = CGPointMake(1,1);
+        gradientLayer.mask = self.prospectivePathShapeView.shapeLayer;
+        [self.layer addSublayer:gradientLayer];
+        
         self.naviIcon = [[CALayer alloc] init];
-        self.naviIcon.frame = CGRectMake(369, 880,30,30);
+        self.naviIcon.frame = CGRectMake(700, 5,50,50);
         self.naviIcon.contents = (id)[[UIImage imageNamed:@"navigator"] CGImage];
         [self.layer addSublayer:self.naviIcon];
         
+        self.personIcon = [[CALayer alloc]init];
+        self.personIcon.frame = CGRectMake(768/2-20,916-40,40,40);
+        self.personIcon.contents = (id)[[UIImage imageNamed:@"person"] CGImage];
+        [self.layer addSublayer:self.personIcon];
     }
     return self;}
 
 -(void) locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading{
     
-    CGFloat headings = M_PI*newHeading.trueHeading/180.0f;
+    CGFloat headings = M_PI*(360-newHeading.trueHeading)/180.0f;
     //CGFloat headings = newHeading.trueHeading;
     CABasicAnimation* anim = [CABasicAnimation animationWithKeyPath:@"transform"];
     
@@ -88,6 +101,7 @@ static CGFloat const kPointDiameter = 7.0;
     [self.naviIcon addAnimation:anim forKey:nil];
     
     
+    
 }
 
 - (void)addPointsIn:(NSMutableArray*)thosePoints shapViewOrNot:(BOOL)shapViewOrNot{
@@ -100,7 +114,8 @@ static CGFloat const kPointDiameter = 7.0;
 {
     if ([self.points count] >= 2) {
         UIBezierPath *path = [[UIBezierPath alloc] init];
-        [self.points insertObject:[self.points firstObject] atIndex:0];
+        
+        
         [path moveToPoint:[[self.points firstObject] CGPointValue]];
 
         NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, [self.points count] - 1)];
@@ -109,11 +124,29 @@ static CGFloat const kPointDiameter = 7.0;
                                     usingBlock:^(NSValue *pointValue, NSUInteger idx, BOOL *stop) {
                                         [path addLineToPoint:[pointValue CGPointValue]];
                                     }];
+        
+        
+        
+        
+        //Using arc as a mask instead of adding it as a sublayer.
+        //[self.view.layer addSublayer:arc];
+        
         if (shapViewOrNot == YES) {
+            
+            
             self.pathShapeView.shapeLayer.path = path.CGPath;
+            gradientLayer.mask = self.pathShapeView.shapeLayer;
+ 
+            if(![[self.layer sublayers] containsObject:gradientLayer]){
+                [self.layer addSublayer:gradientLayer];
+            }
+            
+
         }else{
-            self.prospectivePathShapeView.shapeLayer.path = path.CGPath;
+            //self.prospectivePathShapeView.shapeLayer.path = path.CGPath;
+            gradientLayer.mask = self.prospectivePathShapeView.shapeLayer;
         }
+        
         
     }
     else {

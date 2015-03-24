@@ -22,7 +22,7 @@
 @interface PathBuilderViewController : UIViewController{
     NSMutableArray *choosedPoints;
     NSMutableArray *pathPoints;
-    NSMutableArray *aIBeacons;
+    //NSMutableArray *aIBeacons;
     NSTimer *ressTimer;
     BOOL drawOrClear;
     NSMutableArray *storageArray;
@@ -34,7 +34,7 @@
 
 @property (nonatomic, retain) NSMutableArray *choosedStorages;
 
-@property (nonatomic, retain) BeaconClient *beaconClient;
+//@property (nonatomic, retain) BeaconClient *beaconClient;
 - (void) drawFootprint:(NSTimer *) myTimer;
 - (void) clearFootprint:(NSTimer *) myTimer;
 @end
