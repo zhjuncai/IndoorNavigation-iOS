@@ -10,31 +10,34 @@
   "deliveryAddress": "NO 1001, Chenhui Road, Pudong, Shanghai",
   "items": [
             {
-            "itemName": "Clothes",
-            "itemType": "Package",
+            "itemName": "Glasses",
+            "itemType": "Pieces",
             "quantity": "20",
             "unitOfMeasure": "PC",
             "major": "1",
             "minor": "1",
-            "selected": false
+            "selected": false,
+            "image": "glasses2.png"
             },
             {
-            "itemName": "Table Tennis Balls",
-            "itemType": "Package",
+            "itemName": "Computer Keyboard",
+            "itemType": "BOX",
             "quantity": "200",
-            "unitOfMeasure": "PC",
+            "unitOfMeasure": "BOX",
             "major": "1",
             "minor": "2",
-            "selected": false
+            "selected": false,
+            "image": "keyboard.png"
             },
             {
-            "itemName": "Cups",
+            "itemName": "Small Printer",
             "itemType": "Package",
             "quantity": "30",
-            "unitOfMeasure": "PC",
+            "unitOfMeasure": "PKG",
             "major": "2",
             "minor": "1",
-            "selected": false
+            "selected": false,
+            "image": "printer.png"
             }
             ]
   },
@@ -49,31 +52,34 @@
   "deliveryAddress": "NO 1001, Chenhui Road, Pudong, Shanghai",
   "items": [
             {
-            "itemName": "Books",
+            "itemName": "PSP",
             "itemType": "Package",
             "quantity": "40",
             "unitOfMeasure": "Piece",
             "major": "2",
             "minor": "2",
-            "selected": false
+            "selected": false,
+            "image": "PSP.png"
             },
             {
-            "itemName": "Instruments",
-            "itemType": "Package",
+            "itemName": "Router",
+            "itemType": "Product",
             "quantity": "10",
             "unitOfMeasure": "Piece",
             "major": "3",
             "minor": "1",
-            "selected": false
+            "selected": false,
+            "image": "router.png"
             },
             {
-            "itemName": "Clothes",
+            "itemName": "USB Flash Disk",
             "itemType": "Package",
             "quantity": "20",
             "unitOfMeasure": "Piece",
             "major": "1",
             "minor": "1",
-            "selected": false
+            "selected": false,
+            "image": "USBFlashDisk.png"
             },
             {
             "itemName": "Glasses",
@@ -82,25 +88,28 @@
             "unitOfMeasure": "L",
             "major": "3",
             "minor": "2",
-            "selected": false
+            "selected": false,
+            "image": "glasses2.png"
             },
             {
-            "itemName": "Table Tennis Balls",
+            "itemName": "Telescope",
             "itemType": "Package",
             "quantity": "30",
             "unitOfMeasure": "Piece",
             "major": "1",
             "minor": "2",
-            "selected": false
+            "selected": false,
+            "image": "telescope.png"
             },
             {
-            "itemName": "Cups",
+            "itemName": "Small Printer",
             "itemType": "Package",
             "quantity": "50",
             "unitOfMeasure": "Piece",
             "major": "2",
             "minor": "1",
-            "selected": false
+            "selected": false,
+            "image": "printer.png"
             }
             ]
   }

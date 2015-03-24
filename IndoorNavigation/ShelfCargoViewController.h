@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FreightOrder.h"
 
-@interface ShelfCargoViewController : UIViewController <UIPopoverPresentationControllerDelegate>
-- (void)configCargoName:(NSString *)cargoName;
+@interface ShelfCargoViewController : UITableViewController <UIPopoverPresentationControllerDelegate>
+
+@property (nonatomic, readwrite) OrderItem *cargoItem;
 @end
