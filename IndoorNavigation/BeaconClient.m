@@ -88,11 +88,12 @@ int iBeaconPositionsinClient[6][2] = {
 
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
-    NSDictionary *ibeaconsDic=[[NSDictionary alloc] initWithObjectsAndKeys:beacons,@"iBeacons",nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"iBeaconsBack" object:Nil userInfo:ibeaconsDic];
-    BOOL maxCheck = [self CheckBeaconsDataQualifyBeforeCalculate:beacons];
-    if (YES) {
-        [self drawPosition];
+    for(CLBeacon* beacon in beacons){
+        
+        if(beacon.major==[NSNumber numberWithInt:4] && beacon.minor == [NSNumber numberWithInt:4]){
+            if(beacon.accuracy < 2)
+            [self showAlertView:nil message:@"Welcome，你已经进入 iSS iBeacon region"];
+        }
     }
     
 }
@@ -114,6 +115,7 @@ int iBeaconPositionsinClient[6][2] = {
 //    }else{
 //        [self showAlertView:nil message:@"Hi，你已经进入 iSS iBeacon region"];
 //    }
+    
 }
 
 

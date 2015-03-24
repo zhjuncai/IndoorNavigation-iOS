@@ -78,13 +78,14 @@ static CGFloat const kPointDiameter = 7.0;
         [self.layer addSublayer:self.naviIcon];
         
         self.personIcon = [[UIImageView alloc]init];
-        self.personIcon.frame = CGRectMake(768/2-20,916-40,40,40);
-        [self.personIcon setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"person"]]];
+        self.personIcon.frame = CGRectMake(768/2-10,916-40,25,25);
+        self.personIcon.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"person"]];
 //        self.personIcon.contents = (id)[[UIImage imageNamed:@"person"] CGImage];
         [self addSubview:self.personIcon];
         
     }
-    return self;}
+    return self;
+}
 
 -(void) locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading{
     
@@ -126,6 +127,39 @@ static CGFloat const kPointDiameter = 7.0;
                                     usingBlock:^(NSValue *pointValue, NSUInteger idx, BOOL *stop) {
                                         [path addLineToPoint:[pointValue CGPointValue]];
                                     }];
+        
+        for (int i = 1; i < [self.points count] - 1; i ++) {
+            NSValue *pointValue = [self.points objectAtIndex:i];
+            CGPoint arrowPoints = [pointValue CGPointValue];
+            NSValue *pointValue2 = [self.points objectAtIndex:i+1];
+            CGPoint arrowPoints2 = [pointValue2 CGPointValue];
+            if (arrowPoints.x > arrowPoints2.x) {
+                UIBezierPath *arrowPath = [UIBezierPath customBezierPathOfArrowSymbolWithRect:CGRectMake([pointValue CGPointValue].x - 15, [pointValue CGPointValue].y-10, 10,20)
+                                                                                        scale:0.5
+                                                                                        thick:0.5
+                                                                                    direction:(UIBezierPathArrowDirection)kUIBezierPathArrowDirectionLeft];
+                [path appendPath:arrowPath];
+            }else if (arrowPoints2.x > arrowPoints.x){
+                UIBezierPath *arrowPath = [UIBezierPath customBezierPathOfArrowSymbolWithRect:CGRectMake([pointValue CGPointValue].x + 15, [pointValue CGPointValue].y-10, 10,20)
+                                                                                        scale:0.5
+                                                                                        thick:0.5
+                                                                                    direction:(UIBezierPathArrowDirection)kUIBezierPathArrowDirectionRight];
+                [path appendPath:arrowPath];
+            }else if (arrowPoints.y > arrowPoints2.y){
+                UIBezierPath *arrowPath = [UIBezierPath customBezierPathOfArrowSymbolWithRect:CGRectMake([pointValue CGPointValue].x-10, [pointValue CGPointValue].y - 10, 20,10)
+                                                                                        scale:0.5
+                                                                                        thick:0.5
+                                                                                    direction:(UIBezierPathArrowDirection)kUIBezierPathArrowDirectionUp];
+                [path appendPath:arrowPath];
+            }else{
+                UIBezierPath *arrowPath = [UIBezierPath customBezierPathOfArrowSymbolWithRect:CGRectMake([pointValue CGPointValue].x-10, [pointValue CGPointValue].y + 10, 20,10)
+                                                                                        scale:0.5
+                                                                                        thick:0.5
+                                                                                    direction:(UIBezierPathArrowDirection)kUIBezierPathArrowDirectionDown];
+                [path appendPath:arrowPath];
+            }
+        }
+        
         
         
         

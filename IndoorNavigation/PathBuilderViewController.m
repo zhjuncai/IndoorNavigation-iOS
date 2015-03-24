@@ -148,7 +148,7 @@ int iBeaconPositions[6][2] = {
     
     
     //启动iBeacons，timer开始定时计算自身位置
-    //[self startIbeacons];
+    [self startIbeacons];
 //    NSTimer *calSelfPositionTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
 //                                                                     target:self
 //                                                                   selector:@selector(drawPosition)
@@ -472,6 +472,7 @@ int iBeaconPositions[6][2] = {
     }else{
         [self drawPath:[self SwapAllElementInArray:pathPoints]];
         [self ClearPath];
+        self.pathBuilderView.personIcon.frame = CGRectMake(768/2-10,916-40,25,25);
         [sender setTitle:@"Navigate!"];
         
     }
@@ -504,15 +505,17 @@ int iBeaconPositions[6][2] = {
     }
     
 }
+
+
 #pragma mark - iBeacon
 
-//-(void) startIbeacons{
-//    if (!_beaconClient) {
-//        _beaconClient = [[BeaconClient alloc] init];
-//        [_beaconClient addObserver:self forKeyPath:@"positionArray" options:NSKeyValueObservingOptionNew context:NULL];
-//    }
-//    [_beaconClient openClient];
-//}
+-(void) startIbeacons{
+    if (!_beaconClient) {
+        _beaconClient = [[BeaconClient alloc] init];
+        [_beaconClient addObserver:self forKeyPath:@"positionArray" options:NSKeyValueObservingOptionNew context:NULL];
+    }
+    [_beaconClient openClient];
+}
 
 //-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 //{
@@ -646,7 +649,7 @@ int iBeaconPositions[6][2] = {
 
 - (void)dealloc
 {
-    //[_beaconClient closeClient];
+    [_beaconClient closeClient];
     //[_beaconClient removeObserver:self forKeyPath:@"positionArray"];
 }
 
