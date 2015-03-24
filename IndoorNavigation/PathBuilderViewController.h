@@ -17,6 +17,7 @@
 #import "NaviAlgo.h"
 #import "Header.h"
 #import "ShelfCargoViewController.h"
+#import "FreightOrder.h"
 
 
 @interface PathBuilderViewController : UIViewController{
@@ -33,6 +34,7 @@
 }
 
 @property (nonatomic, retain) NSMutableArray *choosedStorages;
+@property (nonatomic, retain) NSMutableDictionary *freightOrderCargoItems;
 
 //@property (nonatomic, retain) BeaconClient *beaconClient;
 - (void) drawFootprint:(NSTimer *) myTimer;

@@ -156,6 +156,14 @@ NSArray *itemValues;
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.section == 0){
+        return 44.f;
+    }else{
+        return 60.f;
+    }
+}
+
 //- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 //    
 //    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40.f)];
@@ -214,6 +222,8 @@ NSArray *itemValues;
         cell.tag = shelfPosition;
         
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ at Shelf %d", orderItem.quantity, orderItem.unitOfMeasure, shelfPosition+1];
+        
+        cell.imageView.image = [UIImage imageNamed:orderItem.productImage];
     }
     
     return cell;
@@ -234,14 +244,20 @@ NSArray *itemValues;
         NSInteger itemSection = 1;
         NSInteger numberOfItems = [self.tableView numberOfRowsInSection:itemSection];
         NSMutableArray * chosenShelfPosition = [[NSMutableArray alloc] initWithCapacity:numberOfItems];
+        
+        NSMutableDictionary *cargoItems = [[NSMutableDictionary alloc] initWithCapacity:numberOfItems];
+        
         for (int row = 0; row < numberOfItems; row++) {
             UITableViewCell *foCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:itemSection]];
             NSInteger shelfPosition = foCell.tag;
             [chosenShelfPosition addObject:[NSNumber numberWithInteger:shelfPosition]];
+            
+            OrderItem *orderItem = self.freightOrder.foItems[row];
+            [cargoItems setObject:orderItem forKey:[NSNumber numberWithInteger:shelfPosition]];
         }
         
         pathBuilderVC.choosedStorages = chosenShelfPosition;
-        
+        pathBuilderVC.freightOrderCargoItems = cargoItems;
     }
              
 }

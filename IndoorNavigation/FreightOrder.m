@@ -49,6 +49,8 @@
             orderItem.major = [item valueForKey:@"major"];
             orderItem.minor = [item valueForKey:@"minor"];
             orderItem.selected=@"unselected";
+            
+            orderItem.productImage = [item valueForKey:@"image"];
             [freightOrder.foItems addObject:orderItem];
         }
         

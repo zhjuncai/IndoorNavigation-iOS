@@ -382,30 +382,12 @@ int iBeaconPositions[6][2] = {
 //button点击事件，绑定在每一个货架的button上面
 - (IBAction)getKeyPointIndexByClick:(id)sender{
     storage *btn = sender;
-    NSNumber *index = [NSNumber numberWithLong:btn.position];
-    
-    ShelfCargoViewController *shelfCargoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ShelfCargoViewController"];
-    
     
     if (!btn.isChosen) {
         //[choosedPoints addObject:index];
         [storageArray addObject:sender];
         btn.isChosen = YES;
         [btn setBackgroundImage:[UIImage imageNamed:@"selectedShelf"] forState:UIControlStateNormal];
-        
-        
-        shelfCargoVC.modalPresentationStyle = UIModalPresentationPopover;
-        shelfCargoVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        
-        UIPopoverPresentationController *presentVC = shelfCargoVC.popoverPresentationController;
-        presentVC.sourceView = btn;
-        
-        presentVC.sourceRect = CGRectMake(CGRectGetMinX(btn.bounds), btn.bounds.origin.y, CGRectGetWidth(btn.bounds), CGRectGetHeight(btn.bounds));
-        
-        presentVC.permittedArrowDirections = UIPopoverArrowDirectionDown;
-        
-        [self presentViewController: shelfCargoVC animated:true completion:nil];
-        
     }
     else{
         //[choosedPoints removeObject:index];
@@ -413,7 +395,29 @@ int iBeaconPositions[6][2] = {
         btn.isChosen = NO;
         [btn setBackgroundImage:[UIImage imageNamed:@"shelf"] forState:UIControlStateNormal];
     }
+    
+    [self presentCargoPopoverView: btn];
+}
+
+- (void)presentCargoPopoverView:(storage *)sender{
+    ShelfCargoViewController *shelfCargoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ShelfCargoViewController"];
+    OrderItem *cargoItem = [self.freightOrderCargoItems objectForKey: [NSNumber numberWithInteger:sender.tag]];
+    
+    if (cargoItem) {
+        shelfCargoVC.cargoItem = cargoItem;
         
+        shelfCargoVC.modalPresentationStyle = UIModalPresentationPopover;
+        shelfCargoVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        
+        UIPopoverPresentationController *presentVC = shelfCargoVC.popoverPresentationController;
+        presentVC.sourceView = sender;
+        
+        presentVC.sourceRect = CGRectMake(CGRectGetMinX(sender.bounds), sender.bounds.origin.y, CGRectGetWidth(sender.bounds), CGRectGetHeight(sender.bounds));
+        
+        presentVC.permittedArrowDirections = UIPopoverArrowDirectionDown;
+        
+        [self presentViewController: shelfCargoVC animated:true completion:nil];
+    }
 }
 
 //button点击事件，就是点击”Draw Path“ button后触发的事件

@@ -37,5 +37,6 @@
 @property (nonatomic, retain) NSString * major;
 @property (nonatomic, retain) NSString * minor;
 @property (nonatomic, readwrite) NSString *selected;
+@property (nonatomic, retain) NSString * productImage;
 
 @end
