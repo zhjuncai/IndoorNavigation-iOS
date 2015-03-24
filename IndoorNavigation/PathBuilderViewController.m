@@ -113,7 +113,7 @@ int iBeaconPositions[6][2] = {
     
         [storageArray addObject:button];
         
-        button.isSelected = YES;
+        button.isChosen = YES;
         [button setBackgroundImage:[UIImage imageNamed:@"selectedShelf"] forState:UIControlStateNormal];
     }
 }
@@ -387,10 +387,10 @@ int iBeaconPositions[6][2] = {
     ShelfCargoViewController *shelfCargoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ShelfCargoViewController"];
     
     
-    if (!btn.isSelected) {
+    if (!btn.isChosen) {
         //[choosedPoints addObject:index];
         [storageArray addObject:sender];
-        btn.isSelected = YES;
+        btn.isChosen = YES;
         [btn setBackgroundImage:[UIImage imageNamed:@"selectedShelf"] forState:UIControlStateNormal];
         
         
@@ -410,7 +410,7 @@ int iBeaconPositions[6][2] = {
     else{
         //[choosedPoints removeObject:index];
         [storageArray removeObject:sender];
-        btn.isSelected = NO;
+        btn.isChosen = NO;
         [btn setBackgroundImage:[UIImage imageNamed:@"shelf"] forState:UIControlStateNormal];
     }
         
@@ -479,17 +479,17 @@ int iBeaconPositions[6][2] = {
         CABasicAnimation *move;    //定义动画
         
         
-        move=[CABasicAnimation animationWithKeyPath:@"transform.translation.x"];
+        move=[CABasicAnimation animationWithKeyPath:@"transform.translation.z"];
         NSString *tem = [resultArray objectAtIndex:i];
         CGPoint temPoint = CGPointFromString(tem);
         move.fromValue = [NSValue valueWithCGPoint:self.pathBuilderView.personIcon.position];
         move.toValue = [NSValue valueWithCGPoint:temPoint];
-        move.duration=1.5;      //动画持续时间
+        move.duration=1.5*i;      //动画持续时间
         move.fillMode = kCAFillModeForwards;
         move.removedOnCompletion = YES;
         
         [self.pathBuilderView.personIcon addAnimation:move forKey:@"moveLayer"];
-        self.pathBuilderView.personIcon.position = temPoint;
+        //self.pathBuilderView.personIcon.position = temPoint;
 
     }
 }
@@ -552,9 +552,9 @@ int iBeaconPositions[6][2] = {
     drawOrClear = YES;
     for(int i=0;i<[storageArray count];i++){
         storage* button = [storageArray objectAtIndex:i];
-        if(button.isSelected){
+        if(button.isChosen){
             [button setBackgroundImage:[UIImage imageNamed:@"shelf"] forState:UIControlStateNormal];
-            button.isSelected = NO;
+            button.isChosen = NO;
         }
         
 

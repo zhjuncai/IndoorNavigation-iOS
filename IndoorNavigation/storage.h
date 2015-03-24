@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 
 @interface storage: UIButton
-@property  (nonatomic) BOOL isSelected;
+@property  (nonatomic) BOOL isChosen;
 @property (nonatomic) NSInteger position;
 
 

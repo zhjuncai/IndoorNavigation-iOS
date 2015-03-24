@@ -14,7 +14,7 @@
     
     self = [super init];
     self.frame = frame;
-    self.isSelected = NO;
+    self.isChosen = NO;
     self.backgroundColor = [UIColor blackColor];
     self.transform = CGAffineTransformMakeRotation(angle);
     self.position =index;
