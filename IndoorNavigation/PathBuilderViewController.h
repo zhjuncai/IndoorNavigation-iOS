@@ -37,7 +37,7 @@
 @property (nonatomic, retain) NSMutableDictionary *freightOrderCargoItems;
 
 //@property (nonatomic, retain) BeaconClient *beaconClient;
-- (void) drawFootprint:(NSTimer *) myTimer;
-- (void) clearFootprint:(NSTimer *) myTimer;
+//- (void) drawFootprint:(NSTimer *) myTimer;
+//- (void) clearFootprint:(NSTimer *) myTimer;
 @end
 

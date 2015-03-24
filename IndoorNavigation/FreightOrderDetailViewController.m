@@ -211,17 +211,17 @@ NSArray *itemValues;
     }else{
         OrderItem *orderItem = self.freightOrder.foItems[indexPath.row];
         cell.textLabel.text = orderItem.itemName;
-        int shelfPosition = (arc4random() % 40);
+        int shelfPosition = (arc4random() % 40) + 1;
         
         while([self.storageIndexArray containsObject:[NSNumber numberWithInteger:shelfPosition]]){
-            shelfPosition = (arc4random() % 40);
+            shelfPosition = (arc4random() % 40) + 1;
         }
         
         [self.storageIndexArray addObject:[NSNumber numberWithInteger:shelfPosition]];
         
         cell.tag = shelfPosition;
         
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ at Shelf %d", orderItem.quantity, orderItem.unitOfMeasure, shelfPosition+1];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ at Shelf %d", orderItem.quantity, orderItem.unitOfMeasure, shelfPosition];
         
         cell.imageView.image = [UIImage imageNamed:orderItem.productImage];
     }

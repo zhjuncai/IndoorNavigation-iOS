@@ -122,7 +122,7 @@ int iBeaconPositions[6][2] = {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    NSArray *uuid = [[NSArray alloc] initWithObjects:@"0-1", @"0-2", @"0-3", @"0-4", @"0-5", @"0-6", nil];
+//    NSArray *uuid = [[NSArray alloc] initWithObjects:@"0-1", @"0-2", @"0-3", @"0-4", @"0-5", @"0-6", nil];
 //    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
 //    aIBeacons = [[NSMutableArray alloc] init];
 //    for (int i = 0; i < NUM_OF_BEACONS; i ++) {
@@ -210,17 +210,17 @@ int iBeaconPositions[6][2] = {
 
 //在屏幕上创建出表示货架的黑button
 - (void)CreateWarehouse:(int[40])keyPointMap storagePosition:(int[40][4])storagePosition{
-    for (int i = 0; i < 40; i ++) {
-        CGRect frame = [self ConvertToFram:storagePosition[i]];
-        storage *oStorage = [[storage alloc] init:frame angle:0 keyPoint:keyPointMap[i]-1 name:@""];
-        oStorage.tag =i;
+    for (int i = 1; i <= 40; i ++) {
+        CGRect frame = [self ConvertToFram:storagePosition[i - 1]];
+        storage *oStorage = [[storage alloc] init:frame angle:0 keyPoint:keyPointMap[i - 1] - 1 name:@""];
+        oStorage.tag = i;
 
         [self.view addSubview:oStorage];
         [oStorage addTarget:self action:@selector(getKeyPointIndexByClick:) forControlEvents:UIControlEventTouchUpInside];
         
         UILongPressGestureRecognizer *longPressGR =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                      action:@selector(handleLongPress:)];
+                                                      action:@selector(handleLongPress:)] ;
         //longPressGR.allowableMovement=NO;
         longPressGR.minimumPressDuration = 0.8;
         [oStorage addGestureRecognizer:longPressGR];
@@ -235,12 +235,8 @@ int iBeaconPositions[6][2] = {
     
     //storage *button=sender;
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan){
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                             message:@"test"
-                                                            delegate:nil
-                                                   cancelButtonTitle:@"确定"
-                                                   otherButtonTitles:nil];
-        [alertView show];
+        storage *btn = (storage *) gestureRecognizer.view;
+        [self presentCargoPopoverView: btn];
     }
    
     
@@ -396,7 +392,7 @@ int iBeaconPositions[6][2] = {
         [btn setBackgroundImage:[UIImage imageNamed:@"shelf"] forState:UIControlStateNormal];
     }
     
-    [self presentCargoPopoverView: btn];
+    
 }
 
 - (void)presentCargoPopoverView:(storage *)sender{
