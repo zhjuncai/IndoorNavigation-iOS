@@ -284,7 +284,7 @@ int iBeaconPositions[6][2] = {
             int length = (newPoint.x - oldPoint.x) + (newPoint.y - oldPoint.y);
             int deltaX = newPoint.x - oldPoint.x;
             int deltaY = newPoint.y - oldPoint.y;
-            int num = abs(length/30);
+            int num = abs(length/20);
             NSString *direction;
             
             if(deltaX>0){
@@ -308,19 +308,19 @@ int iBeaconPositions[6][2] = {
                 if(isLeft){
                     
                     if(deltaX>0){
-                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num-8 , oldPoint.y+ j*deltaY/num-4-8,18,18);
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num-8 , oldPoint.y+ j*deltaY/num-4-8,10,10);
                         footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-right"] CGImage];
                     }
                     else if(deltaX<0){
-                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num -8, oldPoint.y+ j*deltaY/num+4-8,18,18);
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num -8, oldPoint.y+ j*deltaY/num+4-8,10,10);
                         footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-left"] CGImage];
                     }
                     else if(deltaY >0){
-                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num -8, oldPoint.y+ j*deltaY/num-8,18,18);
+                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num -8, oldPoint.y+ j*deltaY/num-8,10,10);
                         footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-down"] CGImage];
                     }
                     else if(deltaY){
-                        footIcon.frame = CGRectMake(oldPoint.x-4 + j*deltaX/num -8, oldPoint.y+ j*deltaY/num-8,18,18);
+                        footIcon.frame = CGRectMake(oldPoint.x-4 + j*deltaX/num -8, oldPoint.y+ j*deltaY/num-8,10,10);
                         footIcon.contents = (id)[[UIImage imageNamed:@"leftFootprint-up"] CGImage];
                         
                     }
@@ -330,19 +330,19 @@ int iBeaconPositions[6][2] = {
                 else{
                     
                     if(deltaX>0){
-                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num-8 , oldPoint.y+ j*deltaY/num+4-8,18,18);
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num-8 , oldPoint.y+ j*deltaY/num+4-8,10,10);
                         footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-right"] CGImage];
                     }
                     else if(deltaX<0){
-                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num -8, oldPoint.y+ j*deltaY/num-4-8,18,18);
+                        footIcon.frame = CGRectMake(oldPoint.x+ j*deltaX/num -8, oldPoint.y+ j*deltaY/num-4-8,10,10);
                         footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-left"] CGImage];
                     }
                     else if(deltaY >0){
-                        footIcon.frame = CGRectMake(oldPoint.x-4+ j*deltaX/num -8, oldPoint.y+ j*deltaY/num-8,18,18);
+                        footIcon.frame = CGRectMake(oldPoint.x-4+ j*deltaX/num -8, oldPoint.y+ j*deltaY/num-8,10,10);
                         footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-down"] CGImage];
                     }
                     else if(deltaY){
-                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num -8, oldPoint.y+ j*deltaY/num-8,18,18);
+                        footIcon.frame = CGRectMake(oldPoint.x+4 + j*deltaX/num -8, oldPoint.y+ j*deltaY/num-8,10,10);
                         footIcon.contents = (id)[[UIImage imageNamed:@"rightFootprint-up"] CGImage];
                     }
                     isLeft=!isLeft;
@@ -359,7 +359,7 @@ int iBeaconPositions[6][2] = {
     
 
     for(int k=0; k<[footprintArray count];k++){
-        NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:0.3*k target:self selector:@selector(drawFootprint:) userInfo:[footprintArray objectAtIndex:k] repeats:NO];
+        NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:0.1*k target:self selector:@selector(drawFootprint:) userInfo:[footprintArray objectAtIndex:k] repeats:NO];
     }
     
 }
@@ -446,7 +446,7 @@ int iBeaconPositions[6][2] = {
                 pathPoints = [calPath getBestPathForDestinations:choosedPoints];
                 kDuration = [calPath getShortestLength] * TIME_LENGTH;
                 [self drawPath:pathPoints];
-                [sender setTitle:@"Stop!"];
+                [sender setTitle:@"Go!"];
                 drawOrClear = NO;
             }
             else{
@@ -492,14 +492,16 @@ int iBeaconPositions[6][2] = {
         [arrayForPointsAverage removeObjectAtIndex:0];
     }
     if ([arrayForPointsAverage count] == AVERAGE_NUM) {
+        resultX = 0;
+        resultY = 0;
         for (int i = 0; i < AVERAGE_NUM; i ++) {
             resultX += [[[arrayForPointsAverage objectAtIndex:i] objectAtIndex:0] floatValue] / AVERAGE_NUM;
             resultY += [[[arrayForPointsAverage objectAtIndex:i] objectAtIndex:1] floatValue] / AVERAGE_NUM;
         }
-        if([self CheckSelfPositionAfterCalculate:resultX y:resultY] == NO){
+        //if([self CheckSelfPositionAfterCalculate:resultX y:resultY] == NO){
             //如果计算出的点不跟货架重合，就画出来
             [self.pathBuilderView DrawSelf:resultX y:resultY];
-        }
+        //}
         NSLog(@"sadasdasdasdasdasd");
     }
 

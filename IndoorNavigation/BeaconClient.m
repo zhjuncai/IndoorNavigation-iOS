@@ -16,7 +16,8 @@
 
 @end
 int iBeaconPositionsinClient[6][2] = {
-    {0, 0}, {768, 0}, {768, 916}, {0, 916}, {384, 0}, {768, 458}
+//    {0, 0}, {768, 0}, {768, 916}, {0, 916}, {384, 0}, {768, 458}
+    {0, 0}, {768, 0}, {768, 916}, {0, 916}, {384, 916/2},
 };
 @implementation BeaconClient
 
@@ -90,7 +91,7 @@ int iBeaconPositionsinClient[6][2] = {
     NSDictionary *ibeaconsDic=[[NSDictionary alloc] initWithObjectsAndKeys:beacons,@"iBeacons",nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"iBeaconsBack" object:Nil userInfo:ibeaconsDic];
     BOOL maxCheck = [self CheckBeaconsDataQualifyBeforeCalculate:beacons];
-    if (maxCheck == YES) {
+    if (YES) {
         [self drawPosition];
     }
     
@@ -104,15 +105,15 @@ int iBeaconPositionsinClient[6][2] = {
          didEnterRegion:(CLRegion *)region
 {
     NSLog(@"didEnterRegion");
-    if (_isInsideRegion) return;
-    [self sendEnterLocalNotification];
+//    if (_isInsideRegion) return;
+//    [self sendEnterLocalNotification];
 //    [self showAlertView:nil message:@"Welcome，你已经进入 iSS iBeacon region"];
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
-    {
-        [self sendEnterLocalNotification];
-    }else{
-        [self showAlertView:nil message:@"Hi，你已经进入 iSS iBeacon region"];
-    }
+//    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
+//    {
+//        [self sendEnterLocalNotification];
+//    }else{
+//        [self showAlertView:nil message:@"Hi，你已经进入 iSS iBeacon region"];
+//    }
 }
 
 
