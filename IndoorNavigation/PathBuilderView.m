@@ -77,10 +77,12 @@ static CGFloat const kPointDiameter = 7.0;
         self.naviIcon.contents = (id)[[UIImage imageNamed:@"navigator"] CGImage];
         [self.layer addSublayer:self.naviIcon];
         
-        self.personIcon = [[CALayer alloc]init];
+        self.personIcon = [[UIImageView alloc]init];
         self.personIcon.frame = CGRectMake(768/2-20,916-40,40,40);
-        self.personIcon.contents = (id)[[UIImage imageNamed:@"person"] CGImage];
-        [self.layer addSublayer:self.personIcon];
+        [self.personIcon setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"person"]]];
+//        self.personIcon.contents = (id)[[UIImage imageNamed:@"person"] CGImage];
+        [self addSubview:self.personIcon];
+        
     }
     return self;}
 

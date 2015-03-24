@@ -18,7 +18,7 @@
 @property (nonatomic, strong, readonly) ShapeView *prospectivePathShapeView;
 @property (nonatomic, strong, readonly) ShapeView *pointsShapeView;
 
-@property (nonatomic , strong) CALayer *personIcon;
+@property (nonatomic , strong) UIView *personIcon;
 
 - (void)addPointsIn:(NSMutableArray*)thosePoints shapViewOrNot:(BOOL)shapViewOrNot;
 - (void)DrawSelf:(float)x y:(float)y;

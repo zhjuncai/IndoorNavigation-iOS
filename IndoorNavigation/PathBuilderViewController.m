@@ -475,25 +475,31 @@ int iBeaconPositions[6][2] = {
 }
 
 -(void) drawPerson:(NSMutableArray *) resultArray{
-    for( int i = 0;i<[resultArray count];i++){
-        CABasicAnimation *move;    //定义动画
-        
-        
-        move=[CABasicAnimation animationWithKeyPath:@"transform.translation.z"];
-        NSString *tem = [resultArray objectAtIndex:i];
-        CGPoint temPoint = CGPointFromString(tem);
-        move.fromValue = [NSValue valueWithCGPoint:self.pathBuilderView.personIcon.position];
-        move.toValue = [NSValue valueWithCGPoint:temPoint];
-        move.duration=1.5*i;      //动画持续时间
-        move.fillMode = kCAFillModeForwards;
-        move.removedOnCompletion = YES;
-        
-        [self.pathBuilderView.personIcon addAnimation:move forKey:@"moveLayer"];
-        //self.pathBuilderView.personIcon.position = temPoint;
-
-    }
+    indexOfPersion = 0;
+    [self.view insertSubview:self.pathBuilderView.personIcon atIndex:9999999];
+    NSMutableArray *temArrayForDraw = [self dividePoints:resultArray];
+    NSTimer *timerForPersion = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(moveOneTime:) userInfo:temArrayForDraw repeats:YES];
 }
 
+
+- (void)moveOneTime:(NSTimer*)myTimer{
+    NSMutableArray *temArray = [myTimer userInfo];
+    if (indexOfPersion >= [temArray count]) {
+        indexOfPersion = 0;
+        [myTimer invalidate];
+        myTimer = nil;
+    }else{
+        NSString *tem = [temArray objectAtIndex:indexOfPersion];
+        indexOfPersion ++;
+        CGPoint temPoint = CGPointFromString(tem);
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:1];
+        self.pathBuilderView.personIcon.center = temPoint;
+        [UIView setAnimationDelegate:self.pathBuilderView.personIcon];
+        [UIView commitAnimations];
+    }
+    
+}
 #pragma mark - iBeacon
 
 //-(void) startIbeacons{
@@ -639,4 +645,48 @@ int iBeaconPositions[6][2] = {
     //[_beaconClient closeClient];
     //[_beaconClient removeObserver:self forKeyPath:@"positionArray"];
 }
+
+- (NSMutableArray*)dividePoints:(NSMutableArray*)sourceArray{
+    NSMutableArray *returnArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [sourceArray count]-1; i ++) {
+        NSString *tem = [sourceArray objectAtIndex:i];
+        CGPoint temPoint = CGPointFromString(tem);
+        NSString *tem2 = [sourceArray objectAtIndex:i + 1];
+        CGPoint temPoint2 = CGPointFromString(tem2);
+        [returnArray addObjectsFromArray:[self dividePoint:temPoint sec:temPoint2]];
+    }
+    return returnArray;
+}
+
+- (NSMutableArray*)dividePoint:(CGPoint)firstPoint sec:(CGPoint)secondPoint{
+    NSMutableArray *resultPoints = [[NSMutableArray alloc] init];
+    if (firstPoint.x == secondPoint.x) {
+        if (firstPoint.y > secondPoint.y) {
+            for (int i = 0; i <= firstPoint.y - secondPoint.y; i ++) {
+                CGPoint temP = CGPointMake(firstPoint.x, firstPoint.y-i);
+                [resultPoints addObject:NSStringFromCGPoint(temP)];
+            }
+        }else{
+            for (int i = 0; i <= secondPoint.y - firstPoint.y; i ++) {
+                CGPoint temP = CGPointMake(firstPoint.x, firstPoint.y+i);
+                [resultPoints addObject:NSStringFromCGPoint(temP)];
+            }
+        }
+    }else{
+        if (firstPoint.x > secondPoint.x) {
+            for (int i = 0; i <= firstPoint.x - secondPoint.x; i ++) {
+                CGPoint temP = CGPointMake(firstPoint.x - i, firstPoint.y);
+                [resultPoints addObject:NSStringFromCGPoint(temP)];
+            }
+        }else{
+            for (int i = 0; i <= secondPoint.x - firstPoint.x; i ++) {
+                CGPoint temP = CGPointMake(firstPoint.x + i, firstPoint.y);
+                [resultPoints addObject:NSStringFromCGPoint(temP)];
+            }
+        }
+        
+    }
+    return resultPoints;
+}
+
 @end

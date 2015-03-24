@@ -30,6 +30,7 @@
     CFTimeInterval kDuration;
     
     NSMutableArray *arrayForPointsAverage;
+    int indexOfPersion;
 }
 
 @property (nonatomic, retain) NSMutableArray *choosedStorages;
