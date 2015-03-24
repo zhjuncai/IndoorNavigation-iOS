@@ -24,5 +24,17 @@
     return self;
 }
 
+- (CGRect)titleRectForContentRect:(CGRect)contentRect{
+    
+    CGFloat maxX = CGRectGetMaxX(self.bounds);
+    CGFloat maxY = CGRectGetMaxY(self.bounds);
+    
+    CGFloat titleWidth = 40.f;
+    CGFloat titleHeight = 15.f;
+    
+    CGRect frame = CGRectMake(maxX - 45, maxY - 20, titleWidth, titleHeight);
+    
+    return frame;
+}
 
 @end

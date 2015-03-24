@@ -214,7 +214,11 @@ int iBeaconPositions[6][2] = {
         CGRect frame = [self ConvertToFram:storagePosition[i - 1]];
         storage *oStorage = [[storage alloc] init:frame angle:0 keyPoint:keyPointMap[i - 1] - 1 name:@""];
         oStorage.tag = i;
-
+        [oStorage setTitle:[NSString stringWithFormat:@"1 - %d", i] forState:UIControlStateNormal];
+//        oStorage.tintColor = [UIColor blackColor];
+        oStorage.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+        [oStorage setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
         [self.view addSubview:oStorage];
         [oStorage addTarget:self action:@selector(getKeyPointIndexByClick:) forControlEvents:UIControlEventTouchUpInside];
         
