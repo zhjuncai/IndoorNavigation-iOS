@@ -91,6 +91,7 @@ int iBeaconPositionsinClient[6][2] = {
     for(CLBeacon* beacon in beacons){
         
         if(beacon.major==[NSNumber numberWithInt:4] && beacon.minor == [NSNumber numberWithInt:4]){
+            if(beacon.accuracy < 2)
             [self showAlertView:nil message:@"Welcome，你已经进入 iSS iBeacon region"];
         }
     }
