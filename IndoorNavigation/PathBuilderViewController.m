@@ -107,7 +107,7 @@ int iBeaconPositions[6][2] = {
 - (void)viewDidAppear:(BOOL)animated{
     
     storageArray =[[NSMutableArray alloc] init];
-   
+    stopPointsArray = [[NSMutableArray alloc] init];
     for (NSNumber *storageIndex in _choosedStorages){
         storage * button = (storage *)[self.view viewWithTag:storageIndex.integerValue];
     
@@ -472,6 +472,9 @@ int iBeaconPositions[6][2] = {
     }else{
         [self drawPath:[self SwapAllElementInArray:pathPoints]];
         [self ClearPath];
+        [timerForPersion invalidate];
+        timerForPersion = nil;
+        self.pathBuilderView.personIcon.frame = CGRectMake(768/2-10,916-40,25,25);
         [sender setTitle:@"Navigate!"];
         
     }
@@ -482,7 +485,7 @@ int iBeaconPositions[6][2] = {
     indexOfPersion = 0;
     [self.view insertSubview:self.pathBuilderView.personIcon atIndex:9999999];
     NSMutableArray *temArrayForDraw = [self dividePoints:resultArray];
-    NSTimer *timerForPersion = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(moveOneTime:) userInfo:temArrayForDraw repeats:YES];
+    timerForPersion = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(moveOneTime:) userInfo:temArrayForDraw repeats:YES];
 }
 
 
@@ -496,14 +499,33 @@ int iBeaconPositions[6][2] = {
         NSString *tem = [temArray objectAtIndex:indexOfPersion];
         indexOfPersion ++;
         CGPoint temPoint = CGPointFromString(tem);
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:1];
-        self.pathBuilderView.personIcon.center = temPoint;
-        [UIView setAnimationDelegate:self.pathBuilderView.personIcon];
-        [UIView commitAnimations];
+//        if ([pathPoints containsObject:tem]) {
+            for (int i = 0; i < [choosedPoints count]; i ++) {
+                NSNumber *numTem = [choosedPoints objectAtIndex:i];
+                int index = [numTem intValue];
+                int temY = pointsPosition[index][1];
+                int temX = pointsPosition[index][0];
+                if (temPoint.x == temX && temPoint.y == temY && ![stopPointsArray containsObject:tem]) {
+                    [timerForPersion setFireDate:[NSDate distantFuture]];
+                    [stopPointsArray addObject:tem];
+                }
+                
+//            }
+//        }
+        else{
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:1];
+            self.pathBuilderView.personIcon.center = temPoint;
+            [UIView setAnimationDelegate:self.pathBuilderView.personIcon];
+            [UIView commitAnimations];
+        }
+        
     }
     
 }
+}
+
+
 #pragma mark - iBeacon
 
 //-(void) startIbeacons{
@@ -644,11 +666,6 @@ int iBeaconPositions[6][2] = {
     }
 }
 
-- (void)dealloc
-{
-    //[_beaconClient closeClient];
-    //[_beaconClient removeObserver:self forKeyPath:@"positionArray"];
-}
 
 - (NSMutableArray*)dividePoints:(NSMutableArray*)sourceArray{
     NSMutableArray *returnArray = [[NSMutableArray alloc] init];

@@ -34,17 +34,17 @@ int iBeaconPositionsinClient[6][2] = {
         self.positionArray = [[NSArray alloc] initWithObjects:@"", @"", nil];
         
         NSUUID *estimoteUUID = [[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"];
-        self.bearegion = [[CLBeaconRegion alloc] initWithProximityUUID:estimoteUUID identifier:kIndetifier];
+        self.bearegion = [[CLBeaconRegion alloc] initWithProximityUUID:estimoteUUID major:0 minor:4 identifier:kIndetifier];
         // launch app when display is turned on and inside region
         self.bearegion.notifyEntryStateOnDisplay = YES;
-        
-        NSArray *uuid = [[NSArray alloc] initWithObjects:@"0-1", @"0-2", @"0-3", @"0-4", @"0-5", @"0-6", nil];
+
+//        NSArray *uuid = [[NSArray alloc] initWithObjects:@"0-1", @"0-2", @"0-3", @"0-4", @"0-5", @"0-6", nil];
         //    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
-        _aIBeacons = [[NSMutableArray alloc] init];
-        for (int i = 0; i < NUM_OF_BEACONS; i ++) {
-            iBeacon *test = [[iBeacon alloc] initWithLocation:[NSString stringWithFormat:@"%d", iBeaconPositionsinClient[i][0]] y:[NSString stringWithFormat:@"%d", iBeaconPositionsinClient[i][1]] idStr:[uuid objectAtIndex:i]];
-            [_aIBeacons addObject:test];
-        }
+//        _aIBeacons = [[NSMutableArray alloc] init];
+//        for (int i = 0; i < NUM_OF_BEACONS; i ++) {
+//            iBeacon *test = [[iBeacon alloc] initWithLocation:[NSString stringWithFormat:@"%d", iBeaconPositionsinClient[i][0]] y:[NSString stringWithFormat:@"%d", iBeaconPositionsinClient[i][1]] idStr:[uuid objectAtIndex:i]];
+//            [_aIBeacons addObject:test];
+//        }
 
     }
     return self;
@@ -88,12 +88,6 @@ int iBeaconPositionsinClient[6][2] = {
 
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
-    NSDictionary *ibeaconsDic=[[NSDictionary alloc] initWithObjectsAndKeys:beacons,@"iBeacons",nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"iBeaconsBack" object:Nil userInfo:ibeaconsDic];
-    BOOL maxCheck = [self CheckBeaconsDataQualifyBeforeCalculate:beacons];
-    if (YES) {
-        [self drawPosition];
-    }
     
 }
 
@@ -105,7 +99,7 @@ int iBeaconPositionsinClient[6][2] = {
          didEnterRegion:(CLRegion *)region
 {
     NSLog(@"didEnterRegion");
-//    if (_isInsideRegion) return;
+   
 //    [self sendEnterLocalNotification];
 //    [self showAlertView:nil message:@"Welcome，你已经进入 iSS iBeacon region"];
 //    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
@@ -114,6 +108,14 @@ int iBeaconPositionsinClient[6][2] = {
 //    }else{
 //        [self showAlertView:nil message:@"Hi，你已经进入 iSS iBeacon region"];
 //    }
+    if (_isInsideRegion)
+        return;
+    else{
+        [self showAlertView:nil message:@"Welcome，你已经进入 4号 iBeacon region"];
+
+    }
+   
+    
 }
 
 
@@ -121,14 +123,19 @@ int iBeaconPositionsinClient[6][2] = {
           didExitRegion:(CLRegion *)region
 {
     NSLog(@"didExitRegion");
-    if (!_isInsideRegion) return;
-    [self sendExitLocalNotification];
+//    if (!_isInsideRegion) return;
+//    [self sendExitLocalNotification];
 //    [self showAlertView:nil message:@"Sorry，你离开了 iSS iBeacon region"];
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
-    {
-        [self sendExitLocalNotification];
-    }else{
+//    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
+//    {
+//        [self sendExitLocalNotification];
+//    }else{
 //        [self showAlertView:nil message:@"sorry，你离开了 iSS iBeacon region"];
+//    }
+    if (!_isInsideRegion)
+        return;
+    else{
+        [self showAlertView:nil message:@"Bye，你已经退出 4号 iBeacon region"];
     }
 }
 
