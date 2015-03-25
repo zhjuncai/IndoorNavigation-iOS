@@ -134,25 +134,25 @@ static CGFloat const kPointDiameter = 7.0;
             NSValue *pointValue2 = [self.points objectAtIndex:i+1];
             CGPoint arrowPoints2 = [pointValue2 CGPointValue];
             if (arrowPoints.x > arrowPoints2.x) {
-                UIBezierPath *arrowPath = [UIBezierPath customBezierPathOfArrowSymbolWithRect:CGRectMake([pointValue CGPointValue].x - 15, [pointValue CGPointValue].y-10, 10,20)
+                UIBezierPath *arrowPath = [UIBezierPath customBezierPathOfArrowSymbolWithRect:CGRectMake([pointValue CGPointValue].x - ARROW_HEIGHT - 10, [pointValue CGPointValue].y-ARROW_WIDTH/2, ARROW_HEIGHT,ARROW_WIDTH)
                                                                                         scale:0.5
                                                                                         thick:0.5
                                                                                     direction:(UIBezierPathArrowDirection)kUIBezierPathArrowDirectionLeft];
                 [path appendPath:arrowPath];
             }else if (arrowPoints2.x > arrowPoints.x){
-                UIBezierPath *arrowPath = [UIBezierPath customBezierPathOfArrowSymbolWithRect:CGRectMake([pointValue CGPointValue].x + 15, [pointValue CGPointValue].y-10, 10,20)
+                UIBezierPath *arrowPath = [UIBezierPath customBezierPathOfArrowSymbolWithRect:CGRectMake([pointValue CGPointValue].x + ARROW_HEIGHT + 10, [pointValue CGPointValue].y-ARROW_WIDTH/2, ARROW_HEIGHT,ARROW_WIDTH)
                                                                                         scale:0.5
                                                                                         thick:0.5
                                                                                     direction:(UIBezierPathArrowDirection)kUIBezierPathArrowDirectionRight];
                 [path appendPath:arrowPath];
             }else if (arrowPoints.y > arrowPoints2.y){
-                UIBezierPath *arrowPath = [UIBezierPath customBezierPathOfArrowSymbolWithRect:CGRectMake([pointValue CGPointValue].x-10, [pointValue CGPointValue].y - 10, 20,10)
+                UIBezierPath *arrowPath = [UIBezierPath customBezierPathOfArrowSymbolWithRect:CGRectMake([pointValue CGPointValue].x-ARROW_WIDTH/2, [pointValue CGPointValue].y - ARROW_HEIGHT - 10, ARROW_WIDTH,ARROW_HEIGHT)
                                                                                         scale:0.5
                                                                                         thick:0.5
                                                                                     direction:(UIBezierPathArrowDirection)kUIBezierPathArrowDirectionUp];
                 [path appendPath:arrowPath];
             }else{
-                UIBezierPath *arrowPath = [UIBezierPath customBezierPathOfArrowSymbolWithRect:CGRectMake([pointValue CGPointValue].x-10, [pointValue CGPointValue].y + 10, 20,10)
+                UIBezierPath *arrowPath = [UIBezierPath customBezierPathOfArrowSymbolWithRect:CGRectMake([pointValue CGPointValue].x-ARROW_WIDTH/2, [pointValue CGPointValue].y + ARROW_HEIGHT + 10, ARROW_WIDTH,ARROW_HEIGHT)
                                                                                         scale:0.5
                                                                                         thick:0.5
                                                                                     direction:(UIBezierPathArrowDirection)kUIBezierPathArrowDirectionDown];

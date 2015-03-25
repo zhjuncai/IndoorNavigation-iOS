@@ -32,6 +32,8 @@
     
     NSMutableArray *arrayForPointsAverage;
     int indexOfPersion;
+    
+    NSTimer *timerForPersion;
 }
 
 @property (nonatomic, retain) NSMutableArray *choosedStorages;

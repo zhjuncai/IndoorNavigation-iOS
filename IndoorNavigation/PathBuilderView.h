@@ -8,6 +8,7 @@
 
 @import UIKit;
 #import "UIBezierPath+Symbol.m"
+#import "Header.h"
 
 @class ShapeView;
 
