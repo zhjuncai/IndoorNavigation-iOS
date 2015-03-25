@@ -472,6 +472,7 @@ int iBeaconPositions[6][2] = {
     }else{
         [self drawPath:[self SwapAllElementInArray:pathPoints]];
         [self ClearPath];
+        self.pathBuilderView.personIcon.frame = CGRectMake(768/2-10,916-40,25,25);
         [sender setTitle:@"Navigate!"];
         
     }

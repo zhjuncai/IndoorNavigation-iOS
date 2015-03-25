@@ -7,6 +7,7 @@
 //
 
 @import UIKit;
+#import "UIBezierPath+Symbol.m"
 
 @class ShapeView;
 
