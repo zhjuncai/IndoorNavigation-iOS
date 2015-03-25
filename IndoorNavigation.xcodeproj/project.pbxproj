@@ -30,6 +30,7 @@
 		AA66CDF11AC165E500BA9D7B /* router.png in Resources */ = {isa = PBXBuildFile; fileRef = AA66CDEB1AC165E500BA9D7B /* router.png */; };
 		AA66CDF21AC165E500BA9D7B /* USBFlashDisk.png in Resources */ = {isa = PBXBuildFile; fileRef = AA66CDEC1AC165E500BA9D7B /* USBFlashDisk.png */; };
 		AA66CDF41AC18D4300BA9D7B /* glasses2.png in Resources */ = {isa = PBXBuildFile; fileRef = AA66CDF31AC18D4300BA9D7B /* glasses2.png */; };
+		AA66CDF61AC190D200BA9D7B /* scanview.png in Resources */ = {isa = PBXBuildFile; fileRef = AA66CDF51AC190D200BA9D7B /* scanview.png */; };
 		AAAF3DE71AB5B37100012A24 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DE61AB5B37100012A24 /* main.m */; };
 		AAAF3DEA1AB5B37100012A24 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DE91AB5B37100012A24 /* AppDelegate.m */; };
 		AAAF3DED1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DEB1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld */; };
@@ -92,6 +93,7 @@
 		AA66CDEB1AC165E500BA9D7B /* router.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = router.png; sourceTree = "<group>"; };
 		AA66CDEC1AC165E500BA9D7B /* USBFlashDisk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = USBFlashDisk.png; sourceTree = "<group>"; };
 		AA66CDF31AC18D4300BA9D7B /* glasses2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glasses2.png; sourceTree = "<group>"; };
+		AA66CDF51AC190D200BA9D7B /* scanview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scanview.png; sourceTree = "<group>"; };
 		AAAF3DE11AB5B37100012A24 /* IndoorNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IndoorNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAAF3DE51AB5B37100012A24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAAF3DE61AB5B37100012A24 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				74606EF41AC1909600F63E21 /* scale.png */,
+				AA66CDF51AC190D200BA9D7B /* scanview.png */,
 				AA66CDF31AC18D4300BA9D7B /* glasses2.png */,
 				AA66CDE81AC165E500BA9D7B /* keyboard.png */,
 				AA66CDE91AC165E500BA9D7B /* printer.png */,
@@ -376,6 +379,7 @@
 				AAAF3E1A1AB5B3CD00012A24 /* location.json in Resources */,
 				AA66CDEF1AC165E500BA9D7B /* printer.png in Resources */,
 				AA66CDF21AC165E500BA9D7B /* USBFlashDisk.png in Resources */,
+				AA66CDF61AC190D200BA9D7B /* scanview.png in Resources */,
 				AAAF3DF51AB5B37100012A24 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
