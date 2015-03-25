@@ -121,7 +121,7 @@ int iBeaconPositions[6][2] = {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
+    self.title = @"Warehouse #1";
 //    NSArray *uuid = [[NSArray alloc] initWithObjects:@"0-1", @"0-2", @"0-3", @"0-4", @"0-5", @"0-6", nil];
 //    [self CalPosition:0 y0:0 r0:1 x1:1 y1:1 r1:1 x2:2 y2:2 r2:2.236067977];
 //    aIBeacons = [[NSMutableArray alloc] init];

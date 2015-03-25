@@ -32,6 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"Indoor Explorer";
 //    UIImage *bgImage=[UIImage imageNamed:@"Wallpaper.png"];
 //    self.view.backgroundColor=[UIColor colorWithPatternImage:bgImage];
     UIImage *scanviewImage=[UIImage imageNamed:@"scanview.png"];
@@ -51,11 +52,11 @@
     
     if(!self.isReading){
         if ([self startReading]) {
-            self.bbitemStart.title = @"Stop";
+            self.bbitemStart.title = @"Cancel";
         }
     }else{
         [self stopReading];
-        self.bbitemStart.title = @"Start!";
+        self.bbitemStart.title = @"Scan";
     }
 }
 
@@ -104,12 +105,14 @@
     CGFloat positionY = ( CGRectGetHeight(self.view.frame) - imageHeight ) / 2.5;
     
     
-    UILabel * labIntroudction= [[UILabel alloc] initWithFrame:CGRectMake(positionX + 50, positionY - 80, 290, 50)];
+    UILabel * labIntroudction= [[UILabel alloc] initWithFrame:CGRectMake(positionX + 50, positionY - 80, 400, 50)];
     labIntroudction.tag = 2000;
     labIntroudction.backgroundColor = [UIColor clearColor];
     labIntroudction.numberOfLines=2;
     labIntroudction.textColor=[UIColor whiteColor];
-    labIntroudction.text=@"将二维码图像置于矩形方框内，离手机摄像头10CM左右，系统会自动识别。";
+//    labIntroudction.text=@"将二维码图像置于矩形方框内，离手机摄像头10CM左右，系统会自动识别。";
+    
+    labIntroudction.text=@"Place your QR Code inside the square.";
 //    [self.viewPreview insertSubview:labIntroudction atIndex:0];
     
     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(positionX, positionY, imageWidth, imageHeight)];
