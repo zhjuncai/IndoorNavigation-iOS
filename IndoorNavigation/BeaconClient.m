@@ -99,7 +99,7 @@ int iBeaconPositionsinClient[6][2] = {
          didEnterRegion:(CLRegion *)region
 {
     NSLog(@"didEnterRegion");
-//    if (_isInsideRegion) return;
+   
 //    [self sendEnterLocalNotification];
 //    [self showAlertView:nil message:@"Welcome，你已经进入 iSS iBeacon region"];
 //    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
@@ -108,8 +108,13 @@ int iBeaconPositionsinClient[6][2] = {
 //    }else{
 //        [self showAlertView:nil message:@"Hi，你已经进入 iSS iBeacon region"];
 //    }
-    
-    [self showAlertView:nil message:@"Welcome，你已经进入 4号 iBeacon region"];
+    if (_isInsideRegion)
+        return;
+    else{
+        [self showAlertView:nil message:@"Welcome，你已经进入 4号 iBeacon region"];
+
+    }
+   
     
 }
 
@@ -127,7 +132,11 @@ int iBeaconPositionsinClient[6][2] = {
 //    }else{
 //        [self showAlertView:nil message:@"sorry，你离开了 iSS iBeacon region"];
 //    }
-    [self showAlertView:nil message:@"Welcome，你已经退出 4号 iBeacon region"];
+    if (!_isInsideRegion)
+        return;
+    else{
+        [self showAlertView:nil message:@"Bye，你已经退出 4号 iBeacon region"];
+    }
 }
 
 - (void)showAlertView:(NSString *)title message:(NSString *)msg
