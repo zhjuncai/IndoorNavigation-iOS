@@ -107,7 +107,7 @@ int iBeaconPositions[6][2] = {
 - (void)viewDidAppear:(BOOL)animated{
     
     storageArray =[[NSMutableArray alloc] init];
-   
+    stopPointsArray = [[NSMutableArray alloc] init];
     for (NSNumber *storageIndex in _choosedStorages){
         storage * button = (storage *)[self.view viewWithTag:storageIndex.integerValue];
     
@@ -148,6 +148,7 @@ int iBeaconPositions[6][2] = {
     
     
     //启动iBeacons，timer开始定时计算自身位置
+    
     //[self startIbeacons];
 //    NSTimer *calSelfPositionTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
 //                                                                     target:self
@@ -474,11 +475,18 @@ int iBeaconPositions[6][2] = {
         [self ClearPath];
         [timerForPersion invalidate];
         timerForPersion = nil;
-        self.pathBuilderView.personIcon.frame = CGRectMake(768/2-10,916-40,25,25);
+        self.pathBuilderView.personIcon.frame = CGRectMake(768/2-16,916-40,32,32);
         [sender setTitle:@"Navigate!"];
         
     }
     
+}
+
+- (IBAction)pasuePerson:(UIBarButtonItem *)sender {
+    [timerForPersion setFireDate:[NSDate distantFuture]];
+}
+- (IBAction)continuePerson:(UIBarButtonItem *)sender {
+    [timerForPersion setFireDate:[NSDate distantPast]];
 }
 
 -(void) drawPerson:(NSMutableArray *) resultArray{
@@ -505,8 +513,9 @@ int iBeaconPositions[6][2] = {
                 int index = [numTem intValue];
                 int temY = pointsPosition[index][1];
                 int temX = pointsPosition[index][0];
-                if (temPoint.x == temX && temPoint.y == temY) {
+                if (temPoint.x == temX && temPoint.y == temY && ![stopPointsArray containsObject:tem]) {
                     [timerForPersion setFireDate:[NSDate distantFuture]];
+                    [stopPointsArray addObject:tem];
                 }
                 
 //            }
@@ -665,13 +674,13 @@ int iBeaconPositions[6][2] = {
     }
 }
 
-//- (void)dealloc
-//{
-//    [_beaconClient closeClient];
+- (void)dealloc
+{
+    //[_beaconClient closeClient];
 
-//    //[_beaconClient removeObserver:self forKeyPath:@"positionArray"];
+    //[_beaconClient removeObserver:self forKeyPath:@"positionArray"];
 
-//}
+}
 
 - (NSMutableArray*)dividePoints:(NSMutableArray*)sourceArray{
     NSMutableArray *returnArray = [[NSMutableArray alloc] init];
