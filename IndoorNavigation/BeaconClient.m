@@ -30,7 +30,7 @@
         _locationManager.delegate = self;
         
         
-        NSUUID *estimoteUUID = [[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"];
+        NSUUID *estimoteUUID = [[NSUUID alloc] initWithUUIDString:@"B7D1027D-6788-416E-994F-EA11075F1765"];
         _region = [[CLBeaconRegion alloc] initWithProximityUUID:estimoteUUID identifier:kIndetifier];
         // launch app when display is turned on and inside region
         _region.notifyEntryStateOnDisplay = YES;
