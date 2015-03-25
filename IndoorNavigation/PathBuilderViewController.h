@@ -34,6 +34,7 @@
     int indexOfPersion;
     
     NSTimer *timerForPersion;
+    NSMutableArray *stopPointsArray;
 }
 
 @property (nonatomic, retain) NSMutableArray *choosedStorages;
