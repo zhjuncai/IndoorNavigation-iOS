@@ -23,6 +23,8 @@
 		740BF23C1AB98FB80064E472 /* AMWaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF23A1AB98FB80064E472 /* AMWaveViewController.m */; };
 		74606EF51AC1909600F63E21 /* scale.png in Resources */ = {isa = PBXBuildFile; fileRef = 74606EF41AC1909600F63E21 /* scale.png */; };
 		74DA78861AB8114800CABC35 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74DA78851AB8114800CABC35 /* CoreLocation.framework */; };
+		AA48D4231AC28D490093113A /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA48D4211AC28D490093113A /* line@2x.png */; };
+		AA48D4241AC28D490093113A /* pick_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA48D4221AC28D490093113A /* pick_bg@2x.png */; };
 		AA66CDE41ABEB1EF00BA9D7B /* ShelfCargoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA66CDE31ABEB1EF00BA9D7B /* ShelfCargoViewController.m */; };
 		AA66CDEE1AC165E500BA9D7B /* keyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = AA66CDE81AC165E500BA9D7B /* keyboard.png */; };
 		AA66CDEF1AC165E500BA9D7B /* printer.png in Resources */ = {isa = PBXBuildFile; fileRef = AA66CDE91AC165E500BA9D7B /* printer.png */; };
@@ -85,6 +87,8 @@
 		740BF23A1AB98FB80064E472 /* AMWaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWaveViewController.m; sourceTree = "<group>"; };
 		74606EF41AC1909600F63E21 /* scale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scale.png; sourceTree = "<group>"; };
 		74DA78851AB8114800CABC35 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		AA48D4211AC28D490093113A /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
+		AA48D4221AC28D490093113A /* pick_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_bg@2x.png"; sourceTree = "<group>"; };
 		AA66CDE21ABEB1EF00BA9D7B /* ShelfCargoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShelfCargoViewController.h; sourceTree = "<group>"; };
 		AA66CDE31ABEB1EF00BA9D7B /* ShelfCargoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfCargoViewController.m; sourceTree = "<group>"; };
 		AA66CDE81AC165E500BA9D7B /* keyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keyboard.png; sourceTree = "<group>"; };
@@ -182,6 +186,8 @@
 		AA66CDE61AC165AD00BA9D7B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AA48D4211AC28D490093113A /* line@2x.png */,
+				AA48D4221AC28D490093113A /* pick_bg@2x.png */,
 				74606EF41AC1909600F63E21 /* scale.png */,
 				AA66CDF51AC190D200BA9D7B /* scanview.png */,
 				AA66CDF31AC18D4300BA9D7B /* glasses2.png */,
@@ -338,7 +344,7 @@
 					};
 					AAAF3DFC1AB5B37100012A24 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = TCSMY4USJ7;
+						DevelopmentTeam = D6Q686RD93;
 						TestTargetID = AAAF3DE01AB5B37100012A24;
 					};
 				};
@@ -368,6 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA66CDF11AC165E500BA9D7B /* router.png in Resources */,
+				AA48D4231AC28D490093113A /* line@2x.png in Resources */,
 				AA66CDEE1AC165E500BA9D7B /* keyboard.png in Resources */,
 				740BF2251AB98D810064E472 /* Main.storyboard in Resources */,
 				74606EF51AC1909600F63E21 /* scale.png in Resources */,
@@ -376,6 +383,7 @@
 				740BF2231AB98D2B0064E472 /* FreightOrders.json in Resources */,
 				AA66CDF01AC165E500BA9D7B /* PSP.png in Resources */,
 				740BF21B1AB98D0A0064E472 /* beep.mp3 in Resources */,
+				AA48D4241AC28D490093113A /* pick_bg@2x.png in Resources */,
 				AAAF3E1A1AB5B3CD00012A24 /* location.json in Resources */,
 				AA66CDEF1AC165E500BA9D7B /* printer.png in Resources */,
 				AA66CDF21AC165E500BA9D7B /* USBFlashDisk.png in Resources */,

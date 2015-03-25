@@ -9,7 +9,11 @@
 #import "ScanViewController.h"
 #import "FreightOrderDetailViewController.h"
 
-@interface ScanViewController ()
+@interface ScanViewController (){
+    int num;
+    BOOL upOrdown;
+    NSTimer * timer;
+}
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *bbitemStart;
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 
@@ -17,6 +21,8 @@
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+
+@property (nonatomic, retain) UIImageView * line;
 
 -(void)loadBeepSound;
 
@@ -54,6 +60,8 @@
 }
 
 - (BOOL)startReading{
+    
+//    self.viewPreview.backgroundColor=[UIColor clearColor];
     NSError *error;
     
     AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -77,17 +85,121 @@
     
     self.videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
     self.videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    self.videoPreviewLayer.frame = self.viewPreview.layer.bounds;
     
-    self.videoPreviewLayer.borderColor = [UIColor redColor].CGColor;
-    self.videoPreviewLayer.borderWidth = 4;
+    
+//    self.videoPreviewLayer.frame = self.viewPreview.layer.bounds;
+//    self.videoPreviewLayer.borderColor = [UIColor redColor].CGColor;
+//    self.videoPreviewLayer.borderWidth = 4;
+//    self.videoPreviewLayer.backgroundColor = [UIColor lightGrayColor].CGColor;
+//    self.videoPreviewLayer.opacity = .5;
+//    self.videoPreviewLayer.opaque = YES;
+    
+    
+    
+    
+    
+    
+    CGFloat imageWidth = 400.f, imageHeight = imageWidth;
+    CGFloat positionX = ( CGRectGetWidth(self.view.frame) - imageWidth ) / 2;
+    CGFloat positionY = ( CGRectGetHeight(self.view.frame) - imageHeight ) / 2.5;
+    
+    
+    UILabel * labIntroudction= [[UILabel alloc] initWithFrame:CGRectMake(positionX + 50, positionY - 80, 290, 50)];
+    labIntroudction.tag = 2000;
+    labIntroudction.backgroundColor = [UIColor clearColor];
+    labIntroudction.numberOfLines=2;
+    labIntroudction.textColor=[UIColor whiteColor];
+    labIntroudction.text=@"将二维码图像置于矩形方框内，离手机摄像头10CM左右，系统会自动识别。";
+//    [self.viewPreview insertSubview:labIntroudction atIndex:0];
+    
+    UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(positionX, positionY, imageWidth, imageHeight)];
+    
+    imageView.tag = 1000;
+    imageView.image = [UIImage imageNamed:@"pick_bg"];
+    
+//    CALayer *lightGrayLayer = [CALayer layer];
+//    lightGrayLayer.frame = imageView.layer.bounds;
+//    lightGrayLayer.backgroundColor = [UIColor clearColor].CGColor;
+//    lightGrayLayer.borderColor = [UIColor greenColor].CGColor;
+//    lightGrayLayer.borderWidth = 1;
+//    lightGrayLayer.opacity = .5;
+//    lightGrayLayer.opaque = NO;
+    
+//    [self.viewPreview.layer addSublayer:lightGrayLayer];
+    
+    self.videoPreviewLayer.frame = self.viewPreview.bounds;
+//    self.videoPreviewLayer.backgroundColor = [UIColor lightGrayColor].CGColor;
+//    self.videoPreviewLayer.opacity = .5;
+//    self.videoPreviewLayer.opaque = YES;
     
     [self.viewPreview.layer addSublayer:self.videoPreviewLayer];
+    
+//    AVCaptureVideoPreviewLayer *copiedLayer = [self.videoPreviewLayer copy];
+//    copiedLayer.bounds = imageView.bounds;
+//    copiedLayer.borderColor = [UIColor greenColor].CGColor;
+//    copiedLayer.borderWidth = 1;
+    
+//    [self.viewPreview.layer addSublayer:copiedLayer];
+    
+    [self.viewPreview addSubview:labIntroudction];
+    [self.viewPreview addSubview:imageView];
+    
+    upOrdown = NO;
+    num =0;
+    _line = [[UIImageView alloc] initWithFrame:CGRectMake(positionX, 350, imageWidth, 2)];
+    _line.image = [UIImage imageNamed:@"line.png"];
+    [self.view addSubview:_line];
+    
+    [UIView animateKeyframesWithDuration:2 delay:0 options:UIViewKeyframeAnimationOptionRepeat animations:^{
+        //
+        CGRect frame = _line.frame;
+        
+        frame.origin.y = frame.origin.y + 300;
+        frame.origin.y = MAX(frame.origin.y, imageView.frame.origin.y);
+    
+        
+        _line.frame = frame;
+    } completion:^(BOOL finished) {
+        _line.frame = CGRectMake(positionX, 300, imageWidth, 2);
+    }];
+    
+//    timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(animation1) userInfo:nil repeats:YES];
     
     [self.captureSession startRunning];
     self.isReading = YES;
     
     return YES;
+}
+
+
+-(void)animation1
+{
+    
+    CGRect frame = _line.frame;
+    
+    if (frame.origin.y <= 650) {
+        frame.origin.y = frame.origin.y + 10;
+        _line.frame = frame;
+    }else{
+        frame.origin.y = 350;
+        _line.frame = frame;
+    }
+    
+//    if (upOrdown == NO) {
+//        num ++;
+//        _line.frame = CGRectMake(184, 290 + 2*num, 400, 2);
+//        if (2*num == 400) {
+//            upOrdown = YES;
+//        }
+//    }
+//    else {
+//        num --;
+//        _line.frame = CGRectMake(184, 290 + 2*num, 400, 2);
+//        if (num == 0) {
+//            upOrdown = NO;
+//        }
+//    }
+    
 }
 
 - (void)stopReading{
@@ -96,6 +208,16 @@
     self.isReading = NO;
     self.bbitemStart.title = @"Start!";
     [self.videoPreviewLayer removeFromSuperlayer];
+    
+    [timer invalidate];
+    
+    UIImageView * instructorView = (UIImageView *)[self.view viewWithTag:1000];
+    [instructorView removeFromSuperview];
+    
+    UILabel * instructorLabel = (UILabel *)[self.view viewWithTag:2000];
+    [instructorLabel removeFromSuperview];
+    
+    [_line removeFromSuperview];
 }
 
 - (void)loadBeepSound{
