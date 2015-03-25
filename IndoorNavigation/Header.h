@@ -15,6 +15,7 @@
 #define TIME_LENGTH 0.1 
 #define PASS_NUMBER 2
 #define AVERAGE_NUM 3  //几次求平均来画位置
+#define kIndetifier [[NSBundle mainBundle] bundleIdentifier]
 
 #define ARROW_WIDTH 16
 #define ARROW_HEIGHT 10

@@ -148,6 +148,7 @@ int iBeaconPositions[6][2] = {
     
     
     //启动iBeacons，timer开始定时计算自身位置
+    
     //[self startIbeacons];
 //    NSTimer *calSelfPositionTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
 //                                                                     target:self
@@ -474,11 +475,18 @@ int iBeaconPositions[6][2] = {
         [self ClearPath];
         [timerForPersion invalidate];
         timerForPersion = nil;
-        self.pathBuilderView.personIcon.frame = CGRectMake(768/2-10,916-40,25,25);
+        self.pathBuilderView.personIcon.frame = CGRectMake(768/2-16,916-40,32,32);
         [sender setTitle:@"Navigate!"];
         
     }
     
+}
+
+- (IBAction)pasuePerson:(UIBarButtonItem *)sender {
+    [timerForPersion setFireDate:[NSDate distantFuture]];
+}
+- (IBAction)continuePerson:(UIBarButtonItem *)sender {
+    [timerForPersion setFireDate:[NSDate distantPast]];
 }
 
 -(void) drawPerson:(NSMutableArray *) resultArray{
@@ -666,6 +674,13 @@ int iBeaconPositions[6][2] = {
     }
 }
 
+- (void)dealloc
+{
+    //[_beaconClient closeClient];
+
+    //[_beaconClient removeObserver:self forKeyPath:@"positionArray"];
+
+}
 
 - (NSMutableArray*)dividePoints:(NSMutableArray*)sourceArray{
     NSMutableArray *returnArray = [[NSMutableArray alloc] init];
