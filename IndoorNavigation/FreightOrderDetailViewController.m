@@ -211,10 +211,10 @@ NSArray *itemValues;
     }else{
         OrderItem *orderItem = self.freightOrder.foItems[indexPath.row];
         cell.textLabel.text = orderItem.itemName;
-        int shelfPosition = (arc4random() % 40) + 1;
+        int shelfPosition = (arc4random() % 24) + 1;
         
         while([self.storageIndexArray containsObject:[NSNumber numberWithInteger:shelfPosition]]){
-            shelfPosition = (arc4random() % 40) + 1;
+            shelfPosition = (arc4random() % 24) + 1;
         }
         
         [self.storageIndexArray addObject:[NSNumber numberWithInteger:shelfPosition]];

@@ -14,7 +14,7 @@
             "itemType": "Pieces",
             "quantity": "20",
             "unitOfMeasure": "PC",
-            "major": "1",
+            "major": "0",
             "minor": "1",
             "selected": false,
             "image": "glasses2.png"
@@ -24,7 +24,7 @@
             "itemType": "BOX",
             "quantity": "200",
             "unitOfMeasure": "BOX",
-            "major": "1",
+            "major": "0",
             "minor": "2",
             "selected": false,
             "image": "keyboard.png"
@@ -34,8 +34,8 @@
             "itemType": "Package",
             "quantity": "30",
             "unitOfMeasure": "PKG",
-            "major": "2",
-            "minor": "1",
+            "major": "0",
+            "minor": "3",
             "selected": false,
             "image": "printer.png"
             }
@@ -56,8 +56,8 @@
             "itemType": "Package",
             "quantity": "40",
             "unitOfMeasure": "Piece",
-            "major": "2",
-            "minor": "2",
+            "major": "0",
+            "minor": "1",
             "selected": false,
             "image": "PSP.png"
             },
@@ -66,8 +66,8 @@
             "itemType": "Product",
             "quantity": "10",
             "unitOfMeasure": "Piece",
-            "major": "3",
-            "minor": "1",
+            "major": "0",
+            "minor": "2",
             "selected": false,
             "image": "router.png"
             },
@@ -77,7 +77,7 @@
             "quantity": "20",
             "unitOfMeasure": "Piece",
             "major": "1",
-            "minor": "1",
+            "minor": "3",
             "selected": false,
             "image": "USBFlashDisk.png"
             },
@@ -86,8 +86,8 @@
             "itemType": "Package",
             "quantity": "20",
             "unitOfMeasure": "L",
-            "major": "3",
-            "minor": "2",
+            "major": "0",
+            "minor": "4",
             "selected": false,
             "image": "glasses2.png"
             },
@@ -96,8 +96,8 @@
             "itemType": "Package",
             "quantity": "30",
             "unitOfMeasure": "Piece",
-            "major": "1",
-            "minor": "2",
+            "major": "0",
+            "minor": "5",
             "selected": false,
             "image": "telescope.png"
             },
@@ -106,8 +106,8 @@
             "itemType": "Package",
             "quantity": "50",
             "unitOfMeasure": "Piece",
-            "major": "2",
-            "minor": "1",
+            "major": "0",
+            "minor": "6",
             "selected": false,
             "image": "printer.png"
             }

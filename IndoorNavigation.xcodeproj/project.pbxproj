@@ -21,6 +21,7 @@
 		740BF2351AB98FB10064E472 /* UIColor+BFPaperColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF2331AB98FB10064E472 /* UIColor+BFPaperColors.m */; };
 		740BF23B1AB98FB80064E472 /* AMWaveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF2381AB98FB80064E472 /* AMWaveTransition.m */; };
 		740BF23C1AB98FB80064E472 /* AMWaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF23A1AB98FB80064E472 /* AMWaveViewController.m */; };
+		740D79641AC3AB1800672651 /* telescope.png in Resources */ = {isa = PBXBuildFile; fileRef = 740D79631AC3AB1800672651 /* telescope.png */; };
 		74606EF51AC1909600F63E21 /* scale.png in Resources */ = {isa = PBXBuildFile; fileRef = 74606EF41AC1909600F63E21 /* scale.png */; };
 		74DA78861AB8114800CABC35 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74DA78851AB8114800CABC35 /* CoreLocation.framework */; };
 		AA48D4231AC28D490093113A /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA48D4211AC28D490093113A /* line@2x.png */; };
@@ -85,6 +86,7 @@
 		740BF2381AB98FB80064E472 /* AMWaveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWaveTransition.m; sourceTree = "<group>"; };
 		740BF2391AB98FB80064E472 /* AMWaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWaveViewController.h; sourceTree = "<group>"; };
 		740BF23A1AB98FB80064E472 /* AMWaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWaveViewController.m; sourceTree = "<group>"; };
+		740D79631AC3AB1800672651 /* telescope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = telescope.png; sourceTree = "<group>"; };
 		74606EF41AC1909600F63E21 /* scale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scale.png; sourceTree = "<group>"; };
 		74DA78851AB8114800CABC35 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		AA48D4211AC28D490093113A /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		AA66CDE61AC165AD00BA9D7B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				740D79631AC3AB1800672651 /* telescope.png */,
 				AA48D4211AC28D490093113A /* line@2x.png */,
 				AA48D4221AC28D490093113A /* pick_bg@2x.png */,
 				74606EF41AC1909600F63E21 /* scale.png */,
@@ -344,7 +347,7 @@
 					};
 					AAAF3DFC1AB5B37100012A24 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = D6Q686RD93;
+						DevelopmentTeam = TCSMY4USJ7;
 						TestTargetID = AAAF3DE01AB5B37100012A24;
 					};
 				};
@@ -373,6 +376,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				740D79641AC3AB1800672651 /* telescope.png in Resources */,
 				AA66CDF11AC165E500BA9D7B /* router.png in Resources */,
 				AA48D4231AC28D490093113A /* line@2x.png in Resources */,
 				AA66CDEE1AC165E500BA9D7B /* keyboard.png in Resources */,

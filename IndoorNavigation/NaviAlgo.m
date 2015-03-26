@@ -12,7 +12,7 @@
 
 @implementation NaviAlgo
 
--(void) setGraph:(int [42][42])graph {
+-(void) setGraph:(int [28][28])graph {
     
     MAX = 100000;
     LEFT = 1;
@@ -20,8 +20,8 @@
     UP = 2;
     DOWN = -2;
     
-    for(int i=0;i<42;i++){
-        for (int j=0;j<42;j++){
+    for(int i=0;i<28;i++){
+        for (int j=0;j<28;j++){
             if(i==j){
                 myGraph[i][j] =0;
             }
@@ -37,9 +37,9 @@
         onePath[i] = -1;
     }
     
-    for(int u=0;u<42;++u){
-        for (int v=0; v<42; v++) {
-            for(int w=0;w<42;w++){
+    for(int u=0;u<28;++u){
+        for (int v=0; v<28; v++) {
+            for(int w=0;w<28;w++){
                 if(myGraph[v][w] > myGraph[v][u] + myGraph[u][w]){
                     myGraph[v][w] = myGraph[v][u] + myGraph[u][w];
                     spot[v][w] =u;
@@ -48,9 +48,9 @@
         }
     }
     
-    for(int i =0;i<42;i++){
+    for(int i =0;i<28;i++){
         int points[1];//经过的点数
-        for(int j=0;j<42;j++){
+        for(int j=0;j<28;j++){
             points[0] = 0;
             onePath[points[0]++]=i;
             [self getPathForEachPoints:spot from:i to:j path:onePath numOfPoints:points];
@@ -67,15 +67,15 @@
     
 }
 
--(void) setPointMapping:(int [42][2])pointsPosition{
-    for(int i=0;i<42;i++) {
+-(void) setPointMapping:(int [28][2])pointsPosition{
+    for(int i=0;i<28;i++) {
         for (int j=0;j<2;j++){
           myPointsPosition[i][j] = pointsPosition[i][j];
         }
     }
 }
 
--(void) getPathForEachPoints:(int[42][42])spots from:(int)i to:(int)j path:(int[])aPath numOfPoints:(int[])point{
+-(void) getPathForEachPoints:(int[28][28])spots from:(int)i to:(int)j path:(int[])aPath numOfPoints:(int[])point{
     if(i==j){
         return;
     }
@@ -125,8 +125,8 @@
     if ([destinationArray count] == 0) {
         int length=0;
         
-        [path insertObject:@38 atIndex:0];
-        [path insertObject:@38 atIndex:[path count]];
+        [path insertObject:@24 atIndex:0];
+        [path insertObject:@24 atIndex:[path count]];
         
         for(int i=0;i<[path count];i++){
             if(i!=0){

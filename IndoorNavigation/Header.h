@@ -12,7 +12,7 @@
 #define NUM_OF_BEACONS 5  //定义beacon总数量
 #define MAX_DISTANCE 5  //定义可能的最大beacon距离 单位：米
 #define MIN_DISTANCE 1  //定义更新坐标的最小值，单位:屏幕像素
-#define TIME_LENGTH 0.1 
+#define TIME_LENGTH 0.002 
 #define PASS_NUMBER 2
 #define AVERAGE_NUM 3  //几次求平均来画位置
 #define kIndetifier [[NSBundle mainBundle] bundleIdentifier]

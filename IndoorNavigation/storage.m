@@ -32,7 +32,7 @@
     CGFloat titleWidth = 40.f;
     CGFloat titleHeight = 15.f;
     
-    CGRect frame = CGRectMake(maxX - 45, maxY - 20, titleWidth, titleHeight);
+    CGRect frame = CGRectMake(maxX - 45, maxY - 25, titleWidth, titleHeight);
     
     return frame;
 }

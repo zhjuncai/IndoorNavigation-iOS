@@ -106,7 +106,7 @@
     NSLog(@"didEnterRegion");
     if (_isInsideRegion) return;
     [self sendEnterLocalNotification];
-    //    [self showAlertView:nil message:@"Welcome，你已经进入 iSS iBeacon region"];
+
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
     {
         [self sendEnterLocalNotification];
@@ -119,16 +119,16 @@
 - (void)locationManager:(CLLocationManager *)manager
           didExitRegion:(CLRegion *)region
 {
-    NSLog(@"didExitRegion");
-    if (!_isInsideRegion) return;
-    [self sendExitLocalNotification];
-    //    [self showAlertView:nil message:@"Sorry，你离开了 iSS iBeacon region"];
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
-    {
-        [self sendExitLocalNotification];
-    }else{
-        //        [self showAlertView:nil message:@"sorry，你离开了 iSS iBeacon region"];
-    }
+//    NSLog(@"didExitRegion");
+//    if (!_isInsideRegion) return;
+//    [self sendExitLocalNotification];
+//    
+//    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
+//    {
+//        [self sendExitLocalNotification];
+//    }else{
+//        //        [self showAlertView:nil message:@"sorry，你离开了 iSS iBeacon region"];
+//    }
 }
 
 - (void)showAlertView:(NSString *)title message:(NSString *)msg
