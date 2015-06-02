@@ -74,6 +74,7 @@
     
     self.title = @"iBeacons of Loading Cargos";
     self.data=[[NSMutableArray alloc] initWithCapacity:[self.freightOrder.foItems count]];
+    
 //    [self.data addObject:@{@"text": @"Stylized organs", @"icon": @"heart"}];
 //    [self.data addObject:@{@"text": @"Food pictures", @"icon": @"camera"}];
 //    [self.data addObject:@{@"text": @"Straight line maker", @"icon": @"pencil"}];

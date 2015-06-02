@@ -15,7 +15,7 @@
     self = [super init];
     self.frame = frame;
     self.isChosen = NO;
-    self.backgroundColor = [UIColor blackColor];
+    self.backgroundColor = [UIColor clearColor];
     self.transform = CGAffineTransformMakeRotation(angle);
     self.position =index;
     [self setTitle:name forState:UIControlStateNormal];
@@ -32,7 +32,7 @@
     CGFloat titleWidth = 40.f;
     CGFloat titleHeight = 15.f;
     
-    CGRect frame = CGRectMake(maxX - 45, maxY - 25, titleWidth, titleHeight);
+    CGRect frame = CGRectMake(maxX - 117, maxY-35, titleWidth, titleHeight);
     
     return frame;
 }

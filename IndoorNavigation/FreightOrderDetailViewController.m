@@ -56,15 +56,15 @@ NSArray *itemValues;
     self.title = @"Freight Order Details";
 //    UIImage *bgImage=[UIImage imageNamed:@"DarkBlueStainlesssteel.jpg"];
     
+//    
+//    UIImage *bgImage=[UIImage imageNamed:@"orderviewbg.png"];
+//    self.tableView.backgroundColor=[UIColor colorWithPatternImage:bgImage]; 
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"appBackground"]];
     
-//    UIImage *bgImage=[UIImage imageNamed:@"orderviewbackground.png"];
-//    self.tableView.backgroundColor=[UIColor colorWithPatternImage:bgImage];
-//    [self.tableView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"orderviewbackground.png"]]];
-//    [self.footView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"leatherbg.png"]]];
-//    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]]];
-//    self.viewbg.backgroundColor=[UIColor colorWithPatternImage:bgImage];
-    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorColor = [UIColor clearColor];
     self.halo = [PulsingHaloLayer layer];
+    
 
     CGPoint point=self.beaconView.center;
     
@@ -76,12 +76,13 @@ NSArray *itemValues;
     [self setupInitialValues];
     
     
-    
-    FreightOrder *order = self.freightOrder;
+    FreightOrder *order=[FreightOrder freightOrderWithID:@"6100013026"];
+    self.freightOrder = order;
+//    FreightOrder *order = self.freightOrder;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateStyle = NSDateFormatterShortStyle;
-    dateFormatter.timeStyle = NSDateFormatterShortStyle;
+    dateFormatter.dateStyle = kCFDateFormatterFullStyle;
+    dateFormatter.timeStyle = kCFDateFormatterFullStyle;
     
     detailLabels = @[@"Freight Order ID", @"Shipper", @"Consignee", @"Driver", @"Pickup Date", @"Delivery Date", @"Delivery Address"];
     detailValues = @[order.freightOrderID, order.shipper, order.consignee, order.driver,
@@ -90,10 +91,10 @@ NSArray *itemValues;
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.dataSource=self;
     self.tableView.delegate=self;
     
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.storageIndexArray = [[NSMutableArray alloc] init];
     
 }
@@ -148,13 +149,13 @@ NSArray *itemValues;
     return 40.f;
 }
 
-- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return  @"Order Details Info";
-    }else{
-        return  @"Items";
-    }
-}
+//- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+//    if (section == 0) {
+//        return  @"Order Details Info";
+//    }else{
+//        return  @"Items";
+//    }
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 0){
@@ -164,24 +165,26 @@ NSArray *itemValues;
     }
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    
-//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40.f)];
-////    headerView.backgroundColor  = [UIColor groupTableViewBackgroundColor];
-//    
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    CGFloat width = CGRectGetWidth(self.tableView.frame);
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 40.f)];
+    headerView.backgroundColor  = [UIColor clearColor];
+    
 //    [headerView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"orderheader.png"]]];
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 320, 40.f)];
-//    label.textColor = [UIColor grayColor];
-//    
-//    if (section == 0) {
-//        label.text = @"Order Details Info";
-//    }else{
-//        label.text = @"Items";
-//    }
-//    
-//    [headerView addSubview:label];
-//    return headerView;
-//}
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, width, 40.f)];
+    label.textColor = [UIColor whiteColor];
+    
+    if (section == 0) {
+        label.text = @"Order Details Info";
+    }else{
+        label.text = @"Items";
+    }
+    
+    [headerView addSubview:label];
+    return headerView;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
@@ -192,18 +195,37 @@ NSArray *itemValues;
     }
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UIEdgeInsets insets = UIEdgeInsetsMake(0, 30, 0, 30);
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:insets];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:insets];
+    }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSString *CellIdentifier = @"OrderDetailCellIdentifier";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-//    UIImage *image = [UIImage imageNamed:@"orderitembg.png"];
-//    [cell setBackgroundColor:[UIColor colorWithPatternImage:image]];
-    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
     }
+    
+    [cell setBackgroundColor: [UIColor clearColor]];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
     
     if (indexPath.section == 0) {
         cell.textLabel.text = detailLabels[indexPath.row];
@@ -223,7 +245,8 @@ NSArray *itemValues;
         
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ at Shelf %d", orderItem.quantity, orderItem.unitOfMeasure, shelfPosition];
         
-        cell.imageView.image = [UIImage imageNamed:orderItem.productImage];
+        cell.imageView.image = [UIImage imageNamed: @"hierarchy"];
+//        [UIImage imageNamed:orderItem.productImage];
     }
     
     return cell;

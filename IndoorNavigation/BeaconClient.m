@@ -46,6 +46,7 @@
         str=[NSString stringWithFormat:@"%i-%i",[item.major intValue],[item.minor intValue]];
         [self.itemdic setValue:@"false" forKey:str];
     }
+    return YES;
     if ([CLLocationManager isMonitoringAvailableForClass:[CLBeaconRegion class]])
     {
         [_locationManager startMonitoringForRegion:_region];

@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "FreightOrder.h"
+#import "AAShareBubbles.h"
 //#import "ViewController.h"
 
-@interface ScanViewController : UIViewController<AVCaptureMetadataOutputObjectsDelegate>
+@interface ScanViewController : UIViewController<AVCaptureMetadataOutputObjectsDelegate,AAShareBubblesDelegate>
 
-
+- (IBAction)shareTapped:(id)sender;
 @end
 

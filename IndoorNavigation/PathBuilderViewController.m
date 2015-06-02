@@ -107,12 +107,20 @@ int distanceData[28][28]={
 //    { 32, 892 },{ 128, 892 },{ 288, 892 }, { 384, 892 }, { 480, 892 },{ 640, 892 },{ 736, 892 }
 //};
 
+//int pointsPosition[28][2] ={
+//    {45, 45}, {152, 45}, {277, 45}, {384, 45}, {491, 45}, {616, 45}, {723, 45},
+//    {45, 315}, {152, 315}, {277, 315}, {384, 315}, {491, 315}, {616, 315}, {723, 315},
+//    {45, 585}, {152, 585}, {277, 585}, {384, 585}, {491, 585}, {616, 585}, {723, 585},
+//    {45, 855}, {152, 855}, {277, 855}, {384, 855}, {491, 855}, {616, 855}, {723, 855}
+//};
 int pointsPosition[28][2] ={
-    {45, 45}, {152, 45}, {277, 45}, {384, 45}, {491, 45}, {616, 45}, {723, 45},
+    {45, 65}, {152, 65}, {277, 65}, {384, 65}, {491, 65}, {616, 65}, {723, 65},
     {45, 315}, {152, 315}, {277, 315}, {384, 315}, {491, 315}, {616, 315}, {723, 315},
     {45, 585}, {152, 585}, {277, 585}, {384, 585}, {491, 585}, {616, 585}, {723, 585},
-    {45, 855}, {152, 855}, {277, 855}, {384, 855}, {491, 855}, {616, 855}, {723, 855}
+    {45, 835}, {152, 835}, {277, 835}, {384, 835}, {491, 835}, {616, 835}, {723, 835}
 };
+
+
 //
 //int storagePosition[40][4] ={
 //    { 64, 64, 144, 54 }, { 208, 64, 144, 54 },{ 416, 64, 144, 54 }, { 560, 64, 144, 54 },
@@ -126,7 +134,15 @@ int pointsPosition[28][2] ={
 //    { 64, 752, 144, 54 }, { 208, 752, 144, 54 },{ 416, 752, 144, 54 }, { 560, 752, 144, 54 },
 //    { 64, 806, 144, 54 },{ 208, 806, 144, 54 }, { 416, 806, 144, 54 }, { 560, 806, 144, 54 }
 //};
-int storagePosition[24][4] ={{90, 90, 125, 90}, {215, 90, 125, 90}, {429, 90, 125, 90}, {554, 90, 125, 90}, {90, 180, 125, 90}, {215, 180, 125, 90}, {429, 180, 125, 90}, {554, 180, 125, 90}, {90, 360, 125, 90}, {215, 360, 125, 90}, {429, 360, 125, 90}, {554, 360, 125, 90}, {90, 450, 125, 90}, {215, 450, 125, 90}, {429, 450, 125, 90}, {554, 450, 125, 90}, {90, 630, 125, 90}, {215, 630, 125, 90}, {429, 630, 125, 90}, {554, 630, 125, 90}, {90, 720, 125, 90}, {215, 720, 125, 90}, {429, 720, 125, 90}, {554, 720, 125, 90}};
+//int storagePosition[24][4] ={{90, 90, 125, 50}, {215, 90, 125, 50}, {429, 90, 125, 50}, {554, 90, 125, 50}, {90, 180, 125, 50}, {215, 180, 125, 50}, {429, 180, 125, 50}, {554, 180, 125, 50}, {90, 360, 125, 50}, {215, 360, 125, 50}, {429, 360, 125, 50}, {554, 360, 125, 50}, {90, 450, 125, 50}, {215, 450, 125, 50}, {429, 450, 125, 50}, {554, 450, 125, 50}, {90, 630, 125, 50}, {215, 630, 125, 50}, {429, 630, 125, 50}, {554, 630, 125, 50}, {90, 720, 125, 50}, {215, 720, 125, 50}, {429, 720, 125, 50}, {554, 720, 125, 50}};
+int storagePosition[24][4] ={
+    {90, 130, 125, 50}, {215, 130, 125, 50}, {429, 130, 125, 50}, {554, 130, 125, 50},
+    {90, 180, 125, 50}, {215, 180, 125, 50}, {429, 180, 125, 50}, {554, 180, 125, 50},
+    {90, 400, 125, 50}, {215, 400, 125, 50}, {429, 400, 125, 50}, {554, 400, 125, 50},
+    {90, 450, 125, 50}, {215, 450, 125, 50}, {429, 450, 125, 50}, {554, 450, 125, 50},
+    {90, 670, 125, 50}, {215, 670, 125, 50}, {429, 670, 125, 50}, {554, 670, 125, 50},
+    {90, 720, 125, 50}, {215, 720, 125, 50}, {429, 720, 125, 50}, {554, 720, 125, 50}
+};
 
 
 //int keyPointMap[40] = {
@@ -193,6 +209,8 @@ int iBeaconPositions[6][2] = {
     
     kDuration = 4.0;
     
+//    UIImage *bgImage=[UIImage imageNamed:@"navibg.png"];
+//    self.view.backgroundColor=[UIColor colorWithPatternImage:bgImage];
     
     [self viewPrepare];
     
@@ -228,10 +246,10 @@ int iBeaconPositions[6][2] = {
 //    self.view = [[PathBuilderView alloc] initWithFrame:CGRectMake(0, 64, 768, 920)];
     
     PathBuilderView * builderView = [[PathBuilderView alloc] initWithFrame:self.view.frame];
-    [builderView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]]];
+    [builderView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"appBackground"]]];
     [self.view insertSubview:builderView atIndex:0];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+//    self.view.backgroundColor = [UIColor whiteColor];
     
     [self CreateWarehouse:keyPointMap storagePosition:storagePosition];
     
@@ -239,8 +257,8 @@ int iBeaconPositions[6][2] = {
     self.pathBuilderView.prospectivePathShapeView.shapeLayer.strokeColor = [UIColor colorWithRed:239 green:240 blue:242 alpha:1].CGColor;
     self.pathBuilderView.pointsShapeView.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
     
-    self.pathBuilderView.pathShapeView.shapeLayer.lineWidth = 5.0;
-    self.pathBuilderView.prospectivePathShapeView.shapeLayer.lineWidth = 5.0;
+    self.pathBuilderView.pathShapeView.shapeLayer.lineWidth = 3.0;
+    self.pathBuilderView.prospectivePathShapeView.shapeLayer.lineWidth = 3.0;
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(strokeEnd))];
     animation.fromValue = @0.0;
@@ -272,7 +290,7 @@ int iBeaconPositions[6][2] = {
         [oStorage setTitle:[NSString stringWithFormat:@"1 - %d", i] forState:UIControlStateNormal];
 //        oStorage.tintColor = [UIColor blackColor];
         oStorage.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-        [oStorage setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [oStorage setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
         [self.view addSubview:oStorage];
         [oStorage addTarget:self action:@selector(getKeyPointIndexByClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -314,7 +332,7 @@ int iBeaconPositions[6][2] = {
         tem = self.pathBuilderView.prospectivePathShapeView;
     }
     tem.shapeLayer.timeOffset = 0.0;
-    tem.shapeLayer.speed = 1.0;
+    tem.shapeLayer.speed = 0.2;
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(strokeEnd))];
     animation.fromValue = @0.0;
@@ -547,7 +565,7 @@ int iBeaconPositions[6][2] = {
     indexOfPersion = 0;
     [self.view insertSubview:self.pathBuilderView.personIcon atIndex:9999999];
     NSMutableArray *temArrayForDraw = [self dividePoints:resultArray];
-    timerForPersion = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(moveOneTime:) userInfo:temArrayForDraw repeats:YES];
+    timerForPersion = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(moveOneTime:) userInfo:temArrayForDraw repeats:YES];
 }
 
 

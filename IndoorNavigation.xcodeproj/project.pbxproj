@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		079B29EA1B1ABB82004711EC /* ContextMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 079B29E11B1ABB82004711EC /* ContextMenuCell.m */; };
+		079B29EB1B1ABB82004711EC /* ContextMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 079B29E21B1ABB82004711EC /* ContextMenuCell.xib */; };
+		079B29EC1B1ABB82004711EC /* UIView+YALConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 079B29E41B1ABB82004711EC /* UIView+YALConstraints.m */; };
+		079B29ED1B1ABB82004711EC /* YALContextMenuTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 079B29E71B1ABB82004711EC /* YALContextMenuTableView.m */; };
+		079B29EE1B1ABB82004711EC /* YALNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 079B29E91B1ABB82004711EC /* YALNavigationBar.m */; };
 		4BE01CC71AB67A5A0047530D /* NaviAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE01CC61AB67A5A0047530D /* NaviAlgo.m */; };
 		740BF2191AB98CF70064E472 /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BF2181AB98CF70064E472 /* PulsingHaloLayer.m */; };
 		740BF21B1AB98D0A0064E472 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 740BF21A1AB98D0A0064E472 /* beep.mp3 */; };
@@ -47,6 +52,8 @@
 		AAAF3E1B1AB5B3CD00012A24 /* PathBuilderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3E131AB5B3CD00012A24 /* PathBuilderView.m */; };
 		AAAF3E1C1AB5B3CD00012A24 /* ShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3E151AB5B3CD00012A24 /* ShapeView.m */; };
 		AAAF3E1D1AB5B3CD00012A24 /* storage.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3E171AB5B3CD00012A24 /* storage.m */; };
+		FBB717411B1D550E00891788 /* AAShareBubbles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FBB7173E1B1D550E00891788 /* AAShareBubbles.bundle */; };
+		FBB717421B1D550E00891788 /* AAShareBubbles.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB717401B1D550E00891788 /* AAShareBubbles.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +67,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		079B29E01B1ABB82004711EC /* ContextMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContextMenuCell.h; path = ../YALContextMenu/ContextMenuCell.h; sourceTree = "<group>"; };
+		079B29E11B1ABB82004711EC /* ContextMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContextMenuCell.m; path = ../YALContextMenu/ContextMenuCell.m; sourceTree = "<group>"; };
+		079B29E21B1ABB82004711EC /* ContextMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContextMenuCell.xib; path = ../YALContextMenu/ContextMenuCell.xib; sourceTree = "<group>"; };
+		079B29E31B1ABB82004711EC /* UIView+YALConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+YALConstraints.h"; path = "../YALContextMenu/UIView+YALConstraints.h"; sourceTree = "<group>"; };
+		079B29E41B1ABB82004711EC /* UIView+YALConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+YALConstraints.m"; path = "../YALContextMenu/UIView+YALConstraints.m"; sourceTree = "<group>"; };
+		079B29E51B1ABB82004711EC /* YALContextMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YALContextMenuCell.h; path = ../YALContextMenu/YALContextMenuCell.h; sourceTree = "<group>"; };
+		079B29E61B1ABB82004711EC /* YALContextMenuTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YALContextMenuTableView.h; path = ../YALContextMenu/YALContextMenuTableView.h; sourceTree = "<group>"; };
+		079B29E71B1ABB82004711EC /* YALContextMenuTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YALContextMenuTableView.m; path = ../YALContextMenu/YALContextMenuTableView.m; sourceTree = "<group>"; };
+		079B29E81B1ABB82004711EC /* YALNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YALNavigationBar.h; path = ../YALContextMenu/YALNavigationBar.h; sourceTree = "<group>"; };
+		079B29E91B1ABB82004711EC /* YALNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YALNavigationBar.m; path = ../YALContextMenu/YALNavigationBar.m; sourceTree = "<group>"; };
 		4B9CCC851ABBF6B500446483 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		4BE01CC51AB67A5A0047530D /* NaviAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaviAlgo.h; sourceTree = "<group>"; };
 		4BE01CC61AB67A5A0047530D /* NaviAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NaviAlgo.m; sourceTree = "<group>"; };
@@ -124,6 +141,9 @@
 		AAAF3E151AB5B3CD00012A24 /* ShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShapeView.m; sourceTree = "<group>"; };
 		AAAF3E161AB5B3CD00012A24 /* storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = storage.h; sourceTree = "<group>"; };
 		AAAF3E171AB5B3CD00012A24 /* storage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = storage.m; sourceTree = "<group>"; };
+		FBB7173E1B1D550E00891788 /* AAShareBubbles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AAShareBubbles.bundle; path = BubblesButton/AAShareBubbles.bundle; sourceTree = "<group>"; };
+		FBB7173F1B1D550E00891788 /* AAShareBubbles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAShareBubbles.h; path = BubblesButton/AAShareBubbles.h; sourceTree = "<group>"; };
+		FBB717401B1D550E00891788 /* AAShareBubbles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAShareBubbles.m; path = BubblesButton/AAShareBubbles.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +165,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		079B29DC1B1AABAC004711EC /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				74DA78851AB8114800CABC35 /* CoreLocation.framework */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		079B29DD1B1AB168004711EC /* ScanView */ = {
+			isa = PBXGroup;
+			children = (
+				079B29E01B1ABB82004711EC /* ContextMenuCell.h */,
+				079B29E11B1ABB82004711EC /* ContextMenuCell.m */,
+				079B29E21B1ABB82004711EC /* ContextMenuCell.xib */,
+				079B29E31B1ABB82004711EC /* UIView+YALConstraints.h */,
+				079B29E41B1ABB82004711EC /* UIView+YALConstraints.m */,
+				079B29E51B1ABB82004711EC /* YALContextMenuCell.h */,
+				079B29E61B1ABB82004711EC /* YALContextMenuTableView.h */,
+				079B29E71B1ABB82004711EC /* YALContextMenuTableView.m */,
+				079B29E81B1ABB82004711EC /* YALNavigationBar.h */,
+				079B29E91B1ABB82004711EC /* YALNavigationBar.m */,
+				740BF2261AB98EB10064E472 /* ScanViewController.h */,
+				740BF2271AB98EB10064E472 /* ScanViewController.m */,
+			);
+			name = ScanView;
+			sourceTree = "<group>";
+		};
 		740BF2161AB98CF70064E472 /* PulsingHalo */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,7 +254,7 @@
 		AAAF3DD81AB5B37100012A24 = {
 			isa = PBXGroup;
 			children = (
-				74DA78851AB8114800CABC35 /* CoreLocation.framework */,
+				079B29DC1B1AABAC004711EC /* Library */,
 				AAAF3DE31AB5B37100012A24 /* IndoorNavigation */,
 				AAAF3E001AB5B37100012A24 /* IndoorNavigationTests */,
 				AAAF3DE21AB5B37100012A24 /* Products */,
@@ -226,14 +273,14 @@
 		AAAF3DE31AB5B37100012A24 /* IndoorNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				FBB7173D1B1D54F400891788 /* BubbleButton */,
+				079B29DD1B1AB168004711EC /* ScanView */,
 				740BF2361AB98FB80064E472 /* AMWaveTransition */,
 				740BF22F1AB98FB10064E472 /* Checkbox */,
 				740BF22C1AB98F300064E472 /* FreightOrderDetailViewController.h */,
 				740BF22D1AB98F300064E472 /* FreightOrderDetailViewController.m */,
 				740BF2291AB98EDF0064E472 /* TableViewController.h */,
 				740BF22A1AB98EDF0064E472 /* TableViewController.m */,
-				740BF2261AB98EB10064E472 /* ScanViewController.h */,
-				740BF2271AB98EB10064E472 /* ScanViewController.m */,
 				740BF2241AB98D810064E472 /* Main.storyboard */,
 				740BF2201AB98D2B0064E472 /* FreightOrder.m */,
 				740BF2211AB98D2B0064E472 /* FreightOrders.json */,
@@ -293,6 +340,16 @@
 				AAAF3E021AB5B37100012A24 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FBB7173D1B1D54F400891788 /* BubbleButton */ = {
+			isa = PBXGroup;
+			children = (
+				FBB7173E1B1D550E00891788 /* AAShareBubbles.bundle */,
+				FBB7173F1B1D550E00891788 /* AAShareBubbles.h */,
+				FBB717401B1D550E00891788 /* AAShareBubbles.m */,
+			);
+			name = BubbleButton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -386,6 +443,8 @@
 				AAAF3DF81AB5B37100012A24 /* LaunchScreen.xib in Resources */,
 				740BF2231AB98D2B0064E472 /* FreightOrders.json in Resources */,
 				AA66CDF01AC165E500BA9D7B /* PSP.png in Resources */,
+				FBB717411B1D550E00891788 /* AAShareBubbles.bundle in Resources */,
+				079B29EB1B1ABB82004711EC /* ContextMenuCell.xib in Resources */,
 				740BF21B1AB98D0A0064E472 /* beep.mp3 in Resources */,
 				AA48D4241AC28D490093113A /* pick_bg@2x.png in Resources */,
 				AAAF3E1A1AB5B3CD00012A24 /* location.json in Resources */,
@@ -411,6 +470,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAAF3E1B1AB5B3CD00012A24 /* PathBuilderView.m in Sources */,
+				079B29EC1B1ABB82004711EC /* UIView+YALConstraints.m in Sources */,
 				AAAF3E1D1AB5B3CD00012A24 /* storage.m in Sources */,
 				4BE01CC71AB67A5A0047530D /* NaviAlgo.m in Sources */,
 				AAAF3DED1AB5B37100012A24 /* IndoorNavigation.xcdatamodeld in Sources */,
@@ -418,15 +478,19 @@
 				AAAF3E1C1AB5B3CD00012A24 /* ShapeView.m in Sources */,
 				AAAF3E181AB5B3CD00012A24 /* BeaconClient.m in Sources */,
 				740BF23B1AB98FB80064E472 /* AMWaveTransition.m in Sources */,
+				079B29EE1B1ABB82004711EC /* YALNavigationBar.m in Sources */,
+				079B29EA1B1ABB82004711EC /* ContextMenuCell.m in Sources */,
 				740BF21F1AB98D1C0064E472 /* CargoTableViewCell.m in Sources */,
 				AAAF3DEA1AB5B37100012A24 /* AppDelegate.m in Sources */,
 				740BF2191AB98CF70064E472 /* PulsingHaloLayer.m in Sources */,
 				740BF2221AB98D2B0064E472 /* FreightOrder.m in Sources */,
 				AAAF3E191AB5B3CD00012A24 /* iBeacon.m in Sources */,
+				079B29ED1B1ABB82004711EC /* YALContextMenuTableView.m in Sources */,
 				740BF2351AB98FB10064E472 /* UIColor+BFPaperColors.m in Sources */,
 				740BF2281AB98EB10064E472 /* ScanViewController.m in Sources */,
 				740BF2341AB98FB10064E472 /* BFPaperCheckbox.m in Sources */,
 				AAAF3DF01AB5B37100012A24 /* PathBuilderViewController.m in Sources */,
+				FBB717421B1D550E00891788 /* AAShareBubbles.m in Sources */,
 				AA66CDE41ABEB1EF00BA9D7B /* ShelfCargoViewController.m in Sources */,
 				740BF23C1AB98FB80064E472 /* AMWaveViewController.m in Sources */,
 				740BF22B1AB98EDF0064E472 /* TableViewController.m in Sources */,
@@ -548,10 +612,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = IndoorNavigation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -563,10 +628,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = IndoorNavigation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

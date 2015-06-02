@@ -8,14 +8,28 @@
 
 #import "ScanViewController.h"
 #import "FreightOrderDetailViewController.h"
+#import "YALContextMenuTableView.h"
+#import "YALNavigationBar.h"
+#import "ContextMenuCell.h"
+#define CUSTOM_BUTTON_ID 100
 
-@interface ScanViewController (){
+static NSString *const menuCellIdentifier = @"rotationCell";
+
+@interface ScanViewController ()
+<
+UITableViewDelegate,
+UITableViewDataSource,
+YALContextMenuTableViewDelegate
+>
+{
     int num;
     BOOL upOrdown;
     NSTimer * timer;
 }
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *bbitemStart;
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
+@property (weak, nonatomic) IBOutlet UIButton *shareButton;
+
 
 @property (nonatomic) BOOL isReading;
 @property (nonatomic, strong) AVCaptureSession *captureSession;
@@ -24,28 +38,73 @@
 
 @property (nonatomic, retain) UIImageView * line;
 
+
+
+@property (nonatomic, strong) YALContextMenuTableView* contextMenuTableView;
+@property (nonatomic, strong) NSArray *menuTitles;
+@property (nonatomic, strong) NSArray *menuIcons;
+
+
 -(void)loadBeepSound;
 
 @end
 
-@implementation ScanViewController
+@implementation ScanViewController{
+    AAShareBubbles *shareBubbles;
+    float radius;
+    float bubbleRadius;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    radius = 130;
+    bubbleRadius = 40;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = @"Indoor Explorer";
-//    UIImage *bgImage=[UIImage imageNamed:@"Wallpaper.png"];
-//    self.view.backgroundColor=[UIColor colorWithPatternImage:bgImage];
-    UIImage *scanviewImage=[UIImage imageNamed:@"scanview.png"];
-    self.viewPreview.backgroundColor=[UIColor colorWithPatternImage:scanviewImage];
+    UIImage *scanviewbg=[UIImage imageNamed:@"scanviewbg"];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:scanviewbg]];
+    
+    [self initiateMenuOptions];
+    [self.navigationController setValue:[[YALNavigationBar alloc]init] forKeyPath:@"navigationBar"];
     self.isReading = NO;
     self.captureSession = nil;
     [self loadBeepSound];
+}
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
+    //should be called after rotation animation completed
+    [self.contextMenuTableView reloadData];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
+    [self.contextMenuTableView updateAlongsideRotation];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        //should be called after rotation animation completed
+        [self.contextMenuTableView reloadData];
+    }];
+    [self.contextMenuTableView updateAlongsideRotation];
+    
+}
+
 
 
 - (IBAction)startStopReading:(id)sender {
@@ -305,6 +364,153 @@
     
     return UIInterfaceOrientationMaskPortrait;//只支持这一个方向(正常的方向)
     
+}
+
+- (IBAction)shareTapped:(id)sender
+{
+    if(shareBubbles) {
+        shareBubbles = nil;
+    }
+    shareBubbles = [[AAShareBubbles alloc] initWithPoint:_shareButton.center radius:radius inView:self.view];
+    shareBubbles.delegate = self;
+    shareBubbles.bubbleRadius = bubbleRadius;
+//    shareBubbles.showFacebookBubble = YES;
+//    shareBubbles.showTwitterBubble = YES;
+//    shareBubbles.showGooglePlusBubble = YES;
+//    shareBubbles.showTumblrBubble = YES;
+//    shareBubbles.showVkBubble = YES;
+//    shareBubbles.showLinkedInBubble = YES;
+//    shareBubbles.showYoutubeBubble = YES;
+//    shareBubbles.showVimeoBubble = YES;
+//    shareBubbles.showRedditBubble = YES;
+//    shareBubbles.showPinterestBubble = YES;
+    shareBubbles.showInstagramBubble = YES;
+    shareBubbles.showWhatsappBubble = YES;
+    shareBubbles.showMailBubble = YES;
+    shareBubbles.showQRBubble = YES;
+//    shareBubbles.showMsgBubble = YES;
+    shareBubbles.showShareBubble= YES;
+    shareBubbles.showWhatsappBubble =YES;
+    
+    [shareBubbles addCustomButtonWithIcon:[UIImage imageNamed:@"custom-vine-icon"]
+                          backgroundColor:[UIColor colorWithRed:0.0 green:164.0/255.0 blue:120.0/255.0 alpha:1.0]
+                              andButtonId:CUSTOM_BUTTON_ID];
+    
+    [shareBubbles show];
+}
+
+
+#pragma mark AAShareBubbles
+
+-(void)aaShareBubbles:(AAShareBubbles *)shareBubbles tappedBubbleWithType:(int)bubbleType
+{
+    switch (bubbleType) {
+        case AAShareBubbleTypeFacebook:
+            NSLog(@"Facebook");
+            break;
+        case AAShareBubbleTypeTwitter:
+            NSLog(@"Twitter");
+            break;
+        case AAShareBubbleTypeGooglePlus:
+            NSLog(@"Google+");
+            break;
+        case AAShareBubbleTypeTumblr:
+            NSLog(@"Tumblr");
+            break;
+        case AAShareBubbleTypeVk:
+            NSLog(@"Vkontakte (vk.com)");
+            break;
+        case AAShareBubbleTypeLinkedIn:
+            NSLog(@"LinkedIn");
+            break;
+        case AAShareBubbleTypeYoutube:
+            NSLog(@"Youtube");
+            break;
+        case AAShareBubbleTypeVimeo:
+            NSLog(@"Vimeo");
+            break;
+        case AAShareBubbleTypeReddit:
+            NSLog(@"Reddit");
+            break;
+        case CUSTOM_BUTTON_ID:
+            NSLog(@"Custom Button With Type %d", bubbleType);
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+
+#pragma mark - IBAction
+
+- (IBAction)presentMenuButtonTapped:(UIBarButtonItem *)sender {
+    // init YALContextMenuTableView tableView
+    if (!self.contextMenuTableView) {
+        self.contextMenuTableView = [[YALContextMenuTableView alloc]initWithTableViewDelegateDataSource:self];
+        self.contextMenuTableView.animationDuration = 0.15;
+        //optional - implement custom YALContextMenuTableView custom protocol
+        self.contextMenuTableView.yalDelegate = self;
+        
+        //register nib
+        UINib *cellNib = [UINib nibWithNibName:@"ContextMenuCell" bundle:nil];
+        [self.contextMenuTableView registerNib:cellNib forCellReuseIdentifier:menuCellIdentifier];
+    }
+    
+    // it is better to use this method only for proper animation
+    [self.contextMenuTableView showInView:self.navigationController.view withEdgeInsets:UIEdgeInsetsZero animated:YES];
+}
+
+
+- (void)initiateMenuOptions {
+    self.menuTitles = @[@"",
+                        @"Send message",
+                        @"Like profile",
+                        @"Connect Administrator",
+                        @"Add to favourites",
+                        @"Block user"];
+    
+    self.menuIcons = @[[UIImage imageNamed:@"Icnclose"],
+                       [UIImage imageNamed:@"SendMessageIcn"],
+                       [UIImage imageNamed:@"LikeIcn"],
+                       [UIImage imageNamed:@"AddToFriendsIcn"],
+                       [UIImage imageNamed:@"AddToFavouritesIcn"],
+                       [UIImage imageNamed:@"BlockUserIcn"]];
+}
+
+
+#pragma mark - YALContextMenuTableViewDelegate
+
+- (void)contextMenuTableView:(YALContextMenuTableView *)contextMenuTableView didDismissWithIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"Menu dismissed with indexpath = %@", indexPath);
+}
+
+#pragma mark - UITableViewDataSource, UITableViewDelegate
+
+- (void)tableView:(YALContextMenuTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView dismisWithIndexPath:indexPath];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 65;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.menuTitles.count;
+}
+
+- (UITableViewCell *)tableView:(YALContextMenuTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    ContextMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:menuCellIdentifier forIndexPath:indexPath];
+    
+    if (cell) {
+        cell.backgroundColor = [UIColor clearColor];
+        cell.menuTitleLabel.text = [self.menuTitles objectAtIndex:indexPath.row];
+        cell.menuImageView.image = [self.menuIcons objectAtIndex:indexPath.row];
+    }
+    
+    return cell;
 }
 
 
