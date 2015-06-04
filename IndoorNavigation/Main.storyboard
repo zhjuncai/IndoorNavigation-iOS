@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="9ew-Ta-FUq">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -32,7 +33,6 @@
                                         </state>
                                         <connections>
                                             <action selector="start:" destination="vXZ-lx-hvc" eventType="touchDown" id="pDN-3C-ibH"/>
-                                            <segue destination="YIF-Cm-EXu" kind="modal" identifier="segueDetectDistance" id="C0l-oR-xVv"/>
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Tk-Xh-Aw7">
@@ -57,6 +57,10 @@
                                         <state key="normal" title="Navigation">
                                             <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="start:" destination="vXZ-lx-hvc" eventType="touchDown" id="jBK-mG-rMb"/>
+                                            <segue destination="YIF-Cm-EXu" kind="modal" identifier="segueShowNavigationView" id="z8V-rc-2cU"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
@@ -107,6 +111,7 @@
                             <constraint firstItem="H6a-sA-qU6" firstAttribute="top" secondItem="Jdb-Nj-dOC" secondAttribute="bottom" id="yjQ-Ch-w9b"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="vaI-AH-pYq"/>
                     <connections>
                         <outlet property="beaconView" destination="7Tk-Xh-Aw7" id="48i-R8-eO6"/>
                         <outlet property="footView" destination="Jdb-Nj-dOC" id="D6l-rN-mE4"/>
@@ -115,7 +120,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3770" y="2026"/>
+            <point key="canvasLocation" x="-3788" y="2014"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="oH7-zA-mEF">
@@ -286,20 +291,20 @@
         <!--Loading Plan-->
         <scene sceneID="QTC-rs-dZ2">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="KBS-M8-qCN" customClass="ScanViewController" sceneMemberID="viewController">
+                <viewController id="KBS-M8-qCN" customClass="ScanViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bJj-zg-KzP"/>
                         <viewControllerLayoutGuide type="bottom" id="K2e-Xy-ftb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yju-m4-Wvx">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dr1-l8-PWe">
-                                <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H9g-Wv-HlN">
-                                        <rect key="frame" x="543" y="600" width="75" height="75"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H9g-Wv-HlN">
+                                        <rect key="frame" x="189" y="600" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="Lnh-Ly-krv"/>
                                             <constraint firstAttribute="height" constant="75" id="SaY-Ok-Vqs"/>
@@ -327,7 +332,6 @@
                             <constraint firstAttribute="bottom" secondItem="dr1-l8-PWe" secondAttribute="bottom" id="gLL-0q-ir7"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Loading Plan" id="IPW-Ry-ogP">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="bookmarks" id="4Z2-0i-jXe">
@@ -337,9 +341,8 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="768" height="1024"/>
+                    <size key="freeformSize" width="414" height="736"/>
                     <connections>
                         <outlet property="shareButton" destination="H9g-Wv-HlN" id="TwP-v9-vSa"/>
                         <outlet property="viewPreview" destination="dr1-l8-PWe" id="6FK-fy-4ZS"/>
@@ -347,25 +350,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JKI-QK-PEe" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3112" y="1184"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="OZn-cg-K3W">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Xc5-G5-hyX" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="AddToFavouritesIcn" id="d3a-iJ-Ter">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="KBS-M8-qCN" kind="relationship" relationship="rootViewController" id="xc8-F8-9nJ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wNo-cu-CF7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3751" y="1046"/>
+            <point key="canvasLocation" x="-2580" y="1184"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3ti-BQ-lZ7">
@@ -484,9 +469,26 @@
             </objects>
             <point key="canvasLocation" x="-2924" y="3014"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="4WV-38-yc5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9ew-Ta-FUq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="web-7h-Xav">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="KBS-M8-qCN" kind="relationship" relationship="rootViewController" id="OTh-2M-1M8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nMz-LP-8TG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3259" y="1083"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="AddToFavouritesIcn" width="32" height="32"/>
         <image name="button" width="77" height="80"/>
         <image name="define_location-50x50" width="25" height="25"/>
         <image name="scanqr" width="512" height="512"/>

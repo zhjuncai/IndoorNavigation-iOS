@@ -70,10 +70,7 @@ YALContextMenuTableViewDelegate
     self.captureSession = nil;
     [self loadBeepSound];
 }
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -428,6 +425,9 @@ YALContextMenuTableViewDelegate
             break;
         case AAShareBubbleTypeVimeo:
             NSLog(@"Vimeo");
+            break;
+        case AAShareBubbleTypeQR:
+            [self startReading];
             break;
         case AAShareBubbleTypeReddit:
             NSLog(@"Reddit");

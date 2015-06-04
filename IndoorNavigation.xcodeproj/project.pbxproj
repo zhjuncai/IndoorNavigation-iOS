@@ -45,7 +45,6 @@
 		AAAF3DF01AB5B37100012A24 /* PathBuilderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3DEF1AB5B37100012A24 /* PathBuilderViewController.m */; };
 		AAAF3DF51AB5B37100012A24 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAAF3DF41AB5B37100012A24 /* Images.xcassets */; };
 		AAAF3DF81AB5B37100012A24 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAAF3DF61AB5B37100012A24 /* LaunchScreen.xib */; };
-		AAAF3E041AB5B37100012A24 /* IndoorNavigationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3E031AB5B37100012A24 /* IndoorNavigationTests.m */; };
 		AAAF3E181AB5B3CD00012A24 /* BeaconClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3E0E1AB5B3CD00012A24 /* BeaconClient.m */; };
 		AAAF3E191AB5B3CD00012A24 /* iBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAF3E101AB5B3CD00012A24 /* iBeacon.m */; };
 		AAAF3E1A1AB5B3CD00012A24 /* location.json in Resources */ = {isa = PBXBuildFile; fileRef = AAAF3E111AB5B3CD00012A24 /* location.json */; };
@@ -55,16 +54,6 @@
 		FBB717411B1D550E00891788 /* AAShareBubbles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FBB7173E1B1D550E00891788 /* AAShareBubbles.bundle */; };
 		FBB717421B1D550E00891788 /* AAShareBubbles.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB717401B1D550E00891788 /* AAShareBubbles.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		AAAF3DFE1AB5B37100012A24 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AAAF3DD91AB5B37100012A24 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AAAF3DE01AB5B37100012A24;
-			remoteInfo = IndoorNavigation;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		079B29E01B1ABB82004711EC /* ContextMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContextMenuCell.h; path = ../YALContextMenu/ContextMenuCell.h; sourceTree = "<group>"; };
@@ -127,7 +116,6 @@
 		AAAF3DEF1AB5B37100012A24 /* PathBuilderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PathBuilderViewController.m; sourceTree = "<group>"; };
 		AAAF3DF41AB5B37100012A24 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AAAF3DF71AB5B37100012A24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		AAAF3DFD1AB5B37100012A24 /* IndoorNavigationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndoorNavigationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAAF3E021AB5B37100012A24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAAF3E031AB5B37100012A24 /* IndoorNavigationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndoorNavigationTests.m; sourceTree = "<group>"; };
 		AAAF3E0D1AB5B3CD00012A24 /* BeaconClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconClient.h; sourceTree = "<group>"; };
@@ -152,13 +140,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				74DA78861AB8114800CABC35 /* CoreLocation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AAAF3DFA1AB5B37100012A24 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +246,6 @@
 			isa = PBXGroup;
 			children = (
 				AAAF3DE11AB5B37100012A24 /* IndoorNavigation.app */,
-				AAAF3DFD1AB5B37100012A24 /* IndoorNavigationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -372,24 +352,6 @@
 			productReference = AAAF3DE11AB5B37100012A24 /* IndoorNavigation.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AAAF3DFC1AB5B37100012A24 /* IndoorNavigationTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AAAF3E0A1AB5B37100012A24 /* Build configuration list for PBXNativeTarget "IndoorNavigationTests" */;
-			buildPhases = (
-				AAAF3DF91AB5B37100012A24 /* Sources */,
-				AAAF3DFA1AB5B37100012A24 /* Frameworks */,
-				AAAF3DFB1AB5B37100012A24 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AAAF3DFF1AB5B37100012A24 /* PBXTargetDependency */,
-			);
-			name = IndoorNavigationTests;
-			productName = IndoorNavigationTests;
-			productReference = AAAF3DFD1AB5B37100012A24 /* IndoorNavigationTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -401,11 +363,6 @@
 				TargetAttributes = {
 					AAAF3DE01AB5B37100012A24 = {
 						CreatedOnToolsVersion = 6.2;
-					};
-					AAAF3DFC1AB5B37100012A24 = {
-						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = TCSMY4USJ7;
-						TestTargetID = AAAF3DE01AB5B37100012A24;
 					};
 				};
 			};
@@ -423,7 +380,6 @@
 			projectRoot = "";
 			targets = (
 				AAAF3DE01AB5B37100012A24 /* IndoorNavigation */,
-				AAAF3DFC1AB5B37100012A24 /* IndoorNavigationTests */,
 			);
 		};
 /* End PBXProject section */
@@ -452,13 +408,6 @@
 				AA66CDF21AC165E500BA9D7B /* USBFlashDisk.png in Resources */,
 				AA66CDF61AC190D200BA9D7B /* scanview.png in Resources */,
 				AAAF3DF51AB5B37100012A24 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AAAF3DFB1AB5B37100012A24 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,23 +447,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AAAF3DF91AB5B37100012A24 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAAF3E041AB5B37100012A24 /* IndoorNavigationTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		AAAF3DFF1AB5B37100012A24 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AAAF3DE01AB5B37100012A24 /* IndoorNavigation */;
-			targetProxy = AAAF3DFE1AB5B37100012A24 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		AAAF3DF61AB5B37100012A24 /* LaunchScreen.xib */ = {
@@ -545,8 +478,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Juncai Zhang (H3C5VCHK4U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Juncai Zhang (H3C5VCHK4U)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -566,6 +499,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "25379b78-8f99-494f-908f-6ac061ae7647";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -588,8 +522,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Juncai Zhang (H3C5VCHK4U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Juncai Zhang (H3C5VCHK4U)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -602,9 +536,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "25379b78-8f99-494f-908f-6ac061ae7647";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
+				VALIDATE_PRODUCT = NO;
 			};
 			name = Release;
 		};
@@ -612,14 +547,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Juncai Zhang (H3C5VCHK4U)";
 				INFOPLIST_FILE = IndoorNavigation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "25379b78-8f99-494f-908f-6ac061ae7647";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -628,49 +562,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Juncai Zhang (H3C5VCHK4U)";
 				INFOPLIST_FILE = IndoorNavigation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "25379b78-8f99-494f-908f-6ac061ae7647";
 				TARGETED_DEVICE_FAMILY = 2;
-			};
-			name = Release;
-		};
-		AAAF3E0B1AB5B37100012A24 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = IndoorNavigationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IndoorNavigation.app/IndoorNavigation";
-			};
-			name = Debug;
-		};
-		AAAF3E0C1AB5B37100012A24 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = IndoorNavigationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IndoorNavigation.app/IndoorNavigation";
 			};
 			name = Release;
 		};
@@ -691,15 +590,6 @@
 			buildConfigurations = (
 				AAAF3E081AB5B37100012A24 /* Debug */,
 				AAAF3E091AB5B37100012A24 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AAAF3E0A1AB5B37100012A24 /* Build configuration list for PBXNativeTarget "IndoorNavigationTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AAAF3E0B1AB5B37100012A24 /* Debug */,
-				AAAF3E0C1AB5B37100012A24 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

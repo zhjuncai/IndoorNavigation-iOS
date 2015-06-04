@@ -129,7 +129,7 @@
         if(self.showInstagramBubble)    [self createButtonWithIcon:@"icon-aa-instagram.png" backgroundColor:self.instagramBackgroundColorRGB andType:AAShareBubbleTypeInstagram];
         if(self.showFavoriteBubble)     [self createButtonWithIcon:@"icon-aa-star.png" backgroundColor:self.favoriteBackgroundColorRGB andType:AAShareBubbleTypeFavorite];
         if(self.showWhatsappBubble)     [self createButtonWithIcon:@"icon-aa-whatsapp.png" backgroundColor:self.whatsappBackgroundColorRGB andType:AAShareBubbleTypeWhatsapp];
-        if(self.showQRBubble)     [self createButtonWithIcon:@"icon-aa-qr.png" backgroundColor:self.qrBackgroundColorRGB andType:AAShareBubbleTypeWhatsapp];
+        if(self.showQRBubble)     [self createButtonWithIcon:@"icon-aa-qr.png" backgroundColor:self.qrBackgroundColorRGB andType:AAShareBubbleTypeQR];
         if(self.showShareBubble)     [self createButtonWithIcon:@"icon-aa-share.png" backgroundColor:self.shareBackgroundColorRGB andType:AAShareBubbleTypeWhatsapp];
         if(self.showMsgBubble)     [self createButtonWithIcon:@"icon-aa-msg.png" backgroundColor:self.youtubeBackgroundColorRGB andType:AAShareBubbleTypeWhatsapp];
         

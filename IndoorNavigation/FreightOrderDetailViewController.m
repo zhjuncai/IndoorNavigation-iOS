@@ -76,9 +76,9 @@ NSArray *itemValues;
     [self setupInitialValues];
     
     
-    FreightOrder *order=[FreightOrder freightOrderWithID:@"6100013026"];
-    self.freightOrder = order;
-//    FreightOrder *order = self.freightOrder;
+//    FreightOrder *order=[FreightOrder freightOrderWithID:@"6100013026"];
+//    self.freightOrder = order;
+    FreightOrder *order = self.freightOrder;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = kCFDateFormatterFullStyle;
@@ -110,7 +110,7 @@ NSArray *itemValues;
     [super viewDidAppear:animated];
 }
 
--(void) start:(id)sender{
+-(IBAction) start:(id)sender{
     if (!_beaconClient) {
         _beaconClient = [[BeaconClient alloc] init];
     }
@@ -254,7 +254,7 @@ NSArray *itemValues;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
-    if([segue.identifier isEqualToString:@"segueDetectDistance"]){
+    if([segue.identifier isEqualToString:@"segueShowNavigationView"]){
         UINavigationController *beaconNavController = segue.destinationViewController;
         PathBuilderViewController *pathBuilderVC = [beaconNavController.viewControllers firstObject];
 //        beaconVC.freightOrder=self.freightOrder;

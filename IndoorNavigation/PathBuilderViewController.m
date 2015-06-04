@@ -10,7 +10,7 @@
 
 @interface PathBuilderViewController ()
 @property (nonatomic, readonly) PathBuilderView *pathBuilderView;
-
+@property (nonatomic, readwrite) int alertSign;
 
 @end
 
@@ -178,6 +178,7 @@ int iBeaconPositions[6][2] = {
     
     storageArray =[[NSMutableArray alloc] init];
     stopPointsArray = [[NSMutableArray alloc] init];
+    self.alertSign=0;
     for (NSNumber *storageIndex in _choosedStorages){
         storage * button = (storage *)[self.view viewWithTag:storageIndex.integerValue];
     
@@ -585,6 +586,15 @@ int iBeaconPositions[6][2] = {
                 int index = [numTem intValue];
                 int temY = pointsPosition[index][1];
                 int temX = pointsPosition[index][0];
+                if(self.alertSign == 0 && temX>206 && temX <210 && temY>630 && temY<635){
+                    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Warning!"
+                                                                         message:@"您已靠近危险物品，请注意"
+                                                                        delegate:nil
+                                                               cancelButtonTitle:@"确定"
+                                                               otherButtonTitles:nil];
+                    [alertView show];
+                    self.alertSign = 1;
+                }
                 if (temPoint.x == temX && temPoint.y == temY && ![stopPointsArray containsObject:tem]) {
                     [timerForPersion setFireDate:[NSDate distantFuture]];
                     [stopPointsArray addObject:tem];

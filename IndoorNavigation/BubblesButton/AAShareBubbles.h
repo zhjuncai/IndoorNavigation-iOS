@@ -25,7 +25,8 @@ typedef enum AAShareBubbleType : int {
     AAShareBubbleTypeReddit = 10,
     AAShareBubbleTypeInstagram = 11,
     AAShareBubbleTypeFavorite = 12,
-    AAShareBubbleTypeWhatsapp = 13
+    AAShareBubbleTypeWhatsapp = 13,
+    AAShareBubbleTypeQR = 16
     
 } AAShareBubbleType;
 

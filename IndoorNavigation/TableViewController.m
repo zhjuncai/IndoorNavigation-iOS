@@ -10,6 +10,7 @@
 #import "AMWaveTransition.h"
 #import "BFPaperCheckbox.h"
 
+//Tableview
 @interface TableViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, BFPaperCheckboxDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
